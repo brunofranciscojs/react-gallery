@@ -5,9 +5,10 @@ Este projeto é uma galeria desenvolvida em ReactJS que utiliza dados de uma pla
 O projeto pode ser acessado em https://brunofranciscu.github.io/react-gallery
 
 ## Tecnologias Utilizadas
-ReactJS
-CSS
-Google Apps Script
+- ReactJS
+- SASS
+- Google Apps Script
+- Javascript
 
 ## Funcionalidades
   - Carrega imagens de uma planilha gerada pelo Google Apps Script.
