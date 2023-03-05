@@ -4,6 +4,35 @@
     column-gap: 40px;
     z-index: 0;
 
+    @media screen and (max-width:1920px) {
+        column-count: 7;
+        column-gap: 30px;
+    }
+
+    @media screen and (max-width:1720px) {
+        column-count: 6;
+    }
+
+    @media screen and (max-width:1520px) {
+        column-count: 5;
+    }
+
+    @media screen and (max-width:1420px) {
+        column-count: 4;
+    }
+
+    @media screen and (max-width:1200px) {
+        column-count: 3;
+    }
+
+    @media screen and (max-width:960px) {
+        column-count: 2;
+    }
+
+    @media screen and (max-width:500px) {
+        column-count: 1;
+    }
+
     figure {
         margin: 0;
         display: grid;
