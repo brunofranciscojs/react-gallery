@@ -2,7 +2,7 @@
 
 Este projeto é uma galeria desenvolvida em ReactJS que utiliza dados de uma planilha gerada pelo Google Apps Script para obter o ID das imagens e suas respectivas pastas/categorias. O visual foi inspirado no https://folio.procreate.com e a aparência da galeria é em estilo masonry, deixando um visual elegante.
 
-O projeto pode ser acessado em https://brunofranciscu.github.io/galeria
+O projeto pode ser acessado em https://brunofranciscu.github.io/react-gallery
 
 ## Tecnologias Utilizadas
 ReactJS
