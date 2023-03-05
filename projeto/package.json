@@ -1,0 +1,47 @@
+{
+  "name": "gallery",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.3.4",
+    "color.js": "^1.2.0",
+    "domcolor": "^1.0.1",
+    "dominant-color": "^0.0.1",
+    "expo": "^48.0.4",
+    "expo-file-system": "~15.2.2",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^11.1.0",
+    "glob": "^9.2.1",
+    "graceful-fs": "^4.2.10",
+    "image-palette-dominant": "^1.0.0",
+    "imagemagick": "^0.1.3",
+    "list-files": "^1.1.4",
+    "list-react-files": "^0.2.0",
+    "node-vibrant": "^3.2.1-alpha.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
+    "react-native-image-colors": "^1.5.2",
+    "require": "^2.4.20"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "react-error-overlay": "^6.0.9",
+    "vite": "^4.1.0"
+  },
+  "main": "countFiles.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
