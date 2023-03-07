@@ -8,8 +8,13 @@ function App() {
       <Nav></Nav>
 
       <div className='presentation'>
-        <span>BRUNO FRANCISCO</span>
-        <h1>ESTUDOS DESENHO E PINTRA DIGITAL</h1>
+
+        <div>
+          <span>BRUNO FRANCISCO</span>
+          <h1>Estudos de ilustras e rabiscos.</h1>
+        </div>
+
+        <div></div>
       </div>
 
       <Mansonry></Mansonry>

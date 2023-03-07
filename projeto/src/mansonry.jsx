@@ -25,10 +25,11 @@ function Mansonry() {
     }, [])
 
     files.forEach(async (img) => {
+
         blocks.push(
             <figure key={`${img.c[3].v}`} className={`item ${img.c[1].v.split(' ').join('-')} ${img.c[3].v}`} onClick={() => openModal(img)}>
-                <img loading="lazy" width='100%' height='100%' src={`https://drive.google.com/uc?export=view&id=${img.c[3].v}`} />
-                <span>{img.c[1].v}</span>
+                {<img loading="lazy" width='100%' height='100%' alt={img.c[1].v.split(' ').join('-')} src={`https://drive.google.com/uc?export=view&id=${img.c[3].v}`} />}
+                <figcaption>{img.c[1].v}</figcaption>
             </figure>
         );
     });
@@ -39,12 +40,11 @@ function Mansonry() {
                 document.querySelectorAll('ul li').forEach(item => {
                     item.addEventListener('click', function () {
 
-                        if (item.innerHTML === 'todos') {
+                        if (item.innerHTML === 'Todos') {
                             document.querySelectorAll(`figure`).forEach(pic => {
                                 pic.classList.add('item')
                             })
                         } else {
-
                             document.querySelectorAll(`figure`).forEach(figure => {
 
                                 if (figure.classList.contains(item.innerHTML.split(' ').join('-'))) {
@@ -59,8 +59,19 @@ function Mansonry() {
             }
 
             <Modal className="modal" isOpen={modalIsOpen} onRequestClose={closeModal}>
+
                 <button onClick={closeModal} className="fechar">X</button>
-                <img loading="lazy" width='100%' height='100%' src={selectedImage ? `https://drive.google.com/uc?export=view&id=${selectedImage.c[3].v}` : null} style={{ borderRadius: '20px', pointerEvents: 'none', position: 'absolute', inset: '50% 50%', translate: '-50% -47%', width: 'auto', objectFit: 'cover', height: '90%' }} />
+                <img loading="lazy" width='100%' height='100%' src={selectedImage ? `https://drive.google.com/uc?export=view&id=${selectedImage.c[3].v}` : null}
+                    style={{
+                        borderRadius: '20px',
+                        pointerEvents: 'none',
+                        position: 'absolute',
+                        inset: '50% 50%',
+                        translate: '-50% -47%',
+                        width: 'auto',
+                        objectFit: 'cover',
+                        height: '90%'
+                    }} />
             </Modal>
         </div>
     );
