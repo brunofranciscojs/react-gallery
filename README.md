@@ -1,20 +1,19 @@
-# Galeria em ReactJS
+il# Galeria em ReactJS
 
-Este projeto é uma galeria desenvolvida em ReactJS que utiliza dados de uma planilha gerada pelo Google Apps Script para obter o ID das imagens e suas respectivas pastas/categorias. O visual foi inspirado no https://folio.procreate.com e a aparência da galeria é em estilo masonry, deixando um visual elegante.
+Este projeto é uma galeria desenvolvida em ReactJS que utiliza firebase para armazenar as imagens e suas respectivas pastas/categorias. 
+O visual foi inspirado no https://folio.procreate.com e a aparência da galeria é em estilo masonry, deixando um visual elegante.
 
-Ele carrega as imagens diretamente do google drive pela url (https://drive.google.com/uc?export=view&id=) + o ID de cadaa imagem.
-As categorias são criadas a partir do nome das pastas de cada imagem.
+Ele lê as imagens diretamente do firestore, as categorias são criadas a partir do nome das pastas de cada imagem.
 
-O projeto pode ser acessado em https://brunofranciscu.github.io/react-gallery
+O projeto pode ser acessado em https://ilustras.brunofrancisco.com.br
 
 ## Tecnologias Utilizadas
 - ReactJS
 - SASS
-- Google Apps Script
+- FireBase/FireStore
 - Javascript
 
 ## Funcionalidades
-  - Carrega imagens de uma planilha gerada pelo Google Apps Script.
   - Exibe as imagens em uma galeria estilo masonry.
   - Permite filtrar as imagens por categoria.
   - Exibe as imagens em uma modal ao clicar em uma delas.
