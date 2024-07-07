@@ -67,7 +67,7 @@ import Logar from "./login.jsx";
     if (!logado || !logar) {
         return <span className='flex flex-row add items-center absolute top-0 right-6'>
                     <button className='text-2xl cursor-pointer text-gray-700 z-50 relative top-2' onClick={() => { setLogar(true) }} > + </button>
-                    {logar && <><button className='text-2xl cursor-pointer text-gray-700 z-50 absolute md:top-[4rem] md:-left-[19rem] top-0 left-0' onClick={() => setLogar(false)}>x</button><Logar /> </>}
+                    {logar && <><button className='text-2xl cursor-pointer text-gray-700 z-50 absolute md:top-[4rem] md:-left-[19rem] top-[6px] -left-1 backdrop-blur px-2' onClick={() => setLogar(false)}>x</button><Logar /> </>}
                </span>
     }
 
