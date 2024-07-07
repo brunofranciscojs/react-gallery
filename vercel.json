@@ -1,14 +1,14 @@
 {
-    "rewrites": [
-      {
-        "source": "/(.*)",
-        "destination": "/index.html"
-      }
-    ],
-    "build": {
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "build": {
     "env": {
       "NPM_FLAGS": "--legacy-peer-deps"
-    }
+    },
+    "command": "npm run build:vercel"
   }
-  }
-  
+}
