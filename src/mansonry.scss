@@ -1,0 +1,187 @@
+body{
+    overflow-x: hidden;
+    background: #fdfdfd;
+    transition: .2s ease-in-out;
+}
+.mansonry {
+    position: relative;
+    column-count: 8;
+    column-gap: 70px;
+    z-index: 0;
+    
+    span{
+        display: block;
+        margin-bottom: 40px;
+    }
+    @media screen and (max-width:1920px) {column-gap: 30px;}
+    @media screen and (max-width:1720px) {column-count: 7;}
+    @media screen and (max-width:1520px) {column-count: 6;}
+    @media screen and (max-width:1420px) {column-count: 5;}
+    @media screen and (max-width:1200px) {column-count: 3;}
+    @media screen and (max-width:960px) {column-count: 2;}
+    @media screen and (max-width:500px) {column-count: 1;}
+
+    &:has(figure:not(:hover)) figure:hover{
+        z-index: 9;
+        filter: saturate(2) contrast(1);
+    }
+    figure {
+        margin: 0;
+        display: none;
+        grid-template-rows: 1fr auto;
+        margin-bottom: 40px;
+        break-inside: avoid;
+        transition: all .3s;
+        background: linear-gradient(to bottom, transparent 50%, currentColor 100%);
+        position: relative;
+        border-radius: 13px;
+        transition: .2s ;
+
+        &:hover figcaption {
+            opacity: 1;
+        }
+        &:hover img{
+            box-shadow: 0px 30px 50px -10px currentColor;
+            mix-blend-mode: overlay;
+        }
+
+        img {
+            grid-row: 1 / -1;
+            grid-column: 1;
+            max-width: 100%;
+            display: block;
+            transition: all .2s linear;
+            border-radius: 13px;
+            position: relative;
+
+            &:hover {
+                mix-blend-mode: multiply;
+            }
+        }
+
+        figcaption {
+            color: white;
+            opacity: 0;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1;
+            font-weight: 100;
+        }
+    }
+
+    .item.todos {
+        display: none;
+        scale: 0;
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    .item {
+        display: grid !important;
+    }
+}
+
+.presentation {
+    margin: 70px 0;
+    max-width: 1100px;
+    margin-inline: auto;
+    padding: 30px 70px;
+    text-align: left;
+    border-radius: 30px;
+    display: flex;
+    background-repeat: no-repeat !important;
+    background-size: 100%, 50% !important;
+
+    @media screen and (max-width:630px){
+        padding: 30px 40px;
+    }
+    img {
+        max-width: 110px;
+    }
+
+    h1 {
+        margin: 0;
+        width: 100%;
+        font-size: clamp(1rem, 0.284rem + 3.9506vw, 3rem);
+        color: #444;
+    }
+    span{
+        color: #aaa;
+    }
+}
+
+.modal{
+    position:fixed;
+    top:50%;
+    left:50%;
+    translate: -50% -50%;
+    background: rgb(0 0 0 /.85);
+    z-index: 99999;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(15px);
+    display: flex !important;
+}
+.modal img{
+    position: relative;
+    top:50%;
+    left:50%;
+    translate: -50% -50%;
+    border-radius: 20px;
+    max-height: 80%;
+
+    @media screen and (max-width:769px){
+        width: 95%;
+        object-fit: contain;
+    }
+}
+
+.modal button{
+    position: absolute;
+    top: 80px;
+    right: 50px;
+    border: 0;
+    background: transparent;
+    color: #ccc;
+    font-size: 2rem;
+    padding: 0;
+
+    &:hover{
+        color: white;
+    }
+    @media screen and (max-width:769px){
+        top: unset;
+        right: unset;
+        left: 50%;
+        bottom: 30px;
+        translate: -50% 0;
+    }
+}
+
+body::-webkit-scrollbar,
+html::-webkit-scrollbar{
+    width:.8em ;
+    background:#222
+}
+body::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-thumb{
+    background-color:#000 
+}
+
+.figure {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.placeholder {
+    background: #f0f0f0;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    from {background-position: 200% 0}
+    to { background-position: -200% 0 }
+}

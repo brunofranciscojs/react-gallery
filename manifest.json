@@ -1,0 +1,17 @@
+{
+    "name": "menuChallenge",
+    "short_name": "menuChallenge",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic in nemo dolores?",
+    "icons": [
+      {
+        "src": "./menu.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "/menuChallenge",
+    "display": "fullscreen",
+    "background_color": "#4f372f",
+    "theme_color": "#4f372f"
+  }
+  
