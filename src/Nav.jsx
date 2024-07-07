@@ -8,7 +8,7 @@ import { useCategoria } from "./Context.jsx";
 
 export default function Nav() {
     const [nav, setNav] = useState([])
-    const { setCategoria } = useCategoria();
+    const { setCategoria, categoria } = useCategoria();
 
     useEffect(() => {
     const fetchCts = async () => {
@@ -22,9 +22,10 @@ export default function Nav() {
 
     return (
         <nav>
-            <ul key='categorias' className="items-start md:items-center justify-center py-4">
+            <ul key='categorias' className="items-start md:items-center justify-center py-4 px-14">
                 {nav.map((litem) => (
-                    <li key={litem} className={`${litem.split(' ').join('')} `}  onClick={() => setCategoria(litem.toLowerCase())}>
+                    <li key={litem} className={`${litem.split(' ').join('')} ${litem === categoria ? 'active' : ''}`}  
+                        onClick={() => setCategoria(litem.toLowerCase())}>
                         {litem.toLowerCase()}
                     </li>
                  ))}

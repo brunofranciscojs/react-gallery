@@ -62,7 +62,7 @@ const Mansonry = () => {
     return (
         <div className='mansonry' key='mansonry' style={{zIndex:modal ? 99 : 0}}>
             {filteredFiles.map((pastinha) => (
-                <span key={pastinha.cat} className='placeholder'>
+                <span key={pastinha.cat} className='placeholder' id={pastinha.cat.toLowerCase()}>
                     {pastinha.img.map((url, index) => (
                         <figure key={index} className={`item ${pastinha.cat.toLowerCase()}`}>
                             <img
@@ -72,7 +72,7 @@ const Mansonry = () => {
                                     setModal(true);
                                     setModalImage(url);
                                 }}
-                                alt={pastinha.cat}
+                                alt={`${pastinha.cat} | BRUNO FRANCISCO`}
                                 style={{ color: colors[url] || 'transparent' }}
                                 onLoad={(e) => e.target.parentNode.parentNode.classList.remove('placeholder')}
                             />

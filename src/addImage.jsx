@@ -8,17 +8,25 @@ import Logar from "./login.jsx";
  export default function Upload({}) {
 
     const [percent, setPercent] = useState(0)
-    const upIcon = './src/assets/cloud.png'
-    const choose = './src/assets/choose.png'
     const [compressedFile, setCompressedFile] = useState(null)
     const [categoria, setCategoria] = useState('')
     const { logado } = useAuth()
     const [hasImage, sethasImage] = useState(false)
     const [logar, setLogar] = useState(false)
+    const [preview, setPreview] = useState('')
 
     function handleChange(event) {
         const image = event.target.files[0];
+
+        if(event.target.files && event.target.files[0]){
+            const arquivo = new FileReader()
+            arquivo.onload = fileLoaded
+            arquivo.readAsDataURL(event.target.files[0])
+        }
         
+        sethasImage(true)
+        
+
         new Compressor(image, {
             quality: 0.65,
             mimeType: "image/webp",
@@ -29,7 +37,7 @@ import Logar from "./login.jsx";
             },
         });
     }
-
+    const fileLoaded = event => setPreview(event.target.result)
     const generateId = (length) => {
         let result = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-';
@@ -41,7 +49,6 @@ import Logar from "./login.jsx";
         return result
     }
     const handleUpload = () => {
-        sethasImage(true)
         if (!compressedFile) {
             alert('erro');
             return;
@@ -57,34 +64,54 @@ import Logar from "./login.jsx";
             })
     }
 
-    if (!logado) {
+    if (!logado || !logar) {
         return <span className='flex flex-row add items-center absolute top-0 right-6'>
                     <button className='text-2xl cursor-pointer text-gray-700 z-50 relative top-2' onClick={() => { setLogar(true) }} > + </button>
-                    {logar && <Logar />}
+                    {logar && <><button className='text-2xl cursor-pointer text-gray-700 z-50 absolute md:top-[4rem] md:-left-[19rem] top-0 left-0' onClick={() => setLogar(false)}>x</button><Logar /> </>}
                </span>
     }
 
-    return (
-        logado && (
-            <span className="flex flex-row add items-center absolute top-3 right-5">
-                <div className='addinputs flex flex-row items-center'>
-                    <input type="text" placeholder='categoria' 
-                            className='border-[#888] bg-transparent border py-1 px-3 max-w-[150px] rounded-md focus:shadow-[0_0_10px_#aaaaaa77_inset] outline-none mx-3 text-gray-800' 
-                            onChange={(e) => { setCategoria(e.target.value.toLowerCase()); setTimeout(() => { document.querySelector('label').classList.remove('hidden')},400); 
-                            }}
-                    />
-
-                    <label htmlFor="files" className=' text-[.7rem] cursor-pointer leading-none '>
-                        <img src={choose} className='w-[30px] h-[30px] ml-1 opacity-70 hover:opacity-100 duration-200' />
-                    </label>
-
-                    <input type="file" onChange={handleChange} accept="/image/*" id="files" className="up hidden"/>
-                    <button src={upIcon}  className=' cursor-pointer ml-1 text-gray-500 opacity-70 hover:opacity-100 duration-200' onClick={handleUpload}> enviar</button>
+    return ( 
+         
+        logado && logar && (
+            <span className="flex flex-row add items-center right-5 fixed top-0 left-0 bg-[#000000cc] w-full h-full backdrop-blur-md">
                     
-                    {hasImage && <small className='text-black block'>&nbsp;&nbsp;&nbsp;{percent}%</small>}
+                <div className='addinputs flex flex-col items-center relative left-1/2 -translate-x-1/2'>
+                    <button className='text-white z-50' onClick={() =>{ setLogar(false)} }>X</button>
+
+                    
+                    
+                    <form>
+                        <div className='flex gap-5'>
+                            {!hasImage && 
+                                <input  type="file" 
+                                    onChange={handleChange} 
+                                    accept="/image/*" id="files" placeholder={"Escolher"}
+                                    className="p-28 bg-[#ffffff22] border-4 border-dashed border-gray-500 rounded-lg mt-2 [&::file-selector-button]:opacity-0  max-w-[520px] w-full text-transparent 
+                                               before:content-['DRAG_&_DROP'] before:text-white before:flex before:justify-center"
+                                    />}
+    
+                            {hasImage &&   
+                                    <div className='flex flex-col'>
+                                        <img src={preview} className='block w-96 '/>
+                                        <button className='text-center text-gray-200 block py-3' onClick={() => sethasImage(false)}>escolher outra</button>
+                                    </div>
+                            }
+                            
+                        </div>
+                        <input type="text" placeholder='D I G I T E  A  C A T E G O R I A' required
+                                className='border-[#888] bg-transparent border py-2 px-5 max-w-[520px] w-full outline-none mx-3 text-gray-200 border-l-0 border-r-0 border-t-0 text-center' 
+                                onChange={(e) => { setCategoria(e.target.value.toLowerCase()); setTimeout(() => { document.querySelector('label').classList.remove('hidden')},400); 
+                                }}
+                        />
+                        <br /><br />
+                        <button className='ml-1 text-gray-200 duration-200' onClick={handleUpload} disabled={categoria.length > 1 ? false : true} style={{cursor:categoria.length < 1 ? 'not-allowed' : 'pointer'}}>ENVIAR</button>
+                    </form>
+                    
+                    {percent > 0.1 && categoria.length > 0 && <progress className='text-white block w-full cursor-progress' value={percent/100}>&nbsp;&nbsp;&nbsp;</progress>}
                 </div>
             </span>
         )
-    );
+ );
 }
 
