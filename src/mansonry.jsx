@@ -1,16 +1,17 @@
+import React, { useEffect, useState } from 'react';
 import { getDownloadURL, listAll, ref } from "firebase/storage";
-import React, { useEffect, useState } from "react";
 import { images } from './firebaseData.jsx';
+import { FastAverageColor } from 'fast-average-color';
+import { useCategoria } from "./Context.jsx";
 import './mansonry.css';
-import Palette from 'react-palette';
-import { useCategoria } from "./Context";
 
-export default function Mansonry() {
+const Mansonry = () => {
     const [files, setFiles] = useState([]);
-    const [modal, setModal] = useState(false)
-    const [modalImage, setModalImage] = useState('')
+    const [modal, setModal] = useState(false);
+    const [modalImage, setModalImage] = useState('');
     const { categoria } = useCategoria();
-
+    const [colors, setColors] = useState({});
+    
     useEffect(() => {
         const fetchUrls = async () => {
             const root = await listAll(ref(images, '/'));
@@ -24,52 +25,70 @@ export default function Mansonry() {
             });
             const allFiles = await Promise.all(fetch);
             setFiles(allFiles);
+
+            const fac = new FastAverageColor();
+            const colorPromises = allFiles.flatMap(pasta =>
+                pasta.img.map(async (url) => {
+                    const color = await fac.getColorAsync(url);
+                    return { url, color: color.hex };
+                })
+            );
+
+            const colorResults = await Promise.all(colorPromises);
+            const colorMap = colorResults.reduce((acc, { url, color }) => {
+                acc[url] = color;
+                return acc;
+            }, {});
+            setColors(colorMap);
         };
         fetchUrls();
     }, []);
 
-    document.onkeydown = (event) => event.code === 'Escape' ?  setModal(false) : ''
+    useEffect(() => {
+        const handleKeydown = (event) => {
+            if (event.code === 'Escape') {
+                setModal(false);
+            }
+        };
 
-    const filtrar = files.filter(file => categoria === 'todos' || file.cat.toLowerCase() === categoria);
+        document.addEventListener('keydown', handleKeydown);
+        return () => {
+            document.removeEventListener('keydown', handleKeydown);
+        };
+    }, []);
+
+    const filteredFiles = files.filter(file => categoria === 'todos' || file.cat.toLowerCase() === categoria);
 
     return (
-        <div className='mansonry' key='mansonry'>
-            {filtrar.map((pastinha) => {
-                    return (
-                        <span key={pastinha.cat} className="placeholder">
-                            {
-                                pastinha.img.map((url, index) => (
-                                    <figure key={index} className={`item ${pastinha.cat.toLowerCase()}`} >
-                                        <Palette src={url}>
-                                            {({ data }) => (
-                                                
-                                                <img loading="lazy" src={url} 
-                                                     className="figure" 
-                                                     onClick={(e) => {setModal(true), setModalImage(e.target.src)}}
-                                                     style={{ color: data.lightMuted }} 
-                                                     data-cor={data.darkVibrant} 
-                                                     alt={pastinha.cat}
-                                                     onLoad={(e) => {
-                                                        e.target.parentNode.parentNode.classList.remove('placeholder') 
-                                                        e.target.style.opacity = '1'}
-                                                    }
-                                                     />
-                                            )}
-                                        </Palette>
-                                        <figcaption>{pastinha.cat}</figcaption>
-                                    </figure>
-                                ))
-                            }
-                        </span>
-                    )
-                })
-            }
+        <div className='mansonry' key='mansonry' style={{zIndex:modal ? 99 : 0}}>
+            {filteredFiles.map((pastinha) => (
+                <span key={pastinha.cat} className='placeholder'>
+                    {pastinha.img.map((url, index) => (
+                        <figure key={index} className={`item ${pastinha.cat.toLowerCase()}`}>
+                            <img
+                                loading="lazy"
+                                src={url}
+                                onClick={() => {
+                                    setModal(true);
+                                    setModalImage(url);
+                                }}
+                                alt={pastinha.cat}
+                                style={{ color: colors[url] || 'transparent' }}
+                                onLoad={(e) => e.target.parentNode.parentNode.classList.remove('placeholder')}
+                            />
+                            <figcaption>{pastinha.cat}</figcaption>
+                        </figure>
+                    ))}
+                </span>
+            ))}
             {modal && (
-                <div className="modal">
-                    <button onClick={() => setModal(false)}>X</button>
-                    <img src={modalImage} alt="Modal Content"/>
+                <div className="modal" style={{backgroundColor: colors[modalImage]+66 || '#00000077'}}>
+                    <button onClick={() => setModal(false)} className='bg-black w-8 h-8 rounded-full p-2 leading-none'>X</button>
+                    <img src={modalImage} className='relative z-0'/>
                 </div>
             )}
-    </div>
+        </div>
     );
-}
+};
+
+export default Mansonry;

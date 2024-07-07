@@ -21,8 +21,8 @@ export default function Logar() {
     }
 
     return (
-        <div className="absolute mx-auto top-20 right-0 px-5 login opacity-0 -translate-y-10">
-            <div className='relative flex gap-1 bg-white py-2 px-3 rounded-xl shadow-lg'>
+        <div className="absolute mx-auto top-14 md:right-[-35px] right-[unset] md:left-[unset] left-1/2 md:translate-x-[unset] -translate-x-1/2 px-5 login z-0">
+            <div className='relative flex gap-1 backdrop-blur-md py-2 px-3 rounded-xl'>
                 <input type="text" placeholder="usuario" className="px-2 py-1 rounded-md w-[120px] bg-gray-100 text-gray-800" onChange={(e) => [setUsuario(e.target.value), setErro('')]}/>
                 <input type="password" placeholder="senha" className="px-2 py-1 rounded-md w-[120px] bg-gray-100 text-gray-800" onChange={(e) => [setSenha(e.target.value), setErro('')]}/>
 

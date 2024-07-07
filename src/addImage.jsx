@@ -14,24 +14,21 @@ import Logar from "./login.jsx";
     const [categoria, setCategoria] = useState('')
     const { logado } = useAuth()
     const [hasImage, sethasImage] = useState(false)
+    const [logar, setLogar] = useState(false)
 
     function handleChange(event) {
         const image = event.target.files[0];
-        event.target.classList.add('upload')
-        document.querySelector('.upload').nextElementSibling.classList.remove('hidden');
         
         new Compressor(image, {
-            quality: 0.8,
+            quality: 0.65,
             mimeType: "image/webp",
             resize: "contain",
-            width: '720',
+            width: '1920',
             success: (compressedResult) => {
                 setCompressedFile(compressedResult)
             },
         });
     }
-
-    const login = () => document.querySelector('.login').style.cssText = 'opacity:1; translate:0 0;' 
 
     const generateId = (length) => {
         let result = '';
@@ -49,7 +46,6 @@ import Logar from "./login.jsx";
             alert('erro');
             return;
         }
-        document.querySelector('.upload').nextElementSibling.style.display = 'none';
         const storageRef = ref(images, `${categoria}/${categoria}-${generateId(categoria.length)}.webp`);
         const uploadTask = uploadBytesResumable(storageRef, compressedFile);
 
@@ -62,11 +58,10 @@ import Logar from "./login.jsx";
     }
 
     if (!logado) {
-        return <span className='flex flex-row add items-center absolute top-3 right-5'>
-                    <button onClick={() => { login(); document.querySelector('input[type=text]').classList.remove('hidden') }} 
-                            className='text-2xl cursor-pointer text-gray-700 z-50 relative'> + </button>
-                            <Logar />
-                </span>
+        return <span className='flex flex-row add items-center absolute top-0 right-6'>
+                    <button className='text-2xl cursor-pointer text-gray-700 z-50 relative top-2' onClick={() => { setLogar(true) }} > + </button>
+                    {logar && <Logar />}
+               </span>
     }
 
     return (

@@ -24,12 +24,9 @@ export default function Nav() {
         <nav>
             <ul key='categorias' className="items-start md:items-center justify-center py-4">
                 {nav.map((litem) => (
-
-                    
                     <li key={litem} className={`${litem.split(' ').join('')} `}  onClick={() => setCategoria(litem.toLowerCase())}>
                         {litem.toLowerCase()}
                     </li>
-                    
                  ))}
             </ul>
             <Upload />    
