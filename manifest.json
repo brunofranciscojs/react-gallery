@@ -1,17 +1,17 @@
 {
-    "name": "menuChallenge",
-    "short_name": "menuChallenge",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic in nemo dolores?",
+    "name": "Ilutras Bruno",
+    "short_name": "Ilutras Bruno Francisco",
+    "description": "Portfolio de estudo de desenho e pintura digital, com a grande maioria usando procreate. Desenvolvido em React, utilizando firebase/firestore como banco de dados e armazenamento.",
     "icons": [
       {
-        "src": "./menu.png",
+        "src": "./assets/pentool.svg",
         "sizes": "192x192",
-        "type": "image/png"
+        "type": "image/svg"
       }
     ],
-    "start_url": "/menuChallenge",
+    "start_url": "./",
     "display": "fullscreen",
-    "background_color": "#4f372f",
-    "theme_color": "#4f372f"
+    "background_color": "#efefef",
+    "theme_color": "#ffffff"
   }
   

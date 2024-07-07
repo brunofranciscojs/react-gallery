@@ -2,8 +2,8 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open('app-cache').then(function(cache) {
       return cache.addAll([
-        'menuChallenge/assets/',
-        'menuChallenge/index.html'
+        './assets/',
+        './index.html'
       ]);
     })
   );
