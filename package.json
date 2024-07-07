@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "host": "vite --host"  },
+    "host": "vite --host",
+    "build:vercel": "npm install --force && npm run build"
+  },
   "dependencies": {
     "compressorjs": "^1.2.1",
     "fast-average-color": "^9.4.0",

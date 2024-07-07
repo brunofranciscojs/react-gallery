@@ -8,7 +8,5 @@
   "build": {
     "env": {
       "NPM_FLAGS": "--force"
-    },
-    "command": "npm run build:vercel"
-  }
+    }  }
 }
