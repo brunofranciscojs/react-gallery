@@ -2,9 +2,9 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open('app-cache').then(function(cache) {
       return cache.addAll([
-        'https://ilustras.vercel.app/',
-        'https://ilustras.vercel.app/assets/',
-        'https://ilustras.vercel.app/index.html',
+        './',
+        './assets/',
+        './index.html',
       ]);
     })
   );
