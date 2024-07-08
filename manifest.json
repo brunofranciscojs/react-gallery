@@ -9,7 +9,7 @@
         "type": "image/svg"
       }
     ],
-    "start_url": "/",
+    "start_url": "https://ilustras.vercel.app/",
     "display": "fullscreen",
     "background_color": "#efefef",
     "theme_color": "#ffffff"
