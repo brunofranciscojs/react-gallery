@@ -73,7 +73,7 @@ const Mansonry = () => {
                                     setModalImage(url);
                                 }}
                                 alt={`${pastinha.cat} | BRUNO FRANCISCO`}
-                                style={{ color: colors[url] || 'transparent' }}
+                                style={{ color: colors[url]+'aa' || 'transparent' }}
                                 onLoad={(e) => e.target.parentNode.parentNode.classList.remove('placeholder')}
                             />
                             <figcaption>{pastinha.cat}</figcaption>

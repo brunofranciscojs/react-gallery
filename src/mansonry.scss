@@ -18,12 +18,12 @@ body{
     @media screen and (max-width:1420px) {column-count: 5;}
     @media screen and (max-width:1200px) {column-count: 3;}
     @media screen and (max-width:960px) {column-count: 2;}
-    @media screen and (max-width:500px) {column-count: 1;}
 
     &:has(figure:not(:hover)) figure:hover{
         z-index: 9;
-        filter: saturate(2) contrast(1);
+        scale: 1.05;
     }
+
     figure {
         margin: 0;
         display: none;
@@ -32,7 +32,9 @@ body{
         break-inside: avoid;
         position: relative;
         border-radius: 13px;
-
+        transition: .2s ease-in;
+        cursor: pointer;
+        
         &:hover figcaption {
             opacity: 1;
             background: #00000077;

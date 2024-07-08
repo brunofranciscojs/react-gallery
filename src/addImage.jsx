@@ -59,15 +59,22 @@ import Logar from "./login.jsx";
         uploadTask.on("state_changed",
             (snapshot) => {
                 const percent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                console.log(typeof percent)
                 setPercent(percent)
-                percent == 100 ? setTimeout(() => { window.location.reload()}, 600) : ''
             })
     }
 
     if (!logado || !logar) {
         return <span className='flex flex-row add items-center absolute top-0 right-6'>
                     <button className='text-2xl cursor-pointer text-gray-700 z-50 relative top-2' onClick={() => { setLogar(true) }} > + </button>
-                    {logar && <><button className='text-2xl cursor-pointer text-gray-700 z-50 absolute md:top-[4rem] md:-left-[19rem] top-[6px] -left-1 backdrop-blur px-2' onClick={() => setLogar(false)}>x</button><Logar /> </>}
+                    {logar && <>
+                        <button className='text-2xl cursor-pointer text-gray-700 z-50 absolute md:top-[4rem] md:-left-[19rem] top-[6px] -left-1 backdrop-blur px-2' 
+                                onClick={() => {setLogar(false)}}>
+                                    x
+                        </button>
+                        <Logar />
+                        </>
+                    }
                </span>
     }
 
@@ -77,11 +84,8 @@ import Logar from "./login.jsx";
             <span className="flex flex-row add items-center right-5 fixed top-0 left-0 bg-[#000000cc] w-full h-full backdrop-blur-md">
                     
                 <div className='addinputs flex flex-col items-center relative left-1/2 -translate-x-1/2'>
-                    <button className='text-white z-50' onClick={() =>{ setLogar(false)} }>X</button>
-
+                    <button className='text-white z-50' onClick={() =>{ percent > 99 ? window.location.reload() : setLogar(false) } }>X</button>
                     
-                    
-                    <form>
                         <div className='flex gap-5'>
                             {!hasImage && 
                                 <input  type="file" 
@@ -101,14 +105,12 @@ import Logar from "./login.jsx";
                         </div>
                         <input type="text" placeholder='D I G I T E  A  C A T E G O R I A' required
                                 className='border-[#888] bg-transparent border py-2 px-5 max-w-[520px] w-full outline-none mx-3 text-gray-200 border-l-0 border-r-0 border-t-0 text-center' 
-                                onChange={(e) => { setCategoria(e.target.value.toLowerCase()); setTimeout(() => { document.querySelector('label').classList.remove('hidden')},400); 
-                                }}
+                                onChange={(e) => { setCategoria(e.target.value.toLowerCase()) }}
                         />
                         <br /><br />
                         <button className='ml-1 text-gray-200 duration-200' onClick={handleUpload} disabled={categoria.length > 1 ? false : true} style={{cursor:categoria.length < 1 ? 'not-allowed' : 'pointer'}}>ENVIAR</button>
-                    </form>
                     
-                    {percent > 0.1 && categoria.length > 0 && <progress className='text-white block w-full cursor-progress' value={percent/100}>&nbsp;&nbsp;&nbsp;</progress>}
+                    {percent > 0.1 && categoria.length > 0 && <progress className='text-white block w-full cursor-progress duration-75' value={percent/100}>&nbsp;&nbsp;&nbsp;</progress>}
                 </div>
             </span>
         )
