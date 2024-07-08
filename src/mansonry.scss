@@ -143,7 +143,7 @@ body{
     right: 50px;
     border: 0;
     color: #ddd;
-
+    z-index: 999999;
     &:hover{
         color: white;
     }
