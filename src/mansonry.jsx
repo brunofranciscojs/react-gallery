@@ -95,7 +95,7 @@ const Mansonry = () => {
             ))}
             {modal && (
                 <div className="modal" style={{ backgroundColor: colors[modalImage] + 66 || '#00000077' }}>
-                    <button onClick={() => setModal(false)} className='bg-black w-8 h-8 rounded-full p-2 leading-none'>X</button>
+                    <button onClick={() => setModal(false)} className='bg-black w-8 h-8 rounded-full p-2 leading-none z-50'>X</button>
                     <img src={modalImage} className='relative z-0' />
                 </div>
             )}
