@@ -5,6 +5,9 @@ self.addEventListener('install', function(event) {
         './',
         './assets/',
         './index.html',
+        'https://ilustras.vercel.app/',
+        'https://ilustras.vercel.app/assets/',
+        'https://ilustras.vercel.app/index.html',
       ]);
     })
   );
