@@ -2,9 +2,9 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open('app-cache').then(function(cache) {
       return cache.addAll([
-        './',
-        './assets/',
-        './index.html',
+        '/',
+        '/assets/',
+        '/index.html',
       ]);
     })
   );

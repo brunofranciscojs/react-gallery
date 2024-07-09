@@ -4,7 +4,7 @@
     "description": "Portfolio de estudo de desenho e pintura digital, com a grande maioria usando procreate. Desenvolvido em React, utilizando firebase/firestore como banco de dados e armazenamento.",
     "icons": [
       {
-        "src": "https://ilustras.vercel.app/pentool.svg",
+        "src": "/pentool.svg",
         "sizes": "192x192",
         "type": "image/svg"
       }
