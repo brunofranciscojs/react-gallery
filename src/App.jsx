@@ -23,7 +23,7 @@ export default function App() {
   return (
     <div className="App">
       <Nav />
-      <div className='presentation duration-200 transition-all bg-auto bg-[#efefef] flex relative overflow-hidden'>
+      <div className='presentation duration-200 transition-all bg-auto bg-[#efefef] flex relative overflow-hidden z-0'>
 
         <div className="z-10 relative">
           <span>BRUNO FRANCISCO</span>

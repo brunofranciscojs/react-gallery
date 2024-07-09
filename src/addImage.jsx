@@ -5,12 +5,12 @@ import { images } from "./firebaseData";
 import useAuth from './hooks/useAuth.jsx'
 import Logar from "./login.jsx";
 
- export default function Upload({}) {
+ export default function Upload({setupWindow, upWindow}) {
 
     const [percent, setPercent] = useState(0)
     const [compressedFile, setCompressedFile] = useState(null)
     const [categoria, setCategoria] = useState('')
-    const { logado } = useAuth()
+    const { logado, sair } = useAuth()
     const [hasImage, sethasImage] = useState(false)
     const [logar, setLogar] = useState(false)
     const [preview, setPreview] = useState('')
@@ -28,10 +28,10 @@ import Logar from "./login.jsx";
         
 
         new Compressor(image, {
-            quality: 0.65,
+            quality: 0.7,
             mimeType: "image/webp",
             resize: "contain",
-            width: '1920',
+            width: '1000',
             success: (compressedResult) => {
                 setCompressedFile(compressedResult)
             },
@@ -64,27 +64,31 @@ import Logar from "./login.jsx";
             })
     }
 
-    if (!logado || !logar) {
-        return <span className='flex flex-row add items-center absolute top-0 right-6'>
-                    <button className='text-2xl cursor-pointer text-gray-700 z-50 relative top-2' onClick={() => { setLogar(true) }} > + </button>
-                    {logar && <>
-                        <button className='text-2xl cursor-pointer text-gray-700 z-50 absolute md:top-[4rem] md:-left-[19rem] top-[6px] -left-1 backdrop-blur px-2' 
-                                onClick={() => {setLogar(false)}}>
-                                    x
-                        </button>
-                        <Logar />
-                        </>
-                    }
-               </span>
+    if (!logado) {
+        return (
+                <>
+                    <span className='flex flex-row add items-center absolute top-0 right-6'>
+                        <button className='text-2xl cursor-pointer text-gray-700 z-50 relative top-2' onClick={() => { setLogar(true) }}> + </button>
+                        {logar && <>
+                            <button className='text-2xl cursor-pointer text-gray-700 z-50 absolute md:top-[4rem] md:-left-[21rem] top-[6px] -left-1 backdrop-blur px-2' 
+                                    onClick={() => {setLogar(false)}}>
+                                        x
+                            </button>
+                            <Logar />
+                            </>
+                        }
+                   </span>
+                </>
+        )
     }
 
     return ( 
          
-        logado && logar && (
+        logado && upWindow && (
             <span className="flex flex-row add items-center right-5 fixed top-0 left-0 bg-[#000000cc] w-full h-full backdrop-blur-md">
                     
                 <div className='addinputs flex flex-col items-center relative left-1/2 -translate-x-1/2'>
-                    <button className='text-white z-50' onClick={() =>{ percent > 99 ? window.location.reload() : setLogar(false) } }>X</button>
+                    <button className='text-white z-50' onClick={() =>{ percent > 99 ? window.location.reload() : setupWindow(false) } }>X</button>
                     
                         <div className='flex gap-5'>
                             {!hasImage && 
