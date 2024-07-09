@@ -16,7 +16,7 @@ export default function App() {
         setBg(url);
       }
     };
-    const timeoutId = setTimeout(fetchRandomBg, 2000);
+    const timeoutId = setTimeout(fetchRandomBg, 3000);
     return () => clearTimeout(timeoutId);
   }, []);
 
