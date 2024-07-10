@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) =>{
 
     const [logado, setLogado] = useState(() => {
         const savedLogado = localStorage.getItem('logado');
-        return savedLogado ? JSON.parse(savedLogado) : 0;
+        return savedLogado ? JSON.parse(savedLogado) : '';
     })
     useEffect(() => {
         const loginInfos = async () => {
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) =>{
                     const token = Math.random().toString(36).substring(2)
                     localStorage.setItem('token', JSON.stringify({usuario,token}))
                     setUser({ usuario, senha })
-                    setLogado(1)
+                    setLogado('1')
                     localStorage.setItem('logado', JSON.stringify(1))
                     return
                 }else{
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) =>{
     }
 
     const sair = () =>{
-        setLogado(0)
+        setLogado('')
         setUser(null)
         localStorage.removeItem('logado')
         localStorage.removeItem('token')

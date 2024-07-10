@@ -98,13 +98,15 @@ const Mansonry = () => {
                     {pastinha.img.map(({ url }, index) => (
                         <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100`}>
 
-                            {logado && 
-                                <button className='absolute top-1 right-1 opacity-0 z-50 shadow-sm bg-gray-50 px-1 py-1 rounded' 
-                                        dangerouslySetInnerHTML={{__html:deletar}} 
-                                        title='deletar'
-                                        onClick={() => { setConfirmation(true), setDelURL(url), setDelcat(pastinha.cat) }}
-                                        >
-                                </button>}
+                            <>
+                                {logado &&(
+                                    <button className='absolute top-1 right-1 opacity-0 z-50 shadow-sm bg-gray-50 px-1 py-1 rounded' 
+                                            dangerouslySetInnerHTML={{__html:deletar}} 
+                                            title='deletar'
+                                            onClick={() => { setConfirmation(true), setDelURL(url), setDelcat(pastinha.cat) }}
+                                            >
+                                    </button>)}
+                            </>
                             <img
                                 className='bg z-40'
                                 loading="lazy"
