@@ -4,3 +4,12 @@
 
 
 
+@media (prefers-color-scheme: dark) {
+  body{
+    background: #3A3B3C;
+  }
+  nav ul{
+	background:#3A3B3Caa;
+	color: #ddd
+  }
+}
