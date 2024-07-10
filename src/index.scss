@@ -7,7 +7,17 @@
     background: #3A3B3C;
   }
   nav ul{
-	background:#3A3B3Caa;
-	color: #ddd
+	  background:#3A3B3Caa;
+
+    li{
+      color:#dddddd !important
+    }
+	
+  }
+  .presentation{
+    background:#233A3B3C;
+  }
+  .presentation *{
+    color: #cecece !important;
   }
 }
