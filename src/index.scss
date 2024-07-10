@@ -15,9 +15,12 @@
 	
   }
   .presentation{
-    background:#233A3B3C;
+    background:#4A3B3C;
   }
-  .presentation *{
+  .presentation h1, .presentation span{
     color: #cecece !important;
+  }
+  .log{
+    color: #eeeeee;
   }
 }

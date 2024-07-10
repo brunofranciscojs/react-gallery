@@ -30,8 +30,8 @@ export default function App() {
           <h1 className="font-bold text-gray-200 leading-none">Estudos de ilustras e rabiscos.</h1>
         </div>
 
-        <div style={{ backgroundImage: `linear-gradient(to right,inherit, transparent), url(${bg})` }} 
-             className="z-0 bg-cover w-[50%] h-full absolute right-0 top-0 bg-[center_20%]">
+        <div style={{ backgroundImage: `linear-gradient(to right,currentColor, transparent), url(${bg})` }} 
+             className="z-0 bg-cover w-[50%] h-full absolute right-0 top-0 bg-[center_20%] text-[#efefef]">
         </div>
       </div>
       <Mansonry />
