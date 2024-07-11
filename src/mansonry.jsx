@@ -6,8 +6,6 @@ import { useCategoria } from "./Context.jsx";
 import './mansonry.css';
 import useAuth from './hooks/useAuth.jsx'
 
-    
-
 const Mansonry = () => {
     const [files, setFiles] = useState([]);
     const [modal, setModal] = useState(false);
@@ -96,7 +94,7 @@ const Mansonry = () => {
             {filtro.map((pastinha) => (
                 <span key={pastinha.cat} className='placeholder' id={pastinha.cat.toLowerCase()}>
                     {pastinha.img.map(({ url }, index) => (
-                        <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100`}>
+                        <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100`} >
 
                             <>
                                 {logado &&(
@@ -116,7 +114,7 @@ const Mansonry = () => {
                                     setModalImage(url);
                                 }}
                                 alt={`${pastinha.cat} | BRUNO FRANCISCO`}
-                                style={{ color: colors[url] + 'aa' || 'transparent' }}
+                                style={{ color: colors[url]+55 }}
                                 onLoad={(e) => e.target.parentNode.parentNode.classList.remove('placeholder')}
                             />
                             <figcaption>{pastinha.cat}</figcaption>
