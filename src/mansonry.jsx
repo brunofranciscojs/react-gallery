@@ -100,7 +100,7 @@ const Mansonry = () => {
         setCurrentCategoryImages(categoryImages);
         const clickedImageIndex = categoryImages.findIndex(image => image.url === url);
         setCurrentImageIndex(clickedImageIndex);
-        setTimeout(() =>{ document.querySelector('.modal').click() },400)
+        setTimeout(() => { document.querySelector('.modal').focus() }, 400);
     };
 
     return (
@@ -124,8 +124,7 @@ const Mansonry = () => {
                                 loading="lazy"
                                 src={url}
                                 onClick={() => handleImageClick(url, pastinha.img)}
-                                alt={`${pastinha.cat} | BRUNO FRANCISCO`}
-                                
+                                alt={`${pastinha.cat} | BRUNO FRANCISCO`}  
                             />
                             <figcaption>{pastinha.cat}</figcaption>
                         </figure>
