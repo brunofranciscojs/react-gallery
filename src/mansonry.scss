@@ -27,9 +27,31 @@ body{
         break-inside: avoid;
         position: relative;
         border-radius: 13px;
-        transition: opacity .2s ease-in;
+        transition: all .2s ease-in;
         cursor: pointer;
-        &:hover img { scale: 1.2; box-shadow: 0 0 30px currentColor;}
+        &:hover img { scale: 1.2;}
+        overflow: hidden;
+
+        &:hover {      
+          &:before {
+            animation: shine 0.4s 0s forwards;
+            mix-blend-mode: plus-lighter;
+          }
+        }
+      
+        &:before {
+          content: '';
+          display: block;
+          width: 0px;
+          height: 100%;
+          position: absolute;
+          top: 0%;
+          left: 0%;
+          z-index: 999;
+          opacity: 0;
+          box-shadow: 0px 0px 25px 10px currentColor;
+          transform:skewX(-35deg);
+        }
 
         img {
             grid-row: 1 / -1;
@@ -39,7 +61,6 @@ body{
             transition: .1s ease;
             border-radius: 13px;
             position: relative;
-            box-shadow: 0 0 0 currentColor;
         }
         figcaption {
             opacity: 0;
@@ -89,7 +110,6 @@ body{
     img {
         max-width: 110px;
     }
-
     h1 {
         margin: 0;
         width: 100%;
@@ -100,7 +120,20 @@ body{
         color: #aaa;
     }
 }
-
+@keyframes shine {
+    from {
+      opacity: 0;
+      left: -10%;
+    }
+  
+    50% {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      left: 100%;
+    }
+}
 .modal{
     position:fixed;
     z-index: 99999;

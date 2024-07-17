@@ -107,7 +107,7 @@ const Mansonry = () => {
             {filtro.map((pastinha) => (
                 <span key={pastinha.cat} id={pastinha.cat.toLowerCase()}>
                     {pastinha.img.map(({ url }, index) => (
-                        <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100`} >
+                        <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100`} style={{ color: colors[url] }}>
 
                             {logado &&(
                                 <button className='absolute top-1 right-1 opacity-0 z-50 shadow-sm bg-gray-50 px-1 py-1 rounded' 
@@ -124,7 +124,7 @@ const Mansonry = () => {
                                 src={url}
                                 onClick={() => handleImageClick(url, pastinha.img)}
                                 alt={`${pastinha.cat} | BRUNO FRANCISCO`}
-                                style={{ color: colors[url]+77 }}
+                                
                             />
                             <figcaption>{pastinha.cat}</figcaption>
                         </figure>
