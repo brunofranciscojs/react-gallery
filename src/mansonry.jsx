@@ -100,6 +100,7 @@ const Mansonry = () => {
         setCurrentCategoryImages(categoryImages);
         const clickedImageIndex = categoryImages.findIndex(image => image.url === url);
         setCurrentImageIndex(clickedImageIndex);
+        document.querySelector('.modal').click()
     };
 
     return (
