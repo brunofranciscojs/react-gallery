@@ -100,7 +100,6 @@ const Mansonry = () => {
         setCurrentCategoryImages(categoryImages);
         const clickedImageIndex = categoryImages.findIndex(image => image.url === url);
         setCurrentImageIndex(clickedImageIndex);
-        setTimeout(() => { document.querySelector('.modal').focus() }, 400);
     };
 
     return (
@@ -125,6 +124,7 @@ const Mansonry = () => {
                                 src={url}
                                 onClick={() => handleImageClick(url, pastinha.img)}
                                 alt={`${pastinha.cat} | BRUNO FRANCISCO`}  
+                                onTouchEnd={()=> document.querySelector('.modal').focus()}
                             />
                             <figcaption>{pastinha.cat}</figcaption>
                         </figure>
@@ -132,12 +132,12 @@ const Mansonry = () => {
                 </span>
             ))}
             {confirmation && 
-                <div className='fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-50 grid place-items-center'>
+                <div className='fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 grid place-items-center z-[999999]'>
                     <div className='flex flex-col justify-center items-center bg-gray-200/30 backdrop-blur-md rounded-xl px-10 py-5 gap-4 max-w-[300px] w-[90%] border-gray-400/60 border-2 shadow-2xl'>
                         <h2 className='font-semibold text-gray-50'>TEM CERTEZA?</h2>
                         <div className='flex justify-center items-center gap-4'>
-                            <button onClick={() => { exclude(delURL, delCat), setConfirmation(false) }} className='bg-green-700 px-4 py-2 text-white text-sm rounded-lg'> DELETAR</button>
-                            <button onClick={() => setConfirmation(false)} className='bg-red-700 px-4 py-2 text-white text-sm rounded-lg'>CANCELAR</button>
+                            <button onClick={() => { exclude(delURL, delCat), setConfirmation(false) }} className='bg-white px-4 py-2 text-black text-sm rounded-lg'> DELETAR</button>
+                            <button onClick={() => setConfirmation(false)} className='bg-black px-4 py-2 text-white text-sm rounded-lg'>CANCELAR</button>
                         </div>
                     </div>
                 </div>

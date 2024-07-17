@@ -37,11 +37,8 @@ body{
             animation: shine 0.4s 0s forwards;
             mix-blend-mode: plus-lighter;
           }
-          &:not(:hover){
-            mix-blend-mode:normal;
-          }
         }
-      
+        &:not(:hover){ mix-blend-mode:normal }
         &:before {
           content: '';
           display: block;
