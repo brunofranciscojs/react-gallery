@@ -14,6 +14,8 @@ import Logar from "./login.jsx";
     const [hasImage, sethasImage] = useState(false)
     const [logar, setLogar] = useState(false)
     const [preview, setPreview] = useState('')
+    const loadSpin = `<svg width="20px" height="20px" viewBox="0 0 16 16" fill="none" class="hds-flight-icon--animation-loading"><g fill="#000000" fill-rule="evenodd" clip-rule="evenodd"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8z" opacity=".2"/><path d="M7.25.75A.75.75 0 018 0a8 8 0 018 8 .75.75 0 01-1.5 0A6.5 6.5 0 008 1.5a.75.75 0 01-.75-.75z"/></g></svg>`
+    const [spin, setSpin] = useState(false)
 
     function handleChange(event) {
         const image = event.target.files[0];
@@ -49,6 +51,7 @@ import Logar from "./login.jsx";
         return result
     }
     const handleUpload = () => {
+            setSpin(true)
         if (!compressedFile) {
             alert('erro');
             return;
@@ -58,12 +61,17 @@ import Logar from "./login.jsx";
 
         uploadTask.on("state_changed",
             (snapshot) => {
-                const percent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-                console.log(typeof percent)
-                setPercent(percent)
+                const percento = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                setPercent(percento)
+                setTimeout(() =>{
+                    if(percento > 99){
+                        setSpin(false)
+                    }
+                },2000)
             })
-    }
 
+    }
+    
     if (!logado) {
         return (
                 <>
@@ -114,7 +122,10 @@ import Logar from "./login.jsx";
                         <br /><br />
                         <button className='ml-1 text-gray-200 duration-200' onClick={handleUpload} disabled={categoria.length > 1 ? false : true} style={{cursor:categoria.length < 1 ? 'not-allowed' : 'pointer'}}>ENVIAR</button>
                     
-                    {percent > 0.1 && categoria.length > 0 && <progress className='text-white block w-full cursor-progress duration-75' value={percent/100}>&nbsp;&nbsp;&nbsp;</progress>}
+                    {percent > .9 && categoria.length > 0 && spin &&
+                                <span className={`animate-spin dark:text-gray-300 dark:hover:text-gray-100 text-gray-700 hover:text-gray-500 flex items-center gap-2 dark:[&_svg]:invert hover:[&_svg]:stroke-gray-100 duration-200 transition-all`} 
+                                        dangerouslySetInnerHTML={{__html:loadSpin}}></span>}
+                    {percent > 99 && !spin && <span className='dark:text-gray-300 dark:hover:text-gray-100 text-gray-700 hover:text-gray-500'>enviado com sucesso!</span>}
                 </div>
             </span>
         )

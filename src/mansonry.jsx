@@ -13,7 +13,6 @@ const Mansonry = () => {
     
     const [files, setFiles] = useState([]);
     const [modal, setModal] = useState(false);
-    const [modalImage, setModalImage] = useState('');
     const { categoria } = useCategoria();
     const { logado } = useAuth();
     const [colors, setColors] = useState({});
@@ -27,7 +26,6 @@ const Mansonry = () => {
         const fetchUrls = async () => {
             const raizDB = await listAll(ref(images, '/'));
             const pastas = raizDB.prefixes.map((folderRef) => folderRef);
-
             const fetch = pastas.map(async (folderRef) => {
                 const pasta = ref(images, folderRef.fullPath);
                 const arquivos = await listAll(pasta);
@@ -55,7 +53,6 @@ const Mansonry = () => {
                     return { url, color: color.hex };
                 })
             );
-
             const cores = await Promise.all(colorPromises);
             const mapaCores = cores.reduce((acc, { url, color }) => {
                 acc[url] = color;
@@ -72,7 +69,6 @@ const Mansonry = () => {
                 setModal(false);
             }
         };
-
         document.addEventListener('keydown', handleKeydown);
         return () => {
             document.removeEventListener('keydown', handleKeydown);
@@ -82,7 +78,6 @@ const Mansonry = () => {
     const exclude = async (url, category) => {
         const itemRef = ref(images, url);
         await deleteObject(itemRef);
-
         setFiles((arquivos) =>
             arquivos.map((folder) => {
                 if (folder.cat === category) 
@@ -96,7 +91,6 @@ const Mansonry = () => {
 
     const handleImageClick = (url, categoryImages) => {
         setModal(true);
-        setModalImage(url);
         setCurrentCategoryImages(categoryImages);
         const clickedImageIndex = categoryImages.findIndex(image => image.url === url);
         setCurrentImageIndex(clickedImageIndex);
@@ -124,7 +118,6 @@ const Mansonry = () => {
                                 src={url}
                                 onClick={() => handleImageClick(url, pastinha.img)}
                                 alt={`${pastinha.cat} | BRUNO FRANCISCO`}  
-                                onTouchEnd={()=> document.querySelector('.modal').focus()}
                             />
                             <figcaption>{pastinha.cat}</figcaption>
                         </figure>
@@ -136,8 +129,8 @@ const Mansonry = () => {
                     <div className='flex flex-col justify-center items-center bg-gray-200/30 backdrop-blur-md rounded-xl px-10 py-5 gap-4 max-w-[300px] w-[90%] border-gray-400/60 border-2 shadow-2xl'>
                         <h2 className='font-semibold text-gray-50'>TEM CERTEZA?</h2>
                         <div className='flex justify-center items-center gap-4'>
-                            <button onClick={() => { exclude(delURL, delCat), setConfirmation(false) }} className='bg-white px-4 py-2 text-black text-sm rounded-lg'> DELETAR</button>
-                            <button onClick={() => setConfirmation(false)} className='bg-black px-4 py-2 text-white text-sm rounded-lg'>CANCELAR</button>
+                            <button onClick={() => { exclude(delURL, delCat), setConfirmation(false) }} className='bg-black px-4 py-2 text-white text-sm rounded-lg'> DELETAR</button>
+                            <button onClick={() => setConfirmation(false)} className='bg-white px-4 py-2 text-black text-sm rounded-lg'>CANCELAR</button>
                         </div>
                     </div>
                 </div>
@@ -158,5 +151,4 @@ const Mansonry = () => {
         </div>
     );
 };
-
 export default Mansonry;

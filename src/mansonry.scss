@@ -35,7 +35,9 @@ body{
         &:hover {      
           &:before {
             animation: shine 0.4s 0s forwards;
-            mix-blend-mode: plus-lighter;
+            @media screen and (min-width:640px){
+                mix-blend-mode: plus-lighter;
+            }
           }
         }
         &:not(:hover){ mix-blend-mode:normal }
@@ -49,8 +51,12 @@ body{
           left: 0%;
           z-index: 999;
           opacity: 0;
-          box-shadow: 0px 0px 25px 10px currentColor;
+          box-shadow: 0px 0px 25px 10px #ffffff77;
           transform:skewX(-35deg);
+
+          @media screen and (min-width:640px){
+            box-shadow: 0px 0px 25px 10px currentColor;
+        }
         }
 
         img {
