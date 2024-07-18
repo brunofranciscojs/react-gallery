@@ -9,18 +9,19 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 
 const Mansonry = () => {
-    const deletar = `<svg fill="#000000" width="15px" height="15px" viewBox="0 0 408.483 408.483" xml:space="preserve"> <g> <g> <path d="M87.748,388.784c0.461,11.01,9.521,19.699,20.539,19.699h191.911c11.018,0,20.078-8.689,20.539-19.699l13.705-289.316 H74.043L87.748,388.784z M247.655,171.329c0-4.61,3.738-8.349,8.35-8.349h13.355c4.609,0,8.35,3.738,8.35,8.349v165.293 c0,4.611-3.738,8.349-8.35,8.349h-13.355c-4.61,0-8.35-3.736-8.35-8.349V171.329z M189.216,171.329 c0-4.61,3.738-8.349,8.349-8.349h13.355c4.609,0,8.349,3.738,8.349,8.349v165.293c0,4.611-3.737,8.349-8.349,8.349h-13.355 c-4.61,0-8.349-3.736-8.349-8.349V171.329L189.216,171.329z M130.775,171.329c0-4.61,3.738-8.349,8.349-8.349h13.356 c4.61,0,8.349,3.738,8.349,8.349v165.293c0,4.611-3.738,8.349-8.349,8.349h-13.356c-4.61,0-8.349-3.736-8.349-8.349V171.329z"/> <path d="M343.567,21.043h-88.535V4.305c0-2.377-1.927-4.305-4.305-4.305h-92.971c-2.377,0-4.304,1.928-4.304,4.305v16.737H64.916 c-7.125,0-12.9,5.776-12.9,12.901V74.47h304.451V33.944C356.467,26.819,350.692,21.043,343.567,21.043z"/> </g> </g> </svg>`
+    const deletar = `<svg fill="#000000" width="15px" height="15px" viewBox="0 0 408.483 408.483"> <g> <g> <path d="M87.748,388.784c0.461,11.01,9.521,19.699,20.539,19.699h191.911c11.018,0,20.078-8.689,20.539-19.699l13.705-289.316 H74.043L87.748,388.784z M247.655,171.329c0-4.61,3.738-8.349,8.35-8.349h13.355c4.609,0,8.35,3.738,8.35,8.349v165.293 c0,4.611-3.738,8.349-8.35,8.349h-13.355c-4.61,0-8.35-3.736-8.35-8.349V171.329z M189.216,171.329 c0-4.61,3.738-8.349,8.349-8.349h13.355c4.609,0,8.349,3.738,8.349,8.349v165.293c0,4.611-3.737,8.349-8.349,8.349h-13.355 c-4.61,0-8.349-3.736-8.349-8.349V171.329L189.216,171.329z M130.775,171.329c0-4.61,3.738-8.349,8.349-8.349h13.356 c4.61,0,8.349,3.738,8.349,8.349v165.293c0,4.611-3.738,8.349-8.349,8.349h-13.356c-4.61,0-8.349-3.736-8.349-8.349V171.329z"/> <path d="M343.567,21.043h-88.535V4.305c0-2.377-1.927-4.305-4.305-4.305h-92.971c-2.377,0-4.304,1.928-4.304,4.305v16.737H64.916 c-7.125,0-12.9,5.776-12.9,12.901V74.47h304.451V33.944C356.467,26.819,350.692,21.043,343.567,21.043z"/> </g> </g> </svg>`
     
-    const [files, setFiles] = useState([]);
-    const [modal, setModal] = useState(false);
     const { categoria } = useCategoria();
     const { logado } = useAuth();
+    const [files, setFiles] = useState([]);
+    const [modal, setModal] = useState(false);
     const [colors, setColors] = useState({});
     const [confirmation, setConfirmation] = useState(false);
     const [delURL, setDelURL] = useState();
     const [delCat, setDelCat] = useState();
     const [currentCategoryImages, setCurrentCategoryImages] = useState([]);
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0); 
+    const [time, setTime] = useState('')
 
     useEffect(() => {
         const fetchUrls = async () => {
@@ -45,7 +46,7 @@ const Mansonry = () => {
             });
 
             setFiles(imagens);
-
+           
             const corDominante = new FastAverageColor();
             const colorPromises = imagens.flatMap(pasta =>
                 pasta.img.map(async ({ url }) => {
@@ -95,13 +96,15 @@ const Mansonry = () => {
         const clickedImageIndex = categoryImages.findIndex(image => image.url === url);
         setCurrentImageIndex(clickedImageIndex);
     };
+    
+    const dataUpload = (hour) => new Intl.DateTimeFormat('pt','BR').format(new Date(hour))
 
     return (
         <div className='mansonry' key='mansonry' style={{ zIndex: modal ? 99 : 5 }}>
             {filtro.map((pastinha) => (
                 <span key={pastinha.cat} id={pastinha.cat.toLowerCase()}>
-                    {pastinha.img.map(({ url }, index) => (
-                        <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100`} style={{ color: colors[url] }}>
+                    {pastinha.img.map(({ url, timeCreated }, index) => (
+                        <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100`} style={{ color: colors[url] }} >
 
                             {logado &&(
                                 <button className='absolute top-1 right-1 opacity-0 z-50 shadow-sm bg-gray-50 px-1 py-1 rounded' 
@@ -116,10 +119,13 @@ const Mansonry = () => {
                                 className='bg z-40'
                                 loading="lazy"
                                 src={url}
-                                onClick={() => handleImageClick(url, pastinha.img)}
+                                
                                 alt={`${pastinha.cat} | BRUNO FRANCISCO`}  
                             />
-                            <figcaption>{pastinha.cat}</figcaption>
+                            <figcaption className='flex flex-col justify-end text-left' onClick={() => handleImageClick(url, pastinha.img)}>
+                                <span className='text-base text-gray-200 font-semibold leading-none'>{pastinha.cat}</span>
+                                <time className='text-[.6rem] text-gray-300 leading-none'>enviado: {dataUpload(timeCreated)}</time>
+                            </figcaption>
                         </figure>
                     ))}
                 </span>
