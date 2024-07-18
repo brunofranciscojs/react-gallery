@@ -119,10 +119,10 @@ const Mansonry = () => {
                                 className='bg z-40'
                                 loading="lazy"
                                 src={url}
-                                
+                                onClick={() => handleImageClick(url, pastinha.img)}
                                 alt={`${pastinha.cat} | BRUNO FRANCISCO`}  
                             />
-                            <figcaption className='flex flex-col justify-end text-left' onClick={() => handleImageClick(url, pastinha.img)}>
+                            <figcaption className='flex flex-col justify-end text-left ' >
                                 <span className='text-base text-gray-200 font-semibold leading-none'>{pastinha.cat}</span>
                                 <time className='text-[.6rem] text-gray-300 leading-none'>enviado: {dataUpload(timeCreated)}</time>
                             </figcaption>
