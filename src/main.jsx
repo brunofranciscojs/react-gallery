@@ -8,7 +8,7 @@ import { CategoriaProvider } from "./Context";
 ReactDOM.createRoot(document.getElementById('root')).render(
   <AuthProvider>
     <CategoriaProvider>
-      <App />
+        <App />
     </CategoriaProvider>
   </AuthProvider>,
 )

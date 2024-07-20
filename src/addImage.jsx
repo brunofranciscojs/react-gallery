@@ -93,10 +93,10 @@ import Logar from "./login.jsx";
     return ( 
          
         logado && upWindow && (
-            <span className="flex flex-row add items-center right-5 fixed top-0 left-0 bg-[#000000cc] w-full h-full backdrop-blur-md">
+            <span className="flex flex-row add items-center right-5 fixed top-0 left-0 bg-[#000000cc] w-full h-full backdrop-blur-md z-40">
                     
                 <div className='addinputs flex flex-col items-center relative left-1/2 -translate-x-1/2'>
-                    <button className='text-white z-50' onClick={() =>{ percent > 99 ? window.location.reload() : setupWindow(false) } }>X</button>
+                    <button className='text-white z-30' onClick={() =>{ percent > 99 ? window.location.reload() : setupWindow(false) } }>X</button>
                     
                         <div className='flex gap-5'>
                             {!hasImage && 
