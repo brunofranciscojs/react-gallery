@@ -180,7 +180,7 @@ const Mansonry = () => {
                     </span>
                 ))}
                 {confirmation && 
-                    <div className='fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-[999999]'>
+                    <div className='fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-[999999] grid place-items-center'>
                         <div className='flex flex-col justify-center items-center bg-gray-200/30 backdrop-blur-md rounded-xl px-10 py-5 gap-4 max-w-[300px] w-[90%] border-gray-400/60 border-2 shadow-2xl'>
                             <h2 className='font-semibold text-gray-50'>TEM CERTEZA?</h2>
                             <div className='flex justify-center items-center gap-4'>
