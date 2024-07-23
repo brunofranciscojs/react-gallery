@@ -130,7 +130,7 @@ const Mansonry = () => {
                             <div className='fixed top-0 left-0 bg-[#000000cc] backdrop-blur-sm z-50 w-screen h-dvh p-5'>
                                 <a onClick={() => setOpenFav(false)} 
                                 className={`bg-white w-8 h-8 rounded-full p-2 leading-none cursor-pointer absolute z-50 text-gray-900 hover:text-black md:top-10 md:right-12 top-[unset] right-[unset] left-1/2 bottom-8 md:left-[unset] md:bottom-[unset]`}>X</a>
-                                <img src={modalFav} className='w-auto h-auto mx-auto rounded-lg translate-y-8' />
+                                <img src={modalFav} className='w-auto h-full mx-auto rounded-lg translate-y-8' />
                             </div>
                         }
 
