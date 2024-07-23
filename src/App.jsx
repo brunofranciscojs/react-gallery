@@ -31,7 +31,7 @@ export default function App() {
         </div>
 
         <div style={{ backgroundImage: `linear-gradient(to right,currentColor, transparent), url(${bg})` }} 
-             className="z-0 bg-cover w-[50%] h-full absolute right-0 top-0 bg-[center_20%] text-[#e5e5e5] dark:text-[#434343]">
+             className="z-0 bg-[length:80%] w-full h-full absolute right-0 top-0 bg-[center_50%] text-[#e5e5e5] dark:text-[#434343] bg-fixed">
         </div>
       </div>
       <Mansonry />

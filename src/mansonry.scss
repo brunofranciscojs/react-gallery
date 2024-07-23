@@ -1,5 +1,5 @@
 body{
-    @apply overflow-x-hidden bg-[#efefef] duration-200
+    @apply overflow-x-hidden bg-[#efefef] duration-200 [&:has(.fav)]:overflow-hidden
 }
 .mansonry {
 
@@ -33,6 +33,8 @@ body{
         }
     }
 }
+
+
 
 @keyframes shine {
     from {

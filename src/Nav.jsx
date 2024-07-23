@@ -24,7 +24,7 @@ export default function Nav() {
     
     return (
         <>
-            {logado && <span className='log fixed left-3 top-[14px] text-gray-600 hover:text-gray-950 cursor-pointer z-30' onClick={sair}>sair</span>}
+            {logado && <span className='log fixed left-[18px] md:top-[14px] top-10 text-gray-600 hover:text-gray-950 cursor-pointer z-30' onClick={sair}>sair</span>}
             {logado && <button className='log fixed right-6 top-[8px] text-gray-600 hover:text-gray-950 cursor-pointer z-30 text-2xl' onClick={() => { setupWindow(true) }}> + </button>}
             <nav>
                 <ul key='categorias' className="items-start md:items-center justify-center py-4 px-14">
