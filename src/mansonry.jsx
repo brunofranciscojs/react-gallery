@@ -169,7 +169,7 @@ const Mansonry = () => {
                 {filtro.map((pastinha) => (
                     <span key={pastinha.cat}>
                         {pastinha.img.map(({ url, timeCreated }, index) => (
-                            <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100`} style={{ color: colors[url] }} >
+                            <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100 grid place-items-center`} style={{ color: colors[url] }} >
     
                                 {logado &&(
                                     <button className='absolute top-1 left-1 opacity-0 z-50 shadow-sm px-1 py-1 rounded [&>svg_path]:fill-none [&>svg_path]:stroke-gray-500 hover:[&>svg_path]:fill-gray-500 duration-300' 
@@ -183,9 +183,10 @@ const Mansonry = () => {
                                     </button>
                                 )}
     
-                                <img className='bg z-40 animate-[scaling_.5s_forwards] opacity-0 [animation-delay:850ms]'
+                                <img className='bg z-40 animate-[scaling_.3s_forwards] opacity-0'
                                      loading="lazy"
                                      src={url}
+                                     style={{animationDelay:`${Math.random()*index / 5}s`}}
                                      onClick={() => abrirModal(url, pastinha.img)}
                                      alt={`${pastinha.cat} | BRUNO FRANCISCO`}
                                 />
@@ -206,6 +207,7 @@ const Mansonry = () => {
                                 </button>}
                             </figure>
                         ))}
+                        
                     </span>
                 ))}
                 {confirmation && 
