@@ -97,6 +97,6 @@ body{
         }
     }
     &:has(.is-active){
-        @apply [mask-image:url("src/assets/gif.gif")] [mask-size:cover] [mask-position:center];
+        @apply [mask-image:url("/gif.gif")] [mask-size:cover] [mask-position:center];
     }
 }
