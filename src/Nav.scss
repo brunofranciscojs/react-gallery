@@ -14,8 +14,7 @@ nav {
         margin-inline: auto;
         align-items: flex-start;
         transition: .2s;
-        background: rgb(255 255 255 / 0.6);
-        backdrop-filter: blur(10px);
+        background: linear-gradient(to top, black 0%, transparent 70%);
         z-index: 999;
         flex-wrap: wrap;
 

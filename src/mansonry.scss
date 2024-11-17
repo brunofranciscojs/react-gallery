@@ -17,7 +17,7 @@ body{
     > span:not(.todos){ @apply block mb-10 }
 
     figure {
-        @apply m-0 [grid-template-rows:1fr_auto] mb-10 break-inside-avoid relative rounded-xl duration-200 cursor-pointer overflow-hidden
+        @apply m-0 [grid-template-rows:1fr_auto] mb-10 break-inside-avoid relative rounded-xl duration-200 cursor-pointer overflow-hidden backdrop-blur-xl
                [&:hover:before]:animate-[shine_0.4s_forwards] sm:[&:hover:before]:mix-blend-plus-lighter grid
 
                before:content-[''] before:block before:absolute before:w-0 before:h-full before:left-0 
@@ -25,7 +25,7 @@ body{
                before:[box-shadow:0_0_25px_10px_#ffffff77] md:before:[box-shadow:0_0_25px_10px_currentColor];
 
         img {
-            @apply [grid-row:1/-1] [grid-column:1] max-w-full block duration-100 rounded-xl relative bg-[#00000011] hover:scale-105
+            @apply [grid-row:1/-1] [grid-column:1] max-w-full block duration-100 rounded-xl relative bg-[#00000011] hover:scale-105 
         }
 
         figcaption {
@@ -50,6 +50,7 @@ body{
       left: 100%;
     }
 }
+
 .splide{
     @apply h-dvh;
     .splide__track{ 
@@ -59,6 +60,9 @@ body{
         } 
     }
 }
+
+
+
 *::-webkit-scrollbar,
 *::-webkit-scrollbar{
     width:.8em ;
@@ -73,4 +77,26 @@ body{
 @keyframes scaling{
     from{ opacity: 0; }
     to{ opacity:1 }
+}
+
+.slider {
+    button{
+        @apply bg-none;
+        svg{
+            @apply fill-white
+        }
+    }
+    .splide{
+        @apply h-[110vh] ;
+
+        .splide__track{
+            @apply h-[110vh];
+        }
+        img{
+          @apply [mask-image:linear-gradient(to_bottom,_black_50%,_transparent_70%)] object-contain h-screen
+        }
+    }
+    &:has(.is-active){
+        @apply [mask-image:url("src/assets/gif.gif")] [mask-size:cover] [mask-position:center];
+    }
 }

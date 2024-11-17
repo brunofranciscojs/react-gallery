@@ -123,7 +123,30 @@ const Mansonry = () => {
         <>
             <button className='fixed md:right-12 right-[unset] left-5 md:left-[unset] top-[17px] z-50 [&>svg_path]:fill-gray-500 dark:[&>svg_path]:fill-gray-300 hover:brightness-150 duration-100' 
                     dangerouslySetInnerHTML={{__html:saveIcon }} onClick={() => setViewFaves(true)}></button>
-    
+
+                <div className='z-[0] slider absolute opacity-40 h-[110dvh] left-2/4 top-0 -translate-x-1/2 w-screen [&_img]:w-1/2 [&_img]:mx-auto [&_li]:h-full [&_.splide]:h-[110dvh] [&_.splide__track]:h-[110dvh]'>
+                    <Splide options={{
+                        type: 'slide',
+                        rewind: true,
+                        start: 1,
+                        pagination: false,
+                        keyboard: false,
+                        arrows: true,
+                        autoplay:false,
+                        interval:2500,
+                      }}
+                    >
+                    {filtro.map((pastinha) =>
+                        pastinha.img.map(({ url }, index) => (
+                        <SplideSlide key={index}>
+                            <img src={url} alt={`Imagem ${index}`} />
+                        </SplideSlide>
+                        ))
+                    )}
+                    </Splide>
+                </div>
+
+
             {viewFavs && 
                 <>
                     <div className="fixed right-0 top-[5%] h-dvh w-full z-50">
@@ -165,7 +188,7 @@ const Mansonry = () => {
                     </div>
                 </>
             }
-            <div className='mansonry' key='mansonry' style={{ zIndex: modal ? 99 : 5 }}>
+            <div className='mansonry mt-[35rem] z-50' key='mansonry' style={{ zIndex: modal ? 99 : 5 }}>
                 {filtro.map((pastinha) => (
                     <span key={pastinha.cat}>
                         {pastinha.img.map(({ url, timeCreated }, index) => (

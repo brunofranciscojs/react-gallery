@@ -7,7 +7,7 @@
     background: #3A3B3C;
   }
   nav ul{
-	  background:#3A3B3Caa;
+	  background:linear-gradient(to bottom, #3A3B3Caa 0%, transparent 70%);
 
     li{
       color:#dddddd !important
@@ -15,7 +15,8 @@
 	
   }
   .presentation{
-    background:#434343;
+    background:transparent;
+    backdrop-filter: blur(4px);
   }
   .presentation h1, .presentation span{
     color: #cecece !important;
