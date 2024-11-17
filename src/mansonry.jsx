@@ -124,9 +124,9 @@ const Mansonry = () => {
             <button className='fixed md:right-12 right-[unset] left-5 md:left-[unset] top-[17px] z-50 [&>svg_path]:fill-gray-500 dark:[&>svg_path]:fill-gray-300 hover:brightness-150 duration-100' 
                     dangerouslySetInnerHTML={{__html:saveIcon }} onClick={() => setViewFaves(true)}></button>
 
-                <div className='z-[0] slider absolute opacity-40 h-[110dvh] left-2/4 top-0 -translate-x-1/2 w-screen [&_img]:w-1/2 [&_img]:mx-auto [&_li]:h-full [&_.splide]:h-[110dvh] [&_.splide__track]:h-[110dvh]'>
+                <div className='z-[0] slider absolute opacity-40 h-[110dvh] left-2/4 top-0 -translate-x-1/2 w-screen [&_img]:mx-auto [&_li]:h-full [&_.splide]:h-[110dvh] [&_.splide__track]:h-[110dvh]'>
                     <Splide options={{
-                        type: 'slide',
+                        type: 'fade',
                         rewind: true,
                         start: 1,
                         pagination: false,
