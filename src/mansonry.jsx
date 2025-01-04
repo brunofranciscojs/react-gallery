@@ -5,8 +5,8 @@ import { FastAverageColor } from 'fast-average-color';
 import { useCategoria } from "./Context.jsx";
 import './mansonry.css';
 import useAuth from './hooks/useAuth.jsx'
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css';
+import Modal from './components/Modal.jsx';
+import Favorites from './components/Favorites.jsx';
 
 const Mansonry = () => {
     const deletar = `<svg width="20px" height="20px" viewBox="0 0 24 24"> <path d="M5.73708 6.54391V18.9857C5.73708 19.7449 6.35257 20.3604 7.11182 20.3604H16.8893C17.6485 20.3604 18.264 19.7449 18.264 18.9857V6.54391M2.90906 6.54391H21.0909" stroke="#1C1C1C" stroke-width="1.7" stroke-linecap="round"/> <path d="M8 6V4.41421C8 3.63317 8.63317 3 9.41421 3H14.5858C15.3668 3 16 3.63317 16 4.41421V6" stroke-width="2" stroke-linecap="round"/> </svg>`
@@ -23,12 +23,12 @@ const Mansonry = () => {
     const [confirmation, setConfirmation] = useState(false);
     const [delURL, setDelURL] = useState();
     const [delCat, setDelCat] = useState();
-    const [currentCategoryImages, setCurrentCategoryImages] = useState([]);
     const [currentImageIndex, setCurrentImageIndex] = useState(0); 
     const [favorite, setFavorite] = useState({});
     const [viewFavs, setViewFaves] = useState(false)
     const [openFav, setOpenFav] = useState(false)
     const [modalFav, setModalFav] = useState('')
+    const [theme, setTheme] = useState('')
 
     useEffect(() => {
         const fetchUrls = async () => {
@@ -92,11 +92,9 @@ const Mansonry = () => {
 
     const filtro = files.filter(file => file.cat.toLowerCase() === categoria);
 
-    const abrirModal = (url, categoria) => {
+    const abrirModal = (url) => {
         setModal(true);
-        setCurrentCategoryImages(categoria);
-        const clickedImageIndex = categoria.findIndex(image => image.url === url);
-        setCurrentImageIndex(clickedImageIndex);
+        setCurrentImageIndex(url);
     };
     
     const dataUpload = (hour) => new Intl.DateTimeFormat('pt','BR').format(new Date(hour))
@@ -124,77 +122,18 @@ const Mansonry = () => {
             <button className='fixed md:right-12 right-[unset] left-5 md:left-[unset] top-[17px] z-50 [&>svg_path]:fill-gray-500 dark:[&>svg_path]:fill-gray-300 hover:brightness-150 duration-100' 
                     dangerouslySetInnerHTML={{__html:saveIcon }} onClick={() => setViewFaves(true)}></button>
 
-                <div className='z-[0] slider absolute opacity-40 h-[110dvh] left-2/4 top-0 -translate-x-1/2 w-screen [&_img]:mx-auto [&_li]:h-full [&_.splide]:h-[110dvh] [&_.splide__track]:h-[110dvh]'>
-                    <Splide options={{
-                        type: 'fade',
-                        rewind: true,
-                        start: 1,
-                        pagination: false,
-                        keyboard: false,
-                        arrows: true,
-                        autoplay:false,
-                        interval:2500,
-                      }}
-                    >
-                    {filtro.map((pastinha) =>
-                        pastinha.img.map(({ url }, index) => (
-                        <SplideSlide key={index}>
-                            <img src={url} alt={`Imagem ${index}`} />
-                        </SplideSlide>
-                        ))
-                    )}
-                    </Splide>
-                </div>
-
-
             {viewFavs && 
-                <>
-                    <div className="fixed right-0 top-[5%] h-dvh w-full z-50">
-                        {openFav && 
-                            <div className='fixed top-0 left-0 bg-[#000000cc] backdrop-blur-sm z-50 w-screen h-dvh p-5'>
-                                <a onClick={() => setOpenFav(false)} 
-                                className={`bg-white w-8 h-8 rounded-full p-2 leading-none cursor-pointer absolute z-50 text-gray-900 hover:text-black md:top-10 md:right-12 top-[unset] right-[unset] left-1/2 bottom-8 md:left-[unset] md:bottom-[unset]`}>X</a>
-                                <img src={modalFav} className='w-auto h-full mx-auto rounded-lg translate-y-8' />
-                            </div>
-                        }
-
-                        <div className='dark:bg-[#3a3b3c] bg-[#dddddd] px-8 py-3 h-screen overflow-y-auto'>
-                            <div className="flex gap-3">
-                                <button onClick={() => setViewFaves(false)} className='w-5 h-5 rounded-full p-2 leading-[0] z-50 cursor-pointer'>X</button>
-                            </div>
-    
-                            <div className="flex flex-wrap gap-5 justify-stretch mx-auto py-8 fav">
-                                {Object.entries(favorite).map((item, index) => (
-            
-                                    <>
-                                    {item[1] ? 
-                                        <figure key={index} className="relative [&:has(:hover)_img]:brightness-75 duration-100 [&:has(svg:hover)_img]:brightness-50 h-full">
-    
-                                            <div className='flex gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 [scale:.8] z-10'>
-                                                <button dangerouslySetInnerHTML={{__html:deletar}} onClick={()=>favoritar(item[0])}
-                                                        className="[&>svg_path]:stroke-gray-600 [&>svg_path]:fill-none hover:[&>svg]:brightness-[5] bg-gray-300/70 backdrop-blur-sm p-1 rounded"></button>
-        
-                                                <button dangerouslySetInnerHTML={{__html:eyeIcon}} onClick={()=>favoriteModal(item[0])}
-                                                        className="[&>svg_path]:stroke-gray-600 [&>svg_path]:fill-none hover:[&>svg]:brightness-[5] bg-gray-300/70 backdrop-blur-sm p-1 rounded"></button>
-                                            </div>
-    
-                                            <img src={item[0]}  className="w-[130px] h-auto object-cover object-center rounded-md z-0 duration-150 bg-[#00000011]"/>
-                                        </figure> : ''}
-                                    </>
-                                ))
-                            }
-                            </div>
-                        </div>
-                    </div>
-                </>
+                <Favorites params={{openFav, favorite, setViewFaves, modalFav, setOpenFav, deletar, eyeIcon, favoritar, favoriteModal }} />
             }
-            <div className='mansonry mt-[35rem] z-50' key='mansonry' style={{ zIndex: modal ? 99 : 5 }}>
+
+            <div className='mansonry z-10' key='mansonry'>
                 {filtro.map((pastinha) => (
                     <span key={pastinha.cat}>
                         {pastinha.img.map(({ url, timeCreated }, index) => (
-                            <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100 grid place-items-center`} style={{ color: colors[url] }} >
+                            <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100 grid place-items-center`} 
+                                    style={{ color: colors[url] }} data-color={colors[url] + '55'} >
     
-                                {logado &&(
+                                {logado && (
                                     <button className='absolute top-1 left-1 opacity-0 z-50 shadow-sm px-1 py-1 rounded [&>svg_path]:fill-none [&>svg_path]:stroke-gray-500 hover:[&>svg_path]:fill-gray-500 duration-300' 
                                             dangerouslySetInnerHTML={{__html: deletar}} 
                                             title='deletar'
@@ -206,13 +145,7 @@ const Mansonry = () => {
                                     </button>
                                 )}
     
-                                <img className='bg z-40 animate-[scaling_.3s_forwards] opacity-0'
-                                     loading="lazy"
-                                     src={url}
-                                     style={{animationDelay:`${Math.random()*index / 5}s`}}
-                                     onClick={() => abrirModal(url, pastinha.img)}
-                                     alt={`${pastinha.cat} | BRUNO FRANCISCO`}
-                                />
+                                <img className='bg z-40 animate-[scaling_.3s_forwards] opacity-0' loading="lazy" src={url} onClick={(e) => { abrirModal(url), setTheme(e.target.closest('figure').dataset.color)} } />
                                
                                 <figcaption className='flex flex-col justify-end text-left ' >
                                     <span className='text-base text-gray-200 font-semibold leading-none'>{pastinha.cat}</span>
@@ -234,7 +167,7 @@ const Mansonry = () => {
                     </span>
                 ))}
                 {confirmation && 
-                    <div className='fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-[999999] grid place-items-center'>
+                    <div className='fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-[999999] grid place-items-center backdrop-saturate-0'>
                         <div className='flex flex-col justify-center items-center bg-gray-200/30 backdrop-blur-md rounded-xl px-10 py-5 gap-4 max-w-[300px] w-[90%] border-gray-400/60 border-2 shadow-2xl'>
                             <h2 className='font-semibold text-gray-50'>TEM CERTEZA?</h2>
                             <div className='flex justify-center items-center gap-4'>
@@ -244,21 +177,12 @@ const Mansonry = () => {
                         </div>
                     </div>
                 }
-                {modal && (
-                    <div className="fixed z-[60] w-full h-dvh backdrop-blur-md backdrop-saturate-[.1] backdrop-brightness-[.3] saturate-[1.3] left-0 top-0 grid place-items-center">
-                        <a onClick={() =>setModal(false)} 
-                            className={`bg-black w-8 h-8 rounded-full p-2 leading-none cursor-pointer absolute z-50 text-gray-300 hover:text-white md:top-10 md:right-12 top-[unset] right-[unset] left-1/2 bottom-8 md:left-[unset] md:bottom-[unset]`}>X</a>
-                        
-                        <Splide options={{type:'loop', rewind:true, start:currentImageIndex, pagination:false, keyboard:true}}>
-                            {currentCategoryImages.map(({ url }, index) => (
-                                <SplideSlide key={index}>                                  
-                                   <img src={url} alt={`Image ${index}`} className='w-auto h-[95dvh] block mx-auto rounded-3xl object-contain' />
-                                </SplideSlide>
-                            ))}
-                        </Splide>
-                    </div>
-                )}
+                
             </div>
+
+            {modal && 
+                <Modal params={{ deletar, logado, favorite, currentImageIndex, saveIcon, savedIcon, setModal, favoritar, setConfirmation, setDelURL, setDelCat, theme }}/>
+            }
         </>
     );
 };

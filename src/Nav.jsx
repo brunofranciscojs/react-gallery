@@ -24,12 +24,12 @@ export default function Nav() {
     
     return (
         <>
-            {logado && <span className='log fixed left-[18px] md:top-[14px] top-10 text-gray-600 hover:text-gray-950 cursor-pointer z-30' onClick={sair}>sair</span>}
+            {logado && <span className='log fixed right-20 md:top-[14px] top-10 text-gray-600 hover:text-gray-950 cursor-pointer z-30' onClick={sair}>sair</span>}
             {logado && <button className='log fixed right-6 top-[8px] text-gray-600 hover:text-gray-950 cursor-pointer z-30 text-2xl' onClick={() => { setupWindow(true) }}> + </button>}
             <nav>
-                <ul key='categorias' className="items-start md:items-center justify-center py-4 px-14">
+                <ul key='categorias' className="bg-white dark:bg-[#313131] items-start md:items-center justify-center mt-6 py-4 px-12 w-fit rounded-full z-50 [&:has(:not(li:hover))_li:hover]:opacity-100 [&:has(li:hover)_li]:opacity-45">
                     {nav.map((litem) => (
-                        <li key={litem} className={`${litem.split(' ').join('')} ${litem.toLowerCase() === categoria ? 'active' : ''}`}  
+                        <li key={litem} className={`${litem.split(' ').join('')} ${litem.toLowerCase() === categoria ? 'active' : ''} dark:text-gray-50 text-gray-700 dark:before:bg-[#313131] before:bg-[#fff] dark:before:border-[#313131]`}  
                             onClick={() => setCategoria(litem.toLowerCase())}>
                             {litem.toLowerCase()}
                         </li>

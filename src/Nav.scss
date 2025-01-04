@@ -14,27 +14,20 @@ nav {
         margin-inline: auto;
         align-items: flex-start;
         transition: .2s;
-        background: linear-gradient(to top, black 0%, transparent 70%);
         z-index: 999;
         flex-wrap: wrap;
 
         li {
             cursor: pointer;
-            color: #555;
             transition: .2s;
             position: relative;
             font-weight: 400;
             text-transform: lowercase;
             white-space: nowrap;
-            
-            &:hover {
-                color: #222;
-                font-weight: bold;
-            }
         }
         .active {
-            color: #222;
-            font-weight: 700;
+            opacity: 1;
+            text-decoration: overline;
         }
         .jogos {
             &:hover::before {
@@ -47,8 +40,6 @@ nav {
                 position: absolute;
                 bottom: -30px;
                 width: auto;
-                background: #fff;
-                border: 1px solid #ccc;
                 left: -30px;
                 padding: 0px 7px;
                 font-weight: 400;
