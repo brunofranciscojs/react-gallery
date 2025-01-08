@@ -30,48 +30,65 @@ const Mansonry = () => {
     const [modalFav, setModalFav] = useState('')
     const [theme, setTheme] = useState('')
 
+    
     useEffect(() => {
         const fetchUrls = async () => {
-            const raizDB = await listAll(ref(images, '/'));
-            const pastas = raizDB.prefixes.map((folderRef) => folderRef);
-            const fetch = pastas.map(async (folderRef) => {
-                const pasta = ref(images, folderRef.fullPath);
-                const arquivos = await listAll(pasta);
-                const urlsWithMetadata = await Promise.all(
-                    arquivos.items.map(async (itemRef) => {
-                        const url = await getDownloadURL(itemRef);
-                        const metadata = await getMetadata(itemRef);
-                        return { url, timeCreated: metadata.timeCreated };
+            try {
+                const raizDB = await listAll(ref(images, '/'));
+                const pastas = raizDB.prefixes.map((folderRef) => folderRef);
+
+                const fetchPromises = pastas.map(async (folderRef) => {
+                    const pasta = ref(images, folderRef.fullPath);
+                    const arquivos = await listAll(pasta);
+
+                    const urlsWithMetadata = await Promise.all(
+                        arquivos.items.map(async (itemRef) => {
+                            const url = await getDownloadURL(itemRef);
+                            const metadata = await getMetadata(itemRef);
+                            return { url, timeCreated: metadata.timeCreated };
+                        })
+                    );
+
+                    urlsWithMetadata.sort((a, b) => new Date(b.timeCreated) - new Date(a.timeCreated));
+
+                    return { cat: folderRef.fullPath, img: urlsWithMetadata };
+                });
+
+                const imagens = await Promise.all(fetchPromises);
+
+                setFiles(imagens);
+
+                const corDominante = new FastAverageColor();
+                const colorPromises = imagens.flatMap(pasta =>
+                    pasta.img.map(async ({ url }) => {
+                        try {
+                            const color = await corDominante.getColorAsync(url);
+                            return { url, color: color.hex };
+                        } catch (error) {
+                            console.error(`Erro ao calcular cor para ${url}:`, error);
+                            return { url, color: "#FFFFFF" }; 
+                        }
                     })
                 );
-                return { cat: folderRef._location.path_, img: urlsWithMetadata };
-            });
-            const imagens = await Promise.all(fetch);
 
-            imagens.forEach(pasta => {
-                pasta.img.sort((a, b) => new Date(b.timeCreated) - new Date(a.timeCreated));
-            });
+                const cores = await Promise.all(colorPromises);
+                const mapaCores = cores.reduce((acc, { url, color }) => {
+                    acc[url] = color;
+                    return acc;
+                }, {});
 
-            setFiles(imagens);
-           
-            const corDominante = new FastAverageColor();
-            const colorPromises = imagens.flatMap(pasta =>
-                pasta.img.map(async ({ url }) => {
-                    const color = await corDominante.getColorAsync(url);
-                    return { url, color: color.hex };
-                })
-            );
-            const cores = await Promise.all(colorPromises);
-            const mapaCores = cores.reduce((acc, { url, color }) => {
-                acc[url] = color;
-                return acc;
-            }, {});
-            setColors(mapaCores);
+                setColors(mapaCores);
+
+            } catch (error) {
+                console.error("Erro ao buscar URLs ou metadados:", error);
+            }
         };
+
         fetchUrls();
     }, []);
 
-    
+
+
     useEffect(() => {
         const escFunction = (event) => { if (event.code === 'Escape') { setModal(false) }}
         document.addEventListener('keydown', escFunction);
@@ -123,15 +140,16 @@ const Mansonry = () => {
                     dangerouslySetInnerHTML={{__html:saveIcon }} onClick={() => setViewFaves(true)}></button>
 
             {viewFavs && 
-                <Favorites params={{openFav, favorite, setViewFaves, modalFav, setOpenFav, deletar, eyeIcon, favoritar, favoriteModal }} />
+                <Favorites params={{openFav, favorite, setViewFaves, modalFav, setOpenFav, deletar, eyeIcon, favoritar, favoriteModal, loadSpin }} />
             }
 
             <div className='mansonry z-10' key='mansonry'>
                 {filtro.map((pastinha) => (
                     <span key={pastinha.cat}>
                         {pastinha.img.map(({ url, timeCreated }, index) => (
+
                             <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100 grid place-items-center`} 
-                                    style={{ color: colors[url] }} data-color={colors[url] + '55'} >
+                                    style={{ color: colors[url] }} data-color={`${colors[url]}75`} >
     
                                 {logado && (
                                     <button className='absolute top-1 left-1 opacity-0 z-50 shadow-sm px-1 py-1 rounded [&>svg_path]:fill-none [&>svg_path]:stroke-gray-500 hover:[&>svg_path]:fill-gray-500 duration-300' 
@@ -144,9 +162,16 @@ const Mansonry = () => {
                                             }}>
                                     </button>
                                 )}
-    
-                                <img className='bg z-40 animate-[scaling_.3s_forwards] opacity-0' loading="lazy" src={url} onClick={(e) => { abrirModal(url), setTheme(e.target.closest('figure').dataset.color)} } />
-                               
+
+                                <img
+                                    src={url}
+                                    style={{ transitionDelay: `${index * 35}ms` }}
+                                    onClick={(e) => {
+                                        abrirModal(url);
+                                        setTheme(e.target.closest('figure').dataset.color);
+                                    }}
+                                />
+
                                 <figcaption className='flex flex-col justify-end text-left ' >
                                     <span className='text-base text-gray-200 font-semibold leading-none'>{pastinha.cat}</span>
                                     <time className='text-[.6rem] text-gray-300 leading-none'>enviado: {dataUpload(timeCreated)}</time>
@@ -166,6 +191,7 @@ const Mansonry = () => {
                         
                     </span>
                 ))}
+                
                 {confirmation && 
                     <div className='fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-[999999] grid place-items-center backdrop-saturate-0'>
                         <div className='flex flex-col justify-center items-center bg-gray-200/30 backdrop-blur-md rounded-xl px-10 py-5 gap-4 max-w-[300px] w-[90%] border-gray-400/60 border-2 shadow-2xl'>
@@ -179,9 +205,9 @@ const Mansonry = () => {
                 }
                 
             </div>
-
+        
             {modal && 
-                <Modal params={{ deletar, logado, favorite, currentImageIndex, saveIcon, savedIcon, setModal, favoritar, setConfirmation, setDelURL, setDelCat, theme }}/>
+                <Modal params={{ deletar, logado, favorite, currentImageIndex, saveIcon, savedIcon, setModal, favoritar, setConfirmation, setDelURL, setDelCat, theme, loadSpin, modal }}/>
             }
         </>
     );

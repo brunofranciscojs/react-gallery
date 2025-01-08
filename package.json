@@ -15,6 +15,8 @@
     "compressorjs": "^1.2.1",
     "fast-average-color": "^9.4.0",
     "firebase": "^10.0.0",
+    "node-fetch": "^3.3.2",
+    "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",

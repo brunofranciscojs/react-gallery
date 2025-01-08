@@ -8,6 +8,15 @@ export default defineConfig({
     exclude: ['js-big-decimal'],
     include: ['fast-average-color'],
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://vjjm30byfc5nljjh.public.blob.vercel-storage.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
   build: {
     rollupOptions: {
       output: {

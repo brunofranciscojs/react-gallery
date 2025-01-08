@@ -2,7 +2,7 @@ export default function Modal({params:{deletar, logado, favorite, currentImageIn
 
     return (
         
-            <div className="fixed z-[60] w-full h-dvh backdrop-blur-md backdrop-saturate-[.1] backdrop-brightness-[.3] saturate-[1.3] left-0 top-0 grid place-items-center" style={{background: theme}}>
+            <div className="fixed z-[60] w-full h-dvh backdrop-blur-md backdrop-brightness-[.2] saturate-[1.3] left-0 top-0 grid place-items-center" style={{background:theme}}>
                 <div className='absolute bottom-16 backdrop-blur-sm flex justify-center'>
                     {logado && (
                         <button className='absolute top-1 left-1 opacity-1 z-50 shadow-sm px-1 py-1 rounded [&>svg_path]:fill-none [&>svg_path]:stroke-gray-50 hover:[&>svg_path]:fill-gray-500 duration-300' 

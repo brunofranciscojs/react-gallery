@@ -1,15 +1,12 @@
+import Modal from "./Modal"
 
 
-export default function Favorites({params:{openFav, favorite, setViewFaves, modalFav, setOpenFav, deletar, eyeIcon, favoritar, favoriteModal }}){
+export default function Favorites({params:{openFav,modal, favorite, setViewFaves, modalFav, loadSpin, setOpenFav, deletar, eyeIcon, favoriteModal, logado, currentImageIndex, saveIcon, savedIcon, setModal, setConfirmation,setDelURL, setDelCat, favoritar, theme  }}){
     return(
  
                 <div className="fixed right-0 top-0 h-dvh w-full z-50 backdrop-blur-md backdrop-saturate-0">
-                    {openFav && 
-                        <div className='fixed top-0 left-0 bg-[#000000cc] backdrop-blur-sm z-50 w-screen h-dvh p-5'>
-                            <a onClick={() => setOpenFav(false)} 
-                            className={`bg-white w-8 h-8 rounded-full p-2 leading-none cursor-pointer absolute z-50 text-gray-900 hover:text-black md:top-10 md:right-12 top-[unset] right-[unset] left-1/2 bottom-8 md:left-[unset] md:bottom-[unset]`}>X</a>
-                            <img src={modalFav} className='w-auto h-full mx-auto rounded-lg translate-y-8' />
-                        </div>
+                    {modal && 
+                        <Modal params={{ setDelURL,favoriteModal, setDelCat, favoritar, setConfirmation, logado, favorite, currentImageIndex, saveIcon, savedIcon, favoritar, setConfirmation, setDelURL, theme, loadSpin, modalFav, deletar, setModal }}/>
                     }
 
                     <div className='dark:bg-[#131313aa] bg-[#dddddd] px-8 py-3 h-screen overflow-y-auto'>
@@ -28,7 +25,7 @@ export default function Favorites({params:{openFav, favorite, setViewFaves, moda
                                             <button dangerouslySetInnerHTML={{__html:deletar}} onClick={()=> favoritar(item[0]) }
                                                     className="[&>svg_path]:stroke-gray-600 [&>svg_path]:fill-none hover:[&>svg]:brightness-[5] bg-gray-300/70 backdrop-blur-sm p-1 rounded"></button>
     
-                                            <button dangerouslySetInnerHTML={{__html:eyeIcon}} onClick={()=> favoriteModal(item[0]) }
+                                            <button dangerouslySetInnerHTML={{__html:eyeIcon}} onClick={()=> (favoriteModal(item[0]), setModal(item[0])) }
                                                     className="[&>svg_path]:stroke-gray-600 [&>svg_path]:fill-none hover:[&>svg]:brightness-[5] bg-gray-300/70 backdrop-blur-sm p-1 rounded"></button>
                                         </div>
 
