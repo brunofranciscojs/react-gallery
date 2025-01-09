@@ -7,6 +7,7 @@ import './mansonry.css';
 import useAuth from './hooks/useAuth.jsx'
 import Modal from './components/Modal.jsx';
 import Favorites from './components/Favorites.jsx';
+import Figure from './components/Figure.jsx';
 
 const Mansonry = () => {
     const deletar = `<svg width="20px" height="20px" viewBox="0 0 24 24"> <path d="M5.73708 6.54391V18.9857C5.73708 19.7449 6.35257 20.3604 7.11182 20.3604H16.8893C17.6485 20.3604 18.264 19.7449 18.264 18.9857V6.54391M2.90906 6.54391H21.0909" stroke="#1C1C1C" stroke-width="1.7" stroke-linecap="round"/> <path d="M8 6V4.41421C8 3.63317 8.63317 3 9.41421 3H14.5858C15.3668 3 16 3.63317 16 4.41421V6" stroke-width="2" stroke-linecap="round"/> </svg>`
@@ -28,67 +29,42 @@ const Mansonry = () => {
     const [viewFavs, setViewFaves] = useState(false)
     const [openFav, setOpenFav] = useState(false)
     const [modalFav, setModalFav] = useState('')
-    const [theme, setTheme] = useState('')
 
-    
+
+
     useEffect(() => {
         const fetchUrls = async () => {
             try {
+                const cacheKey = "cacheImagens";            
                 const raizDB = await listAll(ref(images, '/'));
                 const pastas = raizDB.prefixes.map((folderRef) => folderRef);
-
+    
                 const fetchPromises = pastas.map(async (folderRef) => {
                     const pasta = ref(images, folderRef.fullPath);
                     const arquivos = await listAll(pasta);
-
-                    const urlsWithMetadata = await Promise.all(
+    
+                    const urls = await Promise.all(
                         arquivos.items.map(async (itemRef) => {
                             const url = await getDownloadURL(itemRef);
-                            const metadata = await getMetadata(itemRef);
-                            return { url, timeCreated: metadata.timeCreated };
+                            return { url };
                         })
                     );
-
-                    urlsWithMetadata.sort((a, b) => new Date(b.timeCreated) - new Date(a.timeCreated));
-
-                    return { cat: folderRef.fullPath, img: urlsWithMetadata };
+                    return { cat: folderRef.fullPath, img: urls };
                 });
-
+    
                 const imagens = await Promise.all(fetchPromises);
-
+                localStorage.setItem(cacheKey, JSON.stringify(imagens));
+    
                 setFiles(imagens);
-
-                const corDominante = new FastAverageColor();
-                const colorPromises = imagens.flatMap(pasta =>
-                    pasta.img.map(async ({ url }) => {
-                        try {
-                            const color = await corDominante.getColorAsync(url);
-                            return { url, color: color.hex };
-                        } catch (error) {
-                            console.error(`Erro ao calcular cor para ${url}:`, error);
-                            return { url, color: "#FFFFFF" }; 
-                        }
-                    })
-                );
-
-                const cores = await Promise.all(colorPromises);
-                const mapaCores = cores.reduce((acc, { url, color }) => {
-                    acc[url] = color;
-                    return acc;
-                }, {});
-
-                setColors(mapaCores);
-
+    
             } catch (error) {
                 console.error("Erro ao buscar URLs ou metadados:", error);
             }
         };
-
         fetchUrls();
     }, []);
-
-
-
+    
+    
     useEffect(() => {
         const escFunction = (event) => { if (event.code === 'Escape') { setModal(false) }}
         document.addEventListener('keydown', escFunction);
@@ -108,14 +84,11 @@ const Mansonry = () => {
     };
 
     const filtro = files.filter(file => file.cat.toLowerCase() === categoria);
-
     const abrirModal = (url) => {
         setModal(true);
         setCurrentImageIndex(url);
     };
     
-    const dataUpload = (hour) => new Intl.DateTimeFormat('pt','BR').format(new Date(hour))
-
     useEffect(() => {
         const favoritados = JSON.parse(localStorage.getItem('favoritos')) || {};
         setFavorite(favoritados);
@@ -148,45 +121,22 @@ const Mansonry = () => {
                     <span key={pastinha.cat}>
                         {pastinha.img.map(({ url, timeCreated }, index) => (
 
-                            <figure key={index} className={`item ${pastinha.cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100 grid place-items-center`} 
-                                    style={{ color: colors[url] }} data-color={`${colors[url]}75`} >
-    
-                                {logado && (
-                                    <button className='absolute top-1 left-1 opacity-0 z-50 shadow-sm px-1 py-1 rounded [&>svg_path]:fill-none [&>svg_path]:stroke-gray-500 hover:[&>svg_path]:fill-gray-500 duration-300' 
-                                            dangerouslySetInnerHTML={{__html: deletar}} 
-                                            title='deletar'
-                                            onClick={() => { 
-                                                setConfirmation(true), 
-                                                setDelURL(url), 
-                                                setDelCat(pastinha.cat) 
-                                            }}>
-                                    </button>
-                                )}
-
-                                <img
-                                    src={url}
-                                    style={{ transitionDelay: `${index * 35}ms` }}
-                                    onClick={(e) => {
-                                        abrirModal(url);
-                                        setTheme(e.target.closest('figure').dataset.color);
-                                    }}
-                                />
-
-                                <figcaption className='flex flex-col justify-end text-left ' >
-                                    <span className='text-base text-gray-200 font-semibold leading-none'>{pastinha.cat}</span>
-                                    <time className='text-[.6rem] text-gray-300 leading-none'>enviado: {dataUpload(timeCreated)}</time>
-                                </figcaption>
-    
-                                {favorite[url] && <button dangerouslySetInnerHTML={{__html:saveIcon}}
-                                        className='[&>svg_path]:fill-gray-500 hover:brightness-150 duration-100 z-50 absolute top-2 right-2'
-                                        onClick={() => favoritar(url)}>
-                                </button>}
-
-                                {!favorite[url] && <button dangerouslySetInnerHTML={{__html:savedIcon}}
-                                        className='[&>svg_path]:stroke-gray-500 [&>svg_path]:fill-none hover:brightness-150 duration-100 z-50 absolute top-2 right-2'
-                                        onClick={() => favoritar(url)}>
-                                </button>}
-                            </figure>
+                            <Figure 
+                                url={url} 
+                                cat={pastinha.cat} 
+                                colors={colors} 
+                                logado={logado} 
+                                favoritar={favoritar} 
+                                favorite={favorite} 
+                                abrirModal={abrirModal} 
+                                deletar={deletar} 
+                                setConfirmation={setConfirmation} 
+                                setDelURL={setDelURL} 
+                                setDelCat={setDelCat} 
+                                index={index} 
+                                saveIcon={saveIcon} 
+                                savedIcon={savedIcon} 
+                            />
                         ))}
                         
                     </span>
@@ -207,7 +157,7 @@ const Mansonry = () => {
             </div>
         
             {modal && 
-                <Modal params={{ deletar, logado, favorite, currentImageIndex, saveIcon, savedIcon, setModal, favoritar, setConfirmation, setDelURL, setDelCat, theme, loadSpin, modal }}/>
+                <Modal params={{ deletar, logado, favorite, currentImageIndex, saveIcon, savedIcon, setModal, favoritar, setConfirmation, setDelURL, setDelCat, loadSpin, modal }}/>
             }
         </>
     );

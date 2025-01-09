@@ -1,5 +1,5 @@
-export default function Figure({ url, cat, colors, timeCreated, logado, favoritar, favorite, abrirModal, deletar, setConfirmation, setDelURL, setDelCat, cachedImages, index, saveIcon, dataUpload, savedIcon }) {
-    const cachedImage = cachedImages[url];
+export default function Figure({ url, cat, colors, timeCreated, logado, favoritar, favorite, abrirModal, deletar, setConfirmation, setDelURL, setDelCat, index, saveIcon, dataUpload, savedIcon }) {
+
     return (
         <figure
             className={`item ${cat.toLowerCase()} [&:has(img:hover)_button]:opacity-100 [&:has(button:hover)_button]:opacity-100 grid place-items-center`}
@@ -19,24 +19,15 @@ export default function Figure({ url, cat, colors, timeCreated, logado, favorita
                 ></button>
             )}
 
-            {cachedImage ? (
-                <img
-                    src={cachedImage}
-                    style={{ transitionDelay: `${index * 35}ms` }}
-                    onClick={(e) => {
-                        abrirModal(url);
-                        setTheme(e.target.closest('figure').dataset.color);
-                    }}
-                />
-            ) : (
-                <div className="placeholder-loading"></div>
-            )}
+            <img
+                src={url}
+                style={{ transitionDelay: `${index * 35}ms` }}
+                onClick={() => abrirModal(url) }
+            />
 
             <figcaption className='flex flex-col justify-end text-left '>
                 <span className='text-base text-gray-200 font-semibold leading-none'>{cat}</span>
-                <time className='text-[.6rem] text-gray-300 leading-none'>
-                    enviado: {dataUpload(timeCreated)}
-                </time>
+
             </figcaption>
 
             {favorite[url] ? (
