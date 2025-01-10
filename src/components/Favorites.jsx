@@ -6,7 +6,7 @@ export default function Favorites({params:{openFav,modal, favorite, setViewFaves
  
                 <div className="fixed right-0 top-0 h-dvh w-full z-50 backdrop-blur-md backdrop-saturate-0">
                     {modal && 
-                        <Modal params={{ setDelURL,favoriteModal, setDelCat, favoritar, setConfirmation, logado, favorite, currentImageIndex, saveIcon, savedIcon, favoritar, setConfirmation, setDelURL, theme, loadSpin, modalFav, deletar, setModal }}/>
+                        <Modal params={{ setDelURL,favoriteModal, setDelCat, setConfirmation, logado, favorite, currentImageIndex, saveIcon, savedIcon, favoritar, setConfirmation, setDelURL, theme, loadSpin, modalFav, deletar, setModal }}/>
                     }
 
                     <div className='dark:bg-[#131313aa] bg-[#dddddd] px-8 py-3 h-screen overflow-y-auto'>

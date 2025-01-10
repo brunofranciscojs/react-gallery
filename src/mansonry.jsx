@@ -53,9 +53,12 @@ const Mansonry = () => {
                 });
     
                 const imagens = await Promise.all(fetchPromises);
-                localStorage.setItem(cacheKey, JSON.stringify(imagens));
-    
-                setFiles(imagens);
+                const sortedImagens = imagens.map(folder => ({
+                    ...folder,
+                    img: folder.img.sort((a, b) => b.url.localeCompare(a.url))
+                }));
+                localStorage.setItem(cacheKey, JSON.stringify(sortedImagens));
+                setFiles(sortedImagens);
     
             } catch (error) {
                 console.error("Erro ao buscar URLs ou metadados:", error);
