@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getDownloadURL, listAll, ref, getMetadata, deleteObject } from "firebase/storage";
 import { images } from './firebaseData.jsx';
-import { FastAverageColor } from 'fast-average-color';
 import { useCategoria } from "./Context.jsx";
 import './mansonry.css';
 import useAuth from './hooks/useAuth.jsx'
 import Modal from './components/Modal.jsx';
-import Favorites from './components/Favorites.jsx';
 import Figure from './components/Figure.jsx';
 
 const Mansonry = () => {
