@@ -22,7 +22,7 @@ body{
 
                before:content-[''] before:block before:absolute before:w-0 before:h-full before:left-0 
                before:top-0 before:z-50 before:opacity-0 before:-skew-x-[35deg] before:saturate-[3] 
-               before:[box-shadow:0_0_25px_10px_#ffffff77] md:before:[box-shadow:0_0_25px_10px_currentColor];
+               before:[box-shadow:0_0_25px_10px_#ffffff77] md:before:[box-shadow:0_0_25px_10px_#ffffff77];
 
         img {
             @apply [grid-row:1/-1] [grid-column:1] max-w-full block duration-100 rounded-xl relative bg-[#00000011] hover:scale-105 
