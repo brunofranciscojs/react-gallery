@@ -121,7 +121,7 @@ const Mansonry = () => {
                 }
             {modal && filtro.map((pastinha, index) => (
                 <Modal params={{ pastinha, deletar, logado, currentImageIndex, saveIcon, savedIcon, setModal, setConfirmation, setDelURL, setDelCat, loadSpin, modal }} key='asd'/>
-                ))
+              ))
             }
         </>
     );

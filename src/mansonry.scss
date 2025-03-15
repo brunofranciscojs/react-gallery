@@ -17,7 +17,7 @@ body{
     > span:not(.todos){ @apply block mb-10 }
 
     figure {
-        @apply m-0 [grid-template-rows:1fr_auto] mb-10 break-inside-avoid relative rounded-xl duration-200 cursor-pointer overflow-hidden backdrop-blur-xl
+        @apply m-0 [grid-template-rows:1fr_auto] mb-10 break-inside-avoid relative rounded-xl duration-200 cursor-pointer overflow-hidden backdrop-blur-md
                [&:hover:before]:animate-[shine_0.4s_forwards] sm:[&:hover:before]:mix-blend-plus-lighter grid
 
                before:content-[''] before:block before:absolute before:w-0 before:h-full before:left-0 
