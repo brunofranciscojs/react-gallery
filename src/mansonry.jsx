@@ -6,8 +6,6 @@ import './mansonry.css';
 import useAuth from './hooks/useAuth.jsx'
 import Modal from './components/Modal.jsx';
 import Figure from './components/Figure.jsx';
-import { FastAverageColor } from "fast-average-color";
-
 
 const Mansonry = () => {
     const { categoria } = useCategoria();
@@ -18,14 +16,16 @@ const Mansonry = () => {
     const [delURL, setDelURL] = useState();
     const [delCat, setDelCat] = useState();
     const [currentImageIndex, setCurrentImageIndex] = useState(0); 
-    const [colors, setColors] = useState({})
 
     useEffect(() => {
         const fetchUrls = async () => {
+            const cacheKey = "cacheImagens";        
+            const cachedData = localStorage.getItem(cacheKey);
+            let cachedFiles = cachedData ? JSON.parse(cachedData) : null;
+    
             try {
-                const cacheKey = "cacheImagens";            
                 const raizDB = await listAll(ref(images, '/'));
-                const pastas = raizDB.prefixes.map((folderRef) => folderRef);
+                const pastas = raizDB.prefixes;
     
                 const fetchPromises = pastas.map(async (folderRef) => {
                     const pasta = ref(images, folderRef.fullPath);
@@ -40,71 +40,35 @@ const Mansonry = () => {
                             return { url, timeCreated: new Date(metadata.timeCreated) };
                         })
                     );
-                        urls.sort((a, b) => b.timeCreated - a.timeCreated);
     
+                    urls.sort((a, b) => b.timeCreated - a.timeCreated);
                     return { cat: folderRef.fullPath, img: urls };
                 });
     
                 const imagens = await Promise.all(fetchPromises);
-                localStorage.setItem(cacheKey, JSON.stringify(imagens));
-                setFiles(imagens);
+    
+                if (!cachedFiles || JSON.stringify(cachedFiles) !== JSON.stringify(imagens)) {
+                    localStorage.setItem(cacheKey, JSON.stringify(imagens));
+                    setFiles(imagens);
+                } else {
+                    setFiles(cachedFiles);
+                }
     
             } catch (error) {
-                console.error("Erro ao buscar URLs ou metadados:", error);
+                console.error("Erro ao buscar imagens:", error);
+                fetchFromCacheFile();
             }
         };
     
-        fetchUrls();
-    }, []);
-
-    
-    useEffect(() => {
-        const fetchUrls = async () => {
-
-            const cacheKey = "cacheImagens";            
-            const raizDB = await listAll(ref(images, '/'));
-            const pastas = raizDB.prefixes.map((folderRef) => folderRef);
-
-            const fetchPromises = pastas.map(async (folderRef) => {
-                const pasta = ref(images, folderRef.fullPath);
-                const arquivos = await listAll(pasta);
-
-                const urls = await Promise.all(
-                    arquivos.items.map(async (itemRef) => {
-                        const [url, metadata] = await Promise.all([
-                            getDownloadURL(itemRef),
-                            getMetadata(itemRef)
-                        ]);
-                        return { url, timeCreated: new Date(metadata.timeCreated) };
-                    })
-                );
-                urls.sort((a, b) => b.timeCreated - a.timeCreated);
-
-                return { cat: folderRef.fullPath, img: urls };
-            });
-
-            const imagens = await Promise.all(fetchPromises);
-            localStorage.setItem(cacheKey, JSON.stringify(imagens));
-            setFiles(imagens);
-
-            const corDominante = new FastAverageColor();
-            const colorPromises = imagens.flatMap(pasta =>
-                pasta.img.map(async ({ url }) => {
-                    const color = await corDominante.getColorAsync(url);
-                    return { url, color: color.hex };
-                })
-            );
-
-            const cores = await Promise.all(colorPromises);
-            const mapaCores = cores.reduce((acc, { url, color }) => {
-                acc[url] = color;
-                return acc;
-            }, {});
-
-            setColors(mapaCores);
-
+        const fetchFromCacheFile = async () => {
+            try {
+                const response = await fetch('./src/assets/cache.json');
+                const result = await response.json();
+                setFiles(result);
+            } catch (error) {
+                console.error("Erro ao carregar cache.json:", error);
+            }
         };
-    
         fetchUrls();
     }, []);
     
@@ -115,6 +79,7 @@ const Mansonry = () => {
         return () => document.removeEventListener('keydown', escFunction);
     }, []);
 
+    
     const excluirImg = async (url, categoria) => {
         const itemRef = ref(images, url);
         await deleteObject(itemRef);
@@ -149,7 +114,6 @@ const Mansonry = () => {
                                 setDelURL={setDelURL} 
                                 setDelCat={setDelCat} 
                                 key={index} 
-                                cor={colors[url]}
                             />
                         ))}
                         
