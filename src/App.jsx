@@ -1,11 +1,9 @@
-import {useEffect} from "react";
 import './App.css';
 import Nav from './Nav.jsx';
 import Mansonry from './mansonry';
-import fluidCursor from './use-FluidCursor.jsx';
 
 export default function App() {
-  useEffect(() => fluidCursor(), [])
+
   return (
     <div className="App">
 

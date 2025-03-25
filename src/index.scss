@@ -4,7 +4,7 @@
 
 @media (prefers-color-scheme: dark) {
   body{
-    background: #3A3B3C;
+    @apply bg-[#1A1B1C];
   }
 
   .presentation{
