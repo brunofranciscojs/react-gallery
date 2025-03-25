@@ -26,7 +26,7 @@ const Mansonry = () => {
                 setFiles(JSON.parse(cachedData));
                 return;
             }
-
+    
             const raizDB = await listAll(ref(images, '/'));
             const pastas = raizDB.prefixes;
 
@@ -61,7 +61,6 @@ const Mansonry = () => {
         return () => document.removeEventListener('keydown', escFunction);
     }, []);
 
-    
     const excluirImg = async (url, categoria) => {
         const itemRef = ref(images, url);
         await deleteObject(itemRef);
