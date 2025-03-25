@@ -21,57 +21,39 @@ const Mansonry = () => {
         const fetchUrls = async () => {
             const cacheKey = "cacheImagens";        
             const cachedData = localStorage.getItem(cacheKey);
-            let cachedFiles = cachedData ? JSON.parse(cachedData) : null;
     
-            try {
-                const raizDB = await listAll(ref(images, '/'));
-                const pastas = raizDB.prefixes;
-    
-                const fetchPromises = pastas.map(async (folderRef) => {
-                    const pasta = ref(images, folderRef.fullPath);
-                    const arquivos = await listAll(pasta);
-    
-                    const urls = await Promise.all(
-                        arquivos.items.map(async (itemRef) => {
-                            const [url, metadata] = await Promise.all([
-                                getDownloadURL(itemRef),
-                                getMetadata(itemRef)
-                            ]);
-                            return { url, timeCreated: new Date(metadata.timeCreated) };
-                        })
-                    );
-    
-                    urls.sort((a, b) => b.timeCreated - a.timeCreated);
-                    return { cat: folderRef.fullPath, img: urls };
-                });
-    
-                const imagens = await Promise.all(fetchPromises);
-    
-                if (!cachedFiles || JSON.stringify(cachedFiles) !== JSON.stringify(imagens)) {
-                    localStorage.setItem(cacheKey, JSON.stringify(imagens));
-                    setFiles(imagens);
-                } else {
-                    setFiles(cachedFiles);
-                }
-    
-            } catch (error) {
-                console.error("Erro ao buscar imagens:", error);
-                fetchFromCacheFile();
+            if (cachedData) {
+                setFiles(JSON.parse(cachedData));
+                return;
             }
-        };
-    
-        const fetchFromCacheFile = async () => {
-            try {
-                const response = await fetch('./src/assets/cache.json');
-                const result = await response.json();
-                setFiles(result);
-            } catch (error) {
-                console.error("Erro ao carregar cache.json:", error);
-            }
+
+            const raizDB = await listAll(ref(images, '/'));
+            const pastas = raizDB.prefixes;
+
+            const fetchPromises = pastas.map(async (folderRef) => {
+                const pasta = ref(images, folderRef.fullPath);
+                const arquivos = await listAll(pasta);
+
+                const urls = await Promise.all(
+                    arquivos.items.map(async (itemRef) => {
+                        const [url, metadata] = await Promise.all([
+                            getDownloadURL(itemRef),
+                            getMetadata(itemRef)
+                        ]);
+                        return { url, timeCreated: new Date(metadata.timeCreated) };
+                    })
+                );
+
+                urls.sort((a, b) => b.timeCreated - a.timeCreated);
+                return { cat: folderRef.fullPath, img: urls };
+            });
+
+            const imagens = await Promise.all(fetchPromises);
+            localStorage.setItem(cacheKey, JSON.stringify(imagens));
+            setFiles(imagens);
         };
         fetchUrls();
     }, []);
-    
     
     useEffect(() => {
         const escFunction = (event) => { if (event.code === 'Escape') { setModal(false) }}
