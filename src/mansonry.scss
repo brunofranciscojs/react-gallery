@@ -3,7 +3,7 @@ body{
 }
 .mansonry {
 
-    @apply relative columns-8 gap-x-12 [&:has(figure:not(:hover))_figure:hover]:opacity-100 [&:has(figure:hover)_figure]:opacity-70;
+    @apply relative columns-8 gap-x-12 [&:has(figure:not(:hover))_figure:hover]:opacity-100 [&:has(figure:hover)_figure]:opacity-50;
 
     @media screen and (max-width:1920px) {column-gap: 30px;}
     @media screen and (max-width:1720px) {column-count: 7; }
@@ -18,7 +18,7 @@ body{
         @apply m-0 [grid-template-rows:1fr_auto] mb-10 break-inside-avoid relative rounded-xl duration-200 cursor-pointer overflow-hidden backdrop-blur-md grid;
 
         img {
-            @apply [grid-row:1/-1] [grid-column:1] max-w-full block duration-100 rounded-xl relative bg-[#00000011]
+            @apply [grid-row:1/-1] [grid-column:1] max-w-full block duration-200 transition-all rounded-xl relative bg-[#00000011]
         }
 
         figcaption {

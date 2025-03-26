@@ -6,6 +6,7 @@ import './mansonry.css';
 import useAuth from './hooks/useAuth.jsx'
 import Modal from './components/Modal.jsx';
 import Figure from './components/Figure.jsx';
+import { openDB } from "idb";
 
 const Mansonry = () => {
     const { categoria } = useCategoria();
@@ -19,15 +20,19 @@ const Mansonry = () => {
 
     useEffect(() => {
         const fetchUrls = async () => {
-            const cacheKey = "cacheImagens";        
+            const cacheKey = "cacheImagens";
             const cachedData = localStorage.getItem(cacheKey);
-    
+
             if (cachedData) {
                 setFiles(JSON.parse(cachedData));
-                return;
             }
-    
-            const raizDB = await listAll(ref(images, '/'));
+
+            const imagensDB = await getImagesFromIndexedDB();
+            if (imagensDB.length > 0) {
+                setFiles(imagensDB);
+            }
+
+            const raizDB = await listAll(ref(images, "/"));
             const pastas = raizDB.prefixes;
 
             const fetchPromises = pastas.map(async (folderRef) => {
@@ -38,7 +43,7 @@ const Mansonry = () => {
                     arquivos.items.map(async (itemRef) => {
                         const [url, metadata] = await Promise.all([
                             getDownloadURL(itemRef),
-                            getMetadata(itemRef)
+                            getMetadata(itemRef),
                         ]);
                         return { url, timeCreated: new Date(metadata.timeCreated) };
                     })
@@ -49,12 +54,33 @@ const Mansonry = () => {
             });
 
             const imagens = await Promise.all(fetchPromises);
+
+            saveImagesToIndexedDB(imagens);
             localStorage.setItem(cacheKey, JSON.stringify(imagens));
             setFiles(imagens);
         };
+
         fetchUrls();
     }, []);
-    
+
+    const saveImagesToIndexedDB = async (imagens) => {
+        const db = await openDB("imagensDB", 1, {
+            upgrade(db) {
+                db.createObjectStore("imagens", { keyPath: "cat" });
+            },
+        });
+
+        for (const pasta of imagens) {
+            await db.put("imagens", pasta);
+        }
+    };
+
+    const getImagesFromIndexedDB = async () => {
+        const db = await openDB("imagensDB", 1);
+        return await db.getAll("imagens");
+    };
+
+
     useEffect(() => {
         const escFunction = (event) => { if (event.code === 'Escape') { setModal(false) }}
         document.addEventListener('keydown', escFunction);

@@ -17,7 +17,7 @@ export default function Figure({ url, cat, logado, abrirModal, setConfirmation, 
                 </button>
             )}
 
-            <img src={url} style={{ transitionDelay: `${index * 35}ms` }} onClick={() => abrirModal(url) } />
+            <img src={url} style={{ transitionDelay: `${index * 35}ms` }} onClick={() => abrirModal(url) } loading="lazy" decoding="async"/>
 
             <figcaption className='flex flex-col justify-end text-left '>
                 <span className='text-base text-gray-200 font-semibold leading-none'>
