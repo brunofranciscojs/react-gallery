@@ -1,1 +1,1 @@
-@tailwind base;@tailwind components;@tailwind utilities;@media(prefers-color-scheme: dark){body{@apply bg-[#1A1B1C]}.presentation{background:rgba(0,0,0,0);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}.presentation h1,.presentation span{color:#cecece !important}.presentation div{color:#434343 !important}.log{color:#eee}.placeholder{background:linear-gradient(90deg, #4e4e4e 25%, #2e2e2e 50%, #4e4e4e 75%)}}
+@tailwind base;@tailwind components;@tailwind utilities

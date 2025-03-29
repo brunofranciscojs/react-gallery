@@ -3,7 +3,7 @@ body{
 }
 .mansonry {
 
-    @apply relative columns-8 gap-x-12 [&:has(figure:not(:hover))_figure:hover]:opacity-100 [&:has(figure:hover)_figure]:opacity-50;
+    @apply relative columns-8 gap-x-12 [&:has(figure:hover)_figure:hover_figcaption]:opacity-100 [&:has(figure:hover)_figure:hover_figcaption]:translate-y-0;
 
     @media screen and (max-width:1920px) {column-gap: 30px;}
     @media screen and (max-width:1720px) {column-count: 7; }
@@ -15,83 +15,23 @@ body{
     #todos {@apply hidden [scale:0] pointer-events-none opacity-0 m-0 p-0}
 
     figure {
-        @apply m-0 [grid-template-rows:1fr_auto] mb-10 break-inside-avoid relative rounded-xl duration-200 cursor-pointer overflow-hidden backdrop-blur-md grid;
+        @apply m-0 [grid-template-rows:1fr_auto] mb-10 break-inside-avoid relative rounded-xl duration-200 cursor-pointer overflow-hidden backdrop-blur-md grid
+        after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-[linear-gradient(to_top,#0006,#0000)] hover:after:h-full after:duration-100 after:transition-all after:pointer-events-none;
 
         img {
             @apply [grid-row:1/-1] [grid-column:1] max-w-full block duration-200 transition-all rounded-xl relative bg-[#00000011]
         }
 
         figcaption {
-            @apply absolute bottom-0 left-0 z-50 w-full h-full pointer-events-none px-4 py-5 duration-300 transition-opacity
+            @apply absolute bottom-0 left-0 z-50 w-full h-full pointer-events-none px-4 py-5 duration-300 transition-all opacity-0 translate-y-8
         }
     }
 }
-
-
-
-@keyframes shine {
-    from {
-      opacity: 0;
-      left: -10%;
-    }
-  
-    50% {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-      left: 100%;
-    }
-}
-
-.splide{
-    @apply h-dvh;
-    .splide__track{ 
-        @apply h-dvh;
-        li{
-            @apply translate-y-5
-        } 
-    }
-}
-
-
-
-*::-webkit-scrollbar,
-*::-webkit-scrollbar{
-    width:.8em ;
-    background:#222
-}
-*::-webkit-scrollbar-thumb,
-*::-webkit-scrollbar-thumb{
-    background-color:#000 
-}
-
 
 @keyframes scaling{
     from{ opacity: 0; }
     to{ opacity:1 }
 }
 
-.slider {
-    button{
-        @apply bg-none;
-        svg{
-            @apply fill-white
-        }
-    }
-    .splide{
-        @apply h-[110vh] ;
-
-        .splide__track{
-            @apply h-[110vh];
-        }
-        img{
-          @apply [mask-image:linear-gradient(to_bottom,_black_50%,_transparent_70%)] object-contain h-screen w-full;
-        }
-    }
-    &:has(.is-active){
-        @apply [mask-image:url("/gif.gif")] [mask-size:cover] [mask-position:center];
-    }
-}
 
 

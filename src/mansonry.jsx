@@ -6,7 +6,7 @@ import './mansonry.css';
 import useAuth from './hooks/useAuth.jsx'
 import Modal from './components/Modal.jsx';
 import Figure from './components/Figure.jsx';
-import { openDB } from "idb";
+import { FastAverageColor } from 'fast-average-color';
 
 const Mansonry = () => {
     const { categoria } = useCategoria();
@@ -17,15 +17,29 @@ const Mansonry = () => {
     const [delURL, setDelURL] = useState();
     const [delCat, setDelCat] = useState();
     const [currentImageIndex, setCurrentImageIndex] = useState(0); 
+    const [dColor, setDcolor] = useState('#0005')
 
     useEffect(() => {
+        const fac = new FastAverageColor(); 
+    
         const fetchUrls = async () => {
             const cacheKey = "cacheImagens";
             const cachedData = localStorage.getItem(cacheKey);
     
             if (cachedData) {
                 setFiles(JSON.parse(cachedData));
+                return;
             }
+
+            const fetchDominantColor = async (imageUrl) => {
+                try {
+                    const color = await fac.getColorAsync(imageUrl);
+                    return color.hex;
+                } catch (error) {
+                    console.error("Erro ao extrair cor:", error);
+                    return '#cccccc';
+                }
+            };
     
             const raizDB = await listAll(ref(images, "/"));
             const pastas = raizDB.prefixes;
@@ -40,20 +54,28 @@ const Mansonry = () => {
                             getDownloadURL(itemRef),
                             getMetadata(itemRef),
                         ]);
-                        return { url, timeCreated: new Date(metadata.timeCreated) };
+                        const dominantColor = await fetchDominantColor(url);
+                        
+                        return { 
+                            url, 
+                            timeCreated: new Date(metadata.timeCreated),
+                            dominantColor
+                        };
                     })
                 );
     
                 urls.sort((a, b) => b.timeCreated - a.timeCreated);
                 return { cat: folderRef.fullPath, img: urls };
             });
-    
+
             const imagens = await Promise.all(fetchPromises);
             localStorage.setItem(cacheKey, JSON.stringify(imagens));
             setFiles(imagens);
         };
     
         fetchUrls();
+    
+        return () => fac.destroy(); 
     }, []);
     
 
@@ -75,19 +97,22 @@ const Mansonry = () => {
         );
     };
 
-    const filtro = files.filter(file => file.cat.toLowerCase() === categoria);
+    const filtro = files.filter(file => file.cat.toLowerCase() === categoria );
+
     const abrirModal = (url) => {
         setModal(true);
         setCurrentImageIndex(url);
     };
-
+    const getFileNameFromUrl = (url) => {
+        return url.split('/').pop().split('?')[0];
+    };
+    
     return (
         <>
             <div className='mansonry z-10' key='mansonry'>
                 {filtro.map((pastinha) => (
                     <React.Fragment key={pastinha.cat}>
-                        {pastinha.img.map(({ url }, index) => (
-
+                        {pastinha.img.map(({ url, dominantColor, timeCreated }, index) => (
                             <Figure 
                                 url={url} 
                                 cat={pastinha.cat} 
@@ -97,6 +122,11 @@ const Mansonry = () => {
                                 setDelURL={setDelURL} 
                                 setDelCat={setDelCat} 
                                 key={index} 
+                                index={index}
+                                cor={dominantColor} 
+                                dataName={() =>getFileNameFromUrl(url)}
+                                getFileNameFromUrl={getFileNameFromUrl}
+                                setDcolor={setDcolor}
                             />
                         ))}
                         
@@ -116,7 +146,7 @@ const Mansonry = () => {
                     </div>
                 }
             {modal && filtro.map((pastinha, index) => (
-                <Modal params={{ pastinha, logado, currentImageIndex, setModal, setConfirmation, setDelURL, setDelCat, modal }} key={index}/>
+                <Modal params={{ pastinha, logado, currentImageIndex, setModal, setConfirmation, setDelURL, setDelCat, modal, dColor }} key={index}/>
               ))
             }
         </>
