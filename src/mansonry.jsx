@@ -8,7 +8,7 @@ import Modal from './components/Modal.jsx';
 import Figure from './components/Figure.jsx';
 import { FastAverageColor } from 'fast-average-color';
 
-const Mansonry = () => {
+const Mansonry = ({ imagem }) => {
     const { categoria } = useCategoria();
     const { logado } = useAuth();
     const [files, setFiles] = useState([]);
@@ -23,7 +23,7 @@ const Mansonry = () => {
         const fac = new FastAverageColor(); 
     
         const fetchUrls = async () => {
-            const cacheKey = "cacheImagens";
+            const cacheKey = "savedImages";
             const cachedData = localStorage.getItem(cacheKey);
     
             if (cachedData) {
@@ -103,9 +103,11 @@ const Mansonry = () => {
         setModal(true);
         setCurrentImageIndex(url);
     };
-    const getFileNameFromUrl = (url) => {
-        return url.split('/').pop().split('?')[0];
+    const getFileNameFromUrl = (url, category) => {
+        const encodedCategory = encodeURIComponent(category);
+        return url.split('/').pop().split('?')[0].replace(encodedCategory + '%2F', '');
     };
+    
     
     return (
         <>
@@ -116,7 +118,7 @@ const Mansonry = () => {
                             <Figure 
                                 url={url} 
                                 cat={pastinha.cat} 
-                                logado={logado} 
+                                logado={logado}
                                 abrirModal={abrirModal} 
                                 setConfirmation={setConfirmation} 
                                 setDelURL={setDelURL} 
@@ -124,9 +126,9 @@ const Mansonry = () => {
                                 key={index} 
                                 index={index}
                                 cor={dominantColor} 
-                                dataName={() =>getFileNameFromUrl(url)}
                                 getFileNameFromUrl={getFileNameFromUrl}
                                 setDcolor={setDcolor}
+                                onMouseEnter={() =>{ imagem(url) }}
                             />
                         ))}
                         
