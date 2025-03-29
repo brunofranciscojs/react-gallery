@@ -23,14 +23,10 @@ const Mansonry = ({ imagem }) => {
         const fac = new FastAverageColor(); 
     
         const fetchUrls = async () => {
-            const cacheKey = "savedImages";
+            const cacheKey = "savedImages";        
             const cachedData = localStorage.getItem(cacheKey);
+            let cachedFiles = cachedData ? JSON.parse(cachedData) : null;
     
-            if (cachedData) {
-                setFiles(JSON.parse(cachedData));
-                return;
-            }
-
             const fetchDominantColor = async (imageUrl) => {
                 try {
                     const color = await fac.getColorAsync(imageUrl);
@@ -69,8 +65,14 @@ const Mansonry = ({ imagem }) => {
             });
 
             const imagens = await Promise.all(fetchPromises);
-            localStorage.setItem(cacheKey, JSON.stringify(imagens));
-            setFiles(imagens);
+
+            if (!cachedFiles || JSON.stringify(cachedFiles) !== JSON.stringify(imagens)) {
+                localStorage.setItem(cacheKey, JSON.stringify(imagens));
+                setFiles(imagens);
+                setTimeout(() => processColors(imagens), 100);
+            } else {
+                setFiles(cachedFiles);
+            }
         };
     
         fetchUrls();
@@ -128,7 +130,7 @@ const Mansonry = ({ imagem }) => {
                                 cor={dominantColor} 
                                 getFileNameFromUrl={getFileNameFromUrl}
                                 setDcolor={setDcolor}
-                                onMouseEnter={() =>{ imagem(url) }}
+                                onMouseEnter={() =>{ imagem(url); localStorage.setItem('dColor',dominantColor) }}
                             />
                         ))}
                         

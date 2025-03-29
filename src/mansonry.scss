@@ -16,14 +16,14 @@ body{
 
     figure {
         @apply m-0 [grid-template-rows:1fr_auto] mb-10 break-inside-avoid relative rounded-xl duration-200 cursor-pointer overflow-hidden backdrop-blur-md grid
-        after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-[linear-gradient(to_top,#0006,#0000)] hover:after:h-full after:duration-100 after:transition-all after:pointer-events-none;
+        after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-[linear-gradient(to_top,var(--cor),#0000)] after:saturate-[3] after:brightness-50 after:mix-blend-multiply hover:after:h-full after:duration-100 after:transition-all after:pointer-events-none;
 
         img {
             @apply [grid-row:1/-1] [grid-column:1] max-w-full block duration-200 transition-all rounded-xl relative bg-[#00000011]
         }
 
         figcaption {
-            @apply absolute bottom-0 left-0 z-50 w-full h-full pointer-events-none px-4 py-5 duration-300 transition-all opacity-0 translate-y-8
+            @apply absolute bottom-0 left-0 z-50 w-full h-full pointer-events-none px-4 py-5 duration-300 transition-all opacity-0 translate-y-8 [text-shadow:1px_0px_7px_#000a]
         }
     }
 }

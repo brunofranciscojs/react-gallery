@@ -45,11 +45,11 @@ export default function Figure({ url, cat, logado, abrirModal, setConfirmation, 
                         value={newName}
                         onChange={(e) => setNewName(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleRename()}
-                        className='text-base text-gray-200 font-semibold bg-transparent border-b border-gray-400 focus:outline-none'
+                        className='text-base text-gray-50 font-semibold bg-transparent border-b border-gray-400 focus:outline-none'
                         autoFocus
                     />
                 ) : (
-                    <span className='text-base text-gray-200 font-semibold leading-none'>{newName}</span>
+                    <span className='text-base text-gray-50 font-semibold leading-none'>{newName}</span>
                 )}
             </figcaption>
         </figure>
