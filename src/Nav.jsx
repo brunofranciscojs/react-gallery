@@ -28,10 +28,10 @@ export default function Nav() {
             {logado && <span className='log fixed right-12 md:top-[14px] top-10 text-gray-600 hover:text-gray-950 cursor-pointer z-50' onClick={sair}>sair</span>}
             {logado && <button className='log fixed right-6 top-[8px] text-gray-600 hover:text-gray-950 cursor-pointer z-30 text-2xl' onClick={() => { setupWindow(true) }}> + </button>}
             <nav>
-                <div className="absolute w-full h-12 shadow-xl blur-xl bg-[--dColor] -top-4 left-0 z-0 saturate-200" style={{'--dColor':dcolor}}></div>
-                <ul key='categorias' className="items-start md:items-center justify-center px-12 w-full z-50">
+                <ul key='categorias' className="items-start md:items-center justify-center px-12 z-50 relative w-fit mx-auto">
+                <div className="absolute w-[80%] h-12 shadow-xl blur-xl bg-[--dColor] -top-6 z-0 saturate-200 left-1/2 -translate-x-1/2" style={{'--dColor':dcolor}}></div>
                     {nav.map((litem) => (
-                        <li key={litem} className={`${litem.split(' ').join('')} ${litem.toLowerCase() === categoria ? 'active' : ''}  text-gray-700 bg-gray-50 py-3 px-5`}  
+                        <li key={litem} className={`${litem.split(' ').join('')} ${litem.toLowerCase() === categoria ? 'active' : ''}  text-gray-700 bg-white py-3 px-5 [&:first-of-type]:rounded-[1rem_0_0_1rem] [&:last-of-type]:rounded-[0_1rem_1rem_0]`}  
                             onClick={() => setCategoria(litem.toLowerCase())}>
                             {litem.toLowerCase()}
                         </li>

@@ -23,7 +23,7 @@ export default function App() {
       <div className='presentation duration-200 transition-all relative overflow-hidden my-[70px] max-w-[1100px] mx-auto sm:py-7 sm:px-16 text-left rounded-3xl flex bg-[length:100%,50%] px-8 py-8 z-0 bg-white'>
         <div className="relative z-10">
           <span className="text-gray-700 text-3xl font-['Highland_Jakarta'] tracking-[1rem]">BRUNO FRANCISCO</span>
-          <h1 className="text-transparent font-['Highland_Jakarta'] leading-none text-[clamp(1rem,_0.284rem_+_3.9506vw,_5rem)] mt-2 [-webkit-text-stroke:1px_#444] ">
+          <h1 className="text-white font-['Highland_Jakarta'] leading-none text-[clamp(1rem,_0.284rem_+_3.9506vw,_5rem)] mt-2 [-webkit-text-stroke:1px_#444] ">
             Ilustras e rabiscos.
           </h1>
         </div>

@@ -13,6 +13,7 @@
   "dependencies": {
     "@splidejs/react-splide": "^0.7.12",
     "clsx": "^2.1.1",
+    "colorthief": "^2.6.0",
     "compressorjs": "^1.2.1",
     "fast-average-color": "^9.5.0",
     "firebase": "^10.0.0",

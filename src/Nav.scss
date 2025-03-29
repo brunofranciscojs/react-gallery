@@ -15,26 +15,6 @@ nav {
         flex-wrap: wrap;
         position: relative;
 
-        &::after{
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 3rem;
-            width: 40%;
-            background: #f9fafb;
-            z-index: 0;
-        }
-        &::before{
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            height: 3rem;
-            width: 40%;
-            background: #f9fafb;
-            z-index: 0;
-        }
         li {
             cursor: pointer;
             transition: .2s;
@@ -54,7 +34,7 @@ nav {
                 top: 0;
                 height: 3rem;
                 width: 1rem;
-                background: #f9fafb;
+                background: #fff;
                 z-index: 1;
             }
             &::after{
@@ -64,8 +44,18 @@ nav {
                 top: 0;
                 height: 3rem;
                 width: 1rem;
-                background: #f9fafb;
+                background: #fff;
                 z-index: 1;
+            }
+            &:first-of-type{
+                &::before{
+                    display: none;
+                }
+            }
+            &:last-of-type{
+                &::after{
+                    display: none;
+                }
             }
         }
         .active {

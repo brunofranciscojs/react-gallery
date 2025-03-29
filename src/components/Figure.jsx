@@ -49,7 +49,7 @@ export default function Figure({ url, cat, logado, abrirModal, setConfirmation, 
                         autoFocus
                     />
                 ) : (
-                    <span className='text-base text-gray-50 font-semibold leading-none'>{newName}</span>
+                    <span className='text-base text-gray-50 font-semibold leading-none'>{newName.replace('%26','&')}</span>
                 )}
             </figcaption>
         </figure>

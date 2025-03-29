@@ -7,6 +7,7 @@ import useAuth from './hooks/useAuth.jsx'
 import Modal from './components/Modal.jsx';
 import Figure from './components/Figure.jsx';
 import { FastAverageColor } from 'fast-average-color';
+import ColorThief from 'colorthief';
 
 const Mansonry = ({ imagem }) => {
     const { categoria } = useCategoria();
@@ -20,22 +21,36 @@ const Mansonry = ({ imagem }) => {
     const [dColor, setDcolor] = useState('#0005')
 
     useEffect(() => {
-        const fac = new FastAverageColor(); 
+        const cacheKey = "savedImages";
     
-        const fetchUrls = async () => {
-            const cacheKey = "savedImages";        
-            const cachedData = localStorage.getItem(cacheKey);
-            let cachedFiles = cachedData ? JSON.parse(cachedData) : null;
-    
-            const fetchDominantColor = async (imageUrl) => {
+        const fetchColorPalette = async (imageUrl) => {
+            return new Promise((resolve) => {
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.src = imageUrl;
+        
+            img.onload = () => {
                 try {
-                    const color = await fac.getColorAsync(imageUrl);
-                    return color.hex;
+                const colorThief = new ColorThief();
+                const palette = colorThief.getPalette(img, 3);
+                const hexPalette = palette.map((rgb) => `#${rgb.map((v) => v.toString(16).padStart(2, '0')).join('')}`);
+                resolve(hexPalette); 
                 } catch (error) {
-                    console.error("Erro ao extrair cor:", error);
-                    return '#cccccc';
+                console.error("Erro ao extrair cores:", error);
+                resolve(['#cccccc']);
                 }
             };
+        
+            img.onerror = () => resolve(['#cccccc']);
+            });
+        };
+            
+        const fetchUrls = async () => {
+            const cachedData = localStorage.getItem(cacheKey);
+            let cachedFiles = cachedData ? JSON.parse(cachedData) : null;
+            if (cachedFiles) {
+                setFiles(cachedFiles);
+            }
     
             const raizDB = await listAll(ref(images, "/"));
             const pastas = raizDB.prefixes;
@@ -46,39 +61,37 @@ const Mansonry = ({ imagem }) => {
     
                 const urls = await Promise.all(
                     arquivos.items.map(async (itemRef) => {
-                        const [url, metadata] = await Promise.all([
-                            getDownloadURL(itemRef),
-                            getMetadata(itemRef),
-                        ]);
-                        const dominantColor = await fetchDominantColor(url);
-                        
-                        return { 
-                            url, 
-                            timeCreated: new Date(metadata.timeCreated),
-                            dominantColor
-                        };
+                      const [url, metadata] = await Promise.all([
+                        getDownloadURL(itemRef),
+                        getMetadata(itemRef),
+                      ]);
+                  
+                      const palette = await fetchColorPalette(url);
+                      
+                      return { 
+                        url, 
+                        fileName: itemRef.name,
+                        timeCreated: new Date(metadata.timeCreated),
+                        palette
+                      };
                     })
-                );
+                  );
     
                 urls.sort((a, b) => b.timeCreated - a.timeCreated);
                 return { cat: folderRef.fullPath, img: urls };
             });
-
+    
             const imagens = await Promise.all(fetchPromises);
-
+    
             if (!cachedFiles || JSON.stringify(cachedFiles) !== JSON.stringify(imagens)) {
                 localStorage.setItem(cacheKey, JSON.stringify(imagens));
                 setFiles(imagens);
-                setTimeout(() => processColors(imagens), 100);
-            } else {
-                setFiles(cachedFiles);
             }
         };
     
         fetchUrls();
-    
-        return () => fac.destroy(); 
     }, []);
+    
     
 
     useEffect(() => {
@@ -116,7 +129,7 @@ const Mansonry = ({ imagem }) => {
             <div className='mansonry z-10' key='mansonry'>
                 {filtro.map((pastinha) => (
                     <React.Fragment key={pastinha.cat}>
-                        {pastinha.img.map(({ url, dominantColor, timeCreated }, index) => (
+                        {pastinha.img.map(({ url, palette }, index) => (
                             <Figure 
                                 url={url} 
                                 cat={pastinha.cat} 
@@ -127,10 +140,10 @@ const Mansonry = ({ imagem }) => {
                                 setDelCat={setDelCat} 
                                 key={index} 
                                 index={index}
-                                cor={dominantColor} 
+                                cor={palette[0]} 
                                 getFileNameFromUrl={getFileNameFromUrl}
                                 setDcolor={setDcolor}
-                                onMouseEnter={() =>{ imagem(url); localStorage.setItem('dColor',dominantColor) }}
+                                onMouseEnter={() =>{ imagem(url); localStorage.setItem('dColor',palette[0]) }}
                             />
                         ))}
                         
