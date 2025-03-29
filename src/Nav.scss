@@ -27,6 +27,9 @@ nav {
             mask-position: center,center 23px;
             z-index: 1;
 
+            &:hover{
+                mask-image: linear-gradient(to bottom, #000 100%, transparent), url('./assets/triangle.svg');
+            }
             &::before{
                 content: '';
                 position: absolute;
