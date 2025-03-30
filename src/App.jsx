@@ -17,30 +17,27 @@ export default function App() {
 
   return (
     <div className="App">
-
-      <Nav/>
-
-      <div className='presentation duration-200 transition-all relative overflow-hidden my-[70px] max-w-[1100px] mx-auto sm:py-7 sm:px-16 text-left rounded-3xl flex bg-[length:100%,50%] px-8 py-8 z-0 bg-white'>
-        <div className="relative z-10">
-          <span className="text-gray-700 text-3xl font-['Highland_Jakarta'] tracking-[1rem]">BRUNO FRANCISCO</span>
-          <h1 className="text-white font-['Highland_Jakarta'] leading-none text-[clamp(1rem,_0.284rem_+_3.9506vw,_5rem)] mt-2 [-webkit-text-stroke:1px_#444] ">
-            Ilustras e rabiscos.
-          </h1>
-        </div>
-        <div className='absolute left-0 w-full h-full top-0 bg-[linear-gradient(to_right,#fff_40%,transparent_100%)] z-[1] pointer-events-none'>
-
-        </div>
         {image && 
-         <div className='absolute right-0 -top-44 w-[40rem] h-auto z-0'>
-           <Splide options={{perPage:1, autoplay:true, arrows:false, type:'fade', rewind:true, width:'100%', pagination:false, height:'100%'}}>
+         <div className='absolute right-0 -top-20 w-full h-full -z-1 [mask-image:linear-gradient(to_bottom,black_-30%,transparent_70%)] opacity-40'>
+           <Splide options={{perPage:1, autoplay:true, arrows:false, type:'fade', rewind:true, width:'100%', height:'100dvh', pagination:false}}>
             {Object.entries(image).map((img,index) =>
               <SplideSlide key={index}>
-                <img src={img} className='object-contain w-full h-full'/>
+                <img src={img} className='object-cover w-full object-[0rem_-20rem] h-full'/>
               </SplideSlide>
             )}
            </Splide>
          </div>
         }
+      <Nav/>
+
+      <div className='presentation duration-200 transition-all relative overflow-hidden my-[70px] max-w-[1100px] mx-auto sm:py-7 sm:px-16 text-left rounded-3xl flex bg-[length:100%,50%] px-8 py-8 z-0'>
+        <div className="relative z-10">
+          <span className="text-gray-700 text-3xl font-['Highland_Jakarta'] tracking-[1rem]">BRUNO FRANCISCO</span>
+          <h1 className="text-white font-['Highland_Jakarta'] leading-none text-[clamp(2rem,_0.284rem_+_3.9506vw,_5rem)] mt-2 [-webkit-text-stroke:1px_#444] ">
+            Ilustras e rabiscos.
+          </h1>
+        </div>
+      
       </div>
 
       <Mansonry imagem={getImage} />

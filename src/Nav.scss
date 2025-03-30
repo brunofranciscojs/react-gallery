@@ -39,6 +39,9 @@ nav {
                 width: 1rem;
                 background: #fff;
                 z-index: 1;
+                @media screen and (max-width:769px){
+                    display: none;
+                }
             }
             &::after{
                 content: '';
@@ -49,7 +52,11 @@ nav {
                 width: 1rem;
                 background: #fff;
                 z-index: 1;
+                @media screen and (max-width:769px){
+                    display: none;
+                }
             }
+
             &:first-of-type{
                 &::before{
                     display: none;
