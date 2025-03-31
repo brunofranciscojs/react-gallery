@@ -2,14 +2,13 @@ import { useState } from 'react';
 import './App.css';
 import Nav from './Nav.jsx';
 import Mansonry from './mansonry';
-import { SplideSlide, Splide } from '@splidejs/react-splide'
 import '@splidejs/react-splide/css';
 
 export default function App() {
   const [categoria, setCategoria] = useState('jogos')
 
   return (
-    <div className="App">
+    <div className="px-4">
       <Nav setCategoria={setCategoria}/>
       <div className='presentation duration-200 transition-all relative overflow-hidden my-[70px] max-w-[1100px] mx-auto sm:py-7 sm:px-16 text-left rounded-3xl flex bg-[length:100%,50%] px-8 py-8 z-0'>
         <div className="relative z-10">

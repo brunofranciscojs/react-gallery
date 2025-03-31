@@ -38,17 +38,17 @@ export default function Nav({setCategoria}) {
             {logado && <span className='log fixed right-12 top-[14px] text-gray-600 hover:text-gray-950 cursor-pointer z-50 hidden sm:block' onClick={sair}>sair</span>}
             {logado && <button className='log fixed right-6 top-[8px] text-gray-600 hover:text-gray-950 cursor-pointer z-30 text-2xl hidden sm:block' onClick={() => setupWindow(true)}> + </button>}
             {!logado &&
-                <span className='flex flex-row add items-center absolute top-0 right-6'>
-                    <button className='log text-2xl cursor-pointer text-gray-700 z-50 relative top-2' onClick={() => { setLogar(true) }}> + </button>
-                    {logar && <>
-                        <button className='log text-2xl cursor-pointer text-gray-700 z-50 absolute md:top-[4rem] md:-left-[21rem] top-[6px] -left-1 backdrop-blur px-2' 
-                                onClick={() => {setLogar(false)}}>
-                                    x
-                        </button>
-                        <Logar />
-                        </>
-                    }
-                </span>
+              <div className='flex flex-row add items-center fixed top-0 right-8 z-50'>
+                  <button className='log text-2xl cursor-pointer text-gray-700 z-50 relative top-2' onClick={() => { setLogar(true) }}> + </button>
+                  {logar && <>
+                      <button className='log text-2xl cursor-pointer text-gray-700 z-50 absolute lpt:top-[.45rem] md:-left-[21rem] top-[3.4rem] -left-1 backdrop-blur px-2' 
+                              onClick={() => {setLogar(false)}}>
+                                  x
+                      </button>
+                      <Logar />
+                      </>
+                  }
+              </div>
             }
             <nav>
                 <ul key='categorias' className="items-start md:items-center justify-center z-50 relative md:w-fit w-full md:mx-auto mx-0 bg-white md:bg-transparent" style={{"--dColor":dcolor}}>
