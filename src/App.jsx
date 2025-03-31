@@ -6,30 +6,11 @@ import { SplideSlide, Splide } from '@splidejs/react-splide'
 import '@splidejs/react-splide/css';
 
 export default function App() {
-  const [image, setImage] = useState({});
-
-  const getImage = (url) => {
-    setImage((prev) => ({
-      ...prev,
-      [url]:url
-    }))
-  }
+  const [categoria, setCategoria] = useState('jogos')
 
   return (
     <div className="App">
-        {image && 
-         <div className='absolute right-0 -top-20 w-full h-full -z-1 [mask-image:linear-gradient(to_bottom,black_-30%,transparent_70%)] opacity-40'>
-           <Splide options={{perPage:1, autoplay:true, arrows:false, type:'fade', rewind:true, width:'100%', height:'100dvh', pagination:false}}>
-            {Object.entries(image).map((img,index) =>
-              <SplideSlide key={index}>
-                <img src={img} className='object-cover w-full object-[0rem_-20rem] h-full'/>
-              </SplideSlide>
-            )}
-           </Splide>
-         </div>
-        }
-      <Nav/>
-
+      <Nav setCategoria={setCategoria}/>
       <div className='presentation duration-200 transition-all relative overflow-hidden my-[70px] max-w-[1100px] mx-auto sm:py-7 sm:px-16 text-left rounded-3xl flex bg-[length:100%,50%] px-8 py-8 z-0'>
         <div className="relative z-10">
           <span className="text-gray-700 text-3xl font-['Highland_Jakarta'] tracking-[1rem]">BRUNO FRANCISCO</span>
@@ -40,10 +21,10 @@ export default function App() {
       
       </div>
 
-      <Mansonry imagem={getImage} />
+      <Mansonry category={categoria} />
 
       <footer className="text-center text-gray-700 dark:text-gray-400 pt-20 text-sm">
-        desenvolvido com react, firebase, tailwind
+        desenvolvido com react, supabase, tailwind
 
         <div className="flex gap-4 text-gray-400 z-50 justify-center relative lowercase ">
           <a className="hover:text-gray-50 duration-100" href="https://github.com/brunofranciscojs">GITHUB</a>
