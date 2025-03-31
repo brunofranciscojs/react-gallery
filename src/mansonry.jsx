@@ -65,7 +65,7 @@ const Mansonry = ({ category }) => {
     
     return (
         <>
-            <div className='mansonry z-10' key='mansonry'>
+            <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale' key='mansonry'>
                 {imagePalettes.map(({ url, colors, name }, index) => (
                     <Figure 
                         url={url} 
