@@ -11,7 +11,8 @@ export default function Nav({setCategoria}) {
     const dcolor = localStorage.getItem('dColor')
     const [categories, setCategories] = useState([]);
     const [logar, setLogar] = useState(false)
-    
+    const [ativo, setAtivo] = useState('jogos');
+
   useEffect(() => {
     const fetchCategories = async () => {
       
@@ -50,11 +51,11 @@ export default function Nav({setCategoria}) {
                 </span>
             }
             <nav>
-                <ul key='categorias' className="items-start md:items-center justify-center z-50 relative md:w-fit w-full md:mx-auto mx-0 bg-white md:bg-transparent">
+                <ul key='categorias' className="items-start md:items-center justify-center z-50 relative md:w-fit w-full md:mx-auto mx-0 bg-white md:bg-transparent" style={{"--dColor":dcolor}}>
                 <div className="absolute w-[80%] h-12 shadow-xl blur-xl bg-[--dColor] -top-6 z-0 saturate-200 left-1/2 -translate-x-1/2 hidden md:block" ></div>
                     {categories.map((table, index) => (
-                        <li key={index} className={`${table.toLowerCase() === categories ? 'active' : ''} md:text-base text-sm text-gray-700 bg-white py-1.5 sm:py-3 px-2 sm:px-5 [&:first-of-type]:rounded-[1rem_0_0_1rem] [&:last-of-type]:rounded-[0_1rem_1rem_0]`}  
-                            onClick={() => setCategoria(table.toLowerCase())}>
+                        <li key={index} className={`${table.toLowerCase() === ativo ? 'active' : ''} md:text-base text-sm text-gray-700 bg-white py-1.5 sm:py-3 px-2 sm:px-5 [&:first-of-type]:rounded-[1rem_0_0_1rem] [&:last-of-type]:rounded-[0_1rem_1rem_0]`}  
+                            onClick={() => {setCategoria(table.toLowerCase()); setAtivo(table)} }>
                             {table}
                         </li>
                      ))}
