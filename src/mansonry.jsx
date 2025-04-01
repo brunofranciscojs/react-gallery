@@ -13,7 +13,13 @@ const Mansonry = ({ category }) => {
     const [dColor, setDcolor] = useState('#0005')
 
     useEffect(() => {
-        getImagesByCategory(category).then(setImages);
+        getImagesByCategory(category).then(files => {
+            const stamp = (time) => new Date(time).getTime();
+    
+            const archives = files.sort((a, b) => stamp(b.created_at) - stamp(a.created_at)); 
+    
+            setImages(archives);
+        });
     }, [category]);
 
     useEffect(() => {
