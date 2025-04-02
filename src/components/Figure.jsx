@@ -3,8 +3,9 @@ import DeleteIcon from './DeleteIcon'
 import EditIcon from './EditIcon'
 import { useState } from 'react';
 import { supabase } from '../contexto/supabaseClient';
+import SpinIcon from './SpinIcon';
 
-export default function Figure({ url, cat, abrirModal, index, name, colors, onMouseEnter, setDcolor }) {
+export default function Figure({ url, cat, abrirModal, index, name, colors, onMouseEnter, setDcolor, imageLoadStatus }) {
     const { logado } = useAuth();
     const [confirmation, setConfirmation] = useState(false);
     const [ren, setRen] = useState(false);
@@ -75,7 +76,13 @@ export default function Figure({ url, cat, abrirModal, index, name, colors, onMo
 
     return (
         <>
-            <figure className={`item grid place-items-center group shadow-none hover:shadow-[--cor] hover:shadow-2xl duration-150 group`} onMouseEnter={onMouseEnter} style={{"--cor":colors[0],transition: (index + 1 ) * .17 + 'ms'}}>
+            <figure className={`item grid place-items-center group shadow-none hover:shadow-[--cor] hover:shadow-2xl relative duration-150 group`} onMouseEnter={onMouseEnter} style={{"--cor":colors[0],transition: (index + 1 ) * .17 + 'ms'}}>
+                {!imageLoadStatus &&
+                    <span className='animate-spin block absolute top-1/2 left-1/2 [translate:-50%_-50%]'>
+                        <SpinIcon />
+                    </span>
+                }
+                
                 {logado &&
                     <>
                         <button className='absolute top-2 left-2 [&>svg_path]:fill-none [&>svg_path]:stroke-gray-400 duration-150 opacity-0 group-hover:opacity-100 z-50' onClick={() => setConfirmation(true)}>
@@ -92,7 +99,7 @@ export default function Figure({ url, cat, abrirModal, index, name, colors, onMo
                 <figcaption className='flex flex-col justify-end text-left'>
                     <fieldset>
                         <legend className="text-xs leading-none">{cat}</legend>
-                        <span className='text-base text-gray-50 font-semibold leading-none text-balance'>{name}</span>
+                        <span className='text-base text-gray-50 font-semibold !leading-[1] block text-balance'>{name}</span>
                     </fieldset>
                 </figcaption>
             </figure>
