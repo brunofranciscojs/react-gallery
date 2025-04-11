@@ -10,7 +10,7 @@ export default function Figure({ url, cat, abrirModal, index, name, colors, onMo
     const [confirmation, setConfirmation] = useState(false);
     const [ren, setRen] = useState(false);
     const [message, setMessage] = useState(false);
-
+    
     const handleRename = async (newName) => {
         const filePath = url.split('/ilustras/')[1]; 
         const category = filePath.split('/')[0];
@@ -94,8 +94,8 @@ export default function Figure({ url, cat, abrirModal, index, name, colors, onMo
                         </button>
                     </>
                 }
-                <img src={url} onClick={() => {abrirModal(url); setDcolor(colors[0])}} loading="lazy" decoding="async" />
-                
+                <img src={url} onClick={() => {abrirModal(url); setDcolor(colors[0])}} loading="lazy" decoding="async"/>
+
                 <figcaption className='flex flex-col justify-end text-left'>
                     <fieldset>
                         <legend className="text-xs leading-none">{cat}</legend>

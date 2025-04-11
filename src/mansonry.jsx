@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './mansonry.css';
 import Modal from './components/Modal.jsx';
 import Figure from './components/Figure.jsx';
@@ -14,7 +14,7 @@ const Mansonry = ({ category }) => {
     const [placeholders, setPlaceholders] = useState({});
     const [imageLoadStatus, setImageLoadStatus] = useState({});
     const CACHE_KEY = `imagens-${category}`;
-    
+
     useEffect(() => {
         const fetchImages = async () => {
             const cachedData = localStorage.getItem(CACHE_KEY);
@@ -103,6 +103,8 @@ const Mansonry = ({ category }) => {
     return (
         <>
         <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale' key='mansonry'>
+
+            
             {imagePalettes.map(({ url, colors, name }, index) => {
                 const size = placeholders[url] || { width: 200, height: 200 };
                 return (
