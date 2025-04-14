@@ -18,14 +18,29 @@ const Mansonry = ({ category }) => {
     useEffect(() => {
         const fetchImages = async () => {
             const cachedData = localStorage.getItem(CACHE_KEY);
-            if (cachedData) {
-                setImages(JSON.parse(cachedData));
-                return;
-            }
+            const cachedImages = cachedData ? JSON.parse(cachedData) : null;
+            
+            // Get latest images from Supabase
             const files = await getImagesByCategory(category);
             const sortedFiles = files.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-            setImages(sortedFiles);
-            localStorage.setItem(CACHE_KEY, JSON.stringify(sortedFiles));
+
+            // If no cache exists, save and use new data
+            if (!cachedImages) {
+                setImages(sortedFiles);
+                localStorage.setItem(CACHE_KEY, JSON.stringify(sortedFiles));
+                return;
+            }
+
+            // Check if there are new images by comparing lengths and latest timestamps
+            const hasNewImages = sortedFiles.length !== cachedImages.length || 
+                               new Date(sortedFiles[0]?.created_at) > new Date(cachedImages[0]?.created_at);
+
+            if (hasNewImages) {
+                setImages(sortedFiles);
+                localStorage.setItem(CACHE_KEY, JSON.stringify(sortedFiles));
+            } else {
+                setImages(cachedImages);
+            }
         };
         fetchImages();
     }, [category]);
