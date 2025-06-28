@@ -4,6 +4,7 @@ import Modal from './components/Modal.jsx';
 import Figure from './components/Figure.jsx';
 import { getImagesByCategory } from './contexto/ImagesDB.jsx';
 import ColorThief from 'colorthief';
+import {LGContainer} from "./components/FluidGlass.jsx";
 
 const Mansonry = ({ category }) => {
     const [images, setImages] = useState([]);
@@ -14,24 +15,22 @@ const Mansonry = ({ category }) => {
     const [placeholders, setPlaceholders] = useState({});
     const [imageLoadStatus, setImageLoadStatus] = useState({});
     const CACHE_KEY = `imagens-${category}`;
+    const [mouseXY,setMouseXY] = useState({})
 
     useEffect(() => {
         const fetchImages = async () => {
             const cachedData = localStorage.getItem(CACHE_KEY);
             const cachedImages = cachedData ? JSON.parse(cachedData) : null;
             
-            // Get latest images from Supabase
             const files = await getImagesByCategory(category);
             const sortedFiles = files.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-            // If no cache exists, save and use new data
             if (!cachedImages) {
                 setImages(sortedFiles);
                 localStorage.setItem(CACHE_KEY, JSON.stringify(sortedFiles));
                 return;
             }
 
-            // Check if there are new images by comparing lengths and latest timestamps
             const hasNewImages = sortedFiles.length !== cachedImages.length || 
                                new Date(sortedFiles[0]?.created_at) > new Date(cachedImages[0]?.created_at);
 
@@ -115,8 +114,17 @@ const Mansonry = ({ category }) => {
         setOpenedImage(url);
     };
     
+    useEffect(() =>{
+        window.onmousemove = (e) =>{
+            setMouseXY({x:e.clientX,y:e.clientY})
+        }
+    },[])
     return (
         <>
+        <div className='fixed rounded-full z-[999999] pointer-events-none' style={{left:mouseXY.x - 40, top:mouseXY.y -40}}>
+            <LGContainer config={{height: 80, caAmount: 3, width:80}}> </LGContainer>
+         </div>
+
         <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale' key='mansonry'>
 
             
