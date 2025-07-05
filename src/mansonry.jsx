@@ -15,7 +15,6 @@ const Mansonry = ({ category }) => {
     const [placeholders, setPlaceholders] = useState({});
     const [imageLoadStatus, setImageLoadStatus] = useState({});
     const CACHE_KEY = `imagens-${category}`;
-    const [mouseXY,setMouseXY] = useState({})
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -114,17 +113,8 @@ const Mansonry = ({ category }) => {
         setOpenedImage(url);
     };
     
-    useEffect(() =>{
-        window.onmousemove = (e) =>{
-            setMouseXY({x:e.clientX,y:e.clientY})
-        }
-    },[])
     return (
         <>
-        <div className='fixed rounded-full z-[999999] pointer-events-none' style={{left:mouseXY.x - 40, top:mouseXY.y -40}}>
-            <LGContainer config={{height: 80, caAmount: 3, width:80}}> </LGContainer>
-         </div>
-
         <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale' key='mansonry'>
 
             

@@ -11,6 +11,7 @@
     "build:vercel": "npm install --force && npm run build"
   },
   "dependencies": {
+    "@developer-hub/liquid-glass": "^1.2.3",
     "@splidejs/react-splide": "^0.7.12",
     "@supabase/supabase-js": "^2.49.4",
     "colorthief": "^2.6.0",

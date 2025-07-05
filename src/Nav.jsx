@@ -4,7 +4,7 @@ import './Nav.css';
 import useAuth from "./hooks/useAuth.jsx";
 import Logar from "./login.jsx";
 import UploadForm from "./components/UploadImage.jsx";
-import {LGContainer} from "./components/FluidGlass.jsx";
+import { GlassCard } from '@developer-hub/liquid-glass'
 
 export default function Nav({ setCategoria }) {
   const { logado, sair } = useAuth();
@@ -53,12 +53,21 @@ export default function Nav({ setCategoria }) {
         )}
 
         <nav>
-          <LGContainer config={{height: 50, caAmount: 4 }}>
-            <ul key='categorias' className="items-start md:items-center justify-center z-50 relative md:w-fit w-full md:mx-auto mx-0" >
+            <GlassCard
+              displacementScale={700}
+              blurAmount={0.0}
+              cornerRadius={60}
+              className="!w-full rounded-3xl mx-auto"
+              width="100%"
+              >
+            <ul key='categorias' 
+                className="border border-white/40 border-b-black/20 border-r-black/20 items-start md:items-center justify-center z-50 relative md:w-fit w-full md:mx-auto mx-0 backdrop-blur-sm shadow-2xl !rounded-full bg-black/35 
+                           [&:has(li:hover)_li]:opacity-50 [&:has(li:not(:hover))_li:hover]:opacity-100" 
+                           >
               {categories.map((table, index) => (
                 <li
                   key={index}
-                  className={`${table.toLowerCase() === ativo ? 'active' : ''} md:text-base text-sm text-gray-700 py-1.5 sm:py-3 px-2 sm:px-5 [&:first-of-type]:rounded-[1rem_0_0_1rem] [&:last-of-type]:rounded-[0_1rem_1rem_0]`}
+                  className={`${table.toLowerCase() === ativo ? 'active' : ''} md:text-base text-sm text-white py-1.5 sm:py-3 px-2 sm:px-5 hover:[scale:1.2]`}
                   onClick={() => {
                     setCategoria(table.toLowerCase());
                     setAtivo(table);
@@ -68,7 +77,7 @@ export default function Nav({ setCategoria }) {
                 </li>
               ))}
             </ul>
-            </LGContainer>
+            </GlassCard>
         </nav>
       
     </>
