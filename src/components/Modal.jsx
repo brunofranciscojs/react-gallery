@@ -37,8 +37,8 @@ const Modal = ({params:{ setModal, dColor, openedImage }}) => {
                 
                     <a onClick={()=>setModal(false)} style={{"--dColor":dColor}}
                             className={`leading-none cursor-pointer absolute z-50  text-white hover:text-white md:top-3 md:right-4 top-[unset] right-[unset] left-1/2 bottom-8 md:left-[unset] md:bottom-[unset]`}>X</a>
-                    <img src={openedImage} className='block w-full h-[90dvh] saturate-150 absolute left-0 top-0 mix-blend-darken z-10 [-webkit-filter:url(#kill)]' />
-                    <img src={openedImage} className='block w-full h-[90dvh] saturate-150 border-2 border-white/40 border-b-black/20 border-r-black/20 ' />
+                    <img src={openedImage} className='block w-full h-[90dvh] saturate-150 absolute left-0 top-0 mix-blend-darken z-10 [-webkit-filter:url(#kill)] object-contain' />
+                    <img src={openedImage} className='block w-full h-[90dvh] saturate-150 border-2 border-white/40 border-b-black/20 border-r-black/20  object-contain' />
                 </GlassCard>
 
                 
