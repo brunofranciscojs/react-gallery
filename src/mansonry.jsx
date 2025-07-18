@@ -115,9 +115,7 @@ const Mansonry = ({ category }) => {
     
     return (
         <>
-        <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale' key='mansonry'>
-
-            
+        <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale h-dvh' key='mansonry'>
             {imagePalettes.map(({ url, colors, name }, index) => {
                 const size = placeholders[url] || { width: 200, height: 200 };
                 return (
@@ -132,7 +130,6 @@ const Mansonry = ({ category }) => {
                         setDcolor={setDcolor}
                         placeholderSize={size}
                         imageLoadStatus={imageLoadStatus[url]}
-                        onMouseEnter={() => localStorage.setItem('dColor', colors[0]) }
                     />
                 );
             })}

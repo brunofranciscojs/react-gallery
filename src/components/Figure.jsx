@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { supabase } from '../contexto/supabaseClient';
 import SpinIcon from './SpinIcon';
 
-export default function Figure({ url, cat, abrirModal, index, name, colors, onMouseEnter, setDcolor, imageLoadStatus }) {
+export default function Figure({ url, cat, abrirModal, index, name, colors, setDcolor, imageLoadStatus }) {
     const { logado } = useAuth();
     const [confirmation, setConfirmation] = useState(false);
     const [ren, setRen] = useState(false);
@@ -76,7 +76,7 @@ export default function Figure({ url, cat, abrirModal, index, name, colors, onMo
 
     return (
         <>
-            <figure className={`item grid place-items-center group shadow-none hover:shadow-[--cor] hover:shadow-2xl relative duration-150 group`} onMouseEnter={onMouseEnter} style={{"--cor":colors[0],transition: (index + 1 ) * .17 + 'ms'}}>
+            <figure className={`item grid place-items-center group shadow-none hover:shadow-[--cor] hover:shadow-2xl relative duration-150 group backdrop-blur-sm bg-[--bg]`} style={{"--cor":colors[0],"--bg":colors[0]+22,transition: (index + 1 ) * .17 + 'ms'}}>
                 {!imageLoadStatus &&
                     <span className='animate-spin block absolute top-1/2 left-1/2 [translate:-50%_-50%]'>
                         <SpinIcon />

@@ -2,23 +2,23 @@ body{
     @apply overflow-x-hidden bg-[#efefef] duration-200 [&:has(.fav)]:overflow-hidden
 }
 .mansonry {
-    @apply relative columns-9 gap-x-9 [&:has(figure:hover)_figure:hover_figcaption]:opacity-100 [&:has(figure:hover)_figure:hover_figcaption]:translate-y-0;
-    @media screen and (max-width:1920px) {column-gap: 30px;}
-    @media screen and (max-width:1720px) {column-count: 8; }
-    @media screen and (max-width:1520px) {column-count: 7; }
-    @media screen and (max-width:1420px) {column-count: 6; }
-    @media screen and (max-width:1200px) {column-count: 4; }
-    @media screen and (max-width:960px)  {column-count: 2; }
-    @media screen and (max-width:640px)  {column-gap: 10px; }
+    @apply relative columns-10 gap-0 [&:has(figure:hover)_figure:hover_figcaption]:opacity-100 [&:has(figure:hover)_figure:hover_figcaption]:translate-y-0;
+    @media screen and (max-width:1920px) {column-gap: 0px;}
+    @media screen and (max-width:1720px) {column-count: 9; }
+    @media screen and (max-width:1520px) {column-count: 8; }
+    @media screen and (max-width:1420px) {column-count: 7; }
+    @media screen and (max-width:1200px) {column-count: 5; }
+    @media screen and (max-width:960px)  {column-count: 3; }
+    @media screen and (max-width:640px)  {column-gap: 0px;column-count: 2; }
     
     #todos {@apply hidden [scale:0] pointer-events-none opacity-0 m-0 p-0}
 
     figure {
-        @apply m-0 [grid-template-rows:1fr_auto] md:mb-10 mb-2.5 break-inside-avoid relative rounded-xl duration-200 cursor-pointer overflow-hidden backdrop-blur-md grid
+        @apply m-0 [grid-template-rows:1fr_auto] break-inside-avoid relative duration-200 cursor-pointer overflow-hidden grid p-0 
         after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-[linear-gradient(to_top,var(--cor),#0000)] after:saturate-[3] after:brightness-50 after:mix-blend-multiply hover:after:h-full after:duration-100 after:transition-all after:pointer-events-none;
 
         img {
-            @apply [grid-row:1/-1] [grid-column:1] max-w-full block duration-200 transition-all rounded-xl relative bg-[#00000011]
+            @apply [grid-row:1/-1] [grid-column:1] max-w-full block duration-200 transition-all relative
         }
 
         figcaption {

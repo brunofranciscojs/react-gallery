@@ -53,21 +53,11 @@ export default function Nav({ setCategoria }) {
         )}
 
         <nav>
-            <GlassCard
-              displacementScale={700}
-              blurAmount={0.0}
-              cornerRadius={60}
-              className="!w-full rounded-3xl mx-auto"
-              width="100%"
-              >
             <ul key='categorias' 
-                className="border border-white/40 border-b-black/20 border-r-black/20 items-start md:items-center justify-center z-50 relative md:w-fit w-full md:mx-auto mx-0 backdrop-blur-sm shadow-2xl !rounded-full bg-black/35 
-                           [&:has(li:hover)_li]:opacity-50 [&:has(li:not(:hover))_li:hover]:opacity-100" 
-                           >
+                className="items-start md:items-center justify-center z-50 relative md:w-fit w-full md:mx-auto mx-0 shadow-2xl bg-[#efefef] 
+                            [&_li.active]:text-black" >
               {categories.map((table, index) => (
-                <li
-                  key={index}
-                  className={`${table.toLowerCase() === ativo ? 'active' : ''} md:text-base text-sm text-white py-1.5 sm:py-3 px-2 sm:px-5 hover:[scale:1.2]`}
+                <li key={index} className={`${table.toLowerCase() === ativo ? 'active' : ''} md:text-base text-sm text-black/40 py-1.5 sm:py-3 px-2 sm:px-5 hover:text-black uppercase`}
                   onClick={() => {
                     setCategoria(table.toLowerCase());
                     setAtivo(table);
@@ -77,9 +67,7 @@ export default function Nav({ setCategoria }) {
                 </li>
               ))}
             </ul>
-            </GlassCard>
         </nav>
-      
     </>
   );
 }
