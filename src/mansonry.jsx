@@ -115,7 +115,7 @@ const Mansonry = ({ category }) => {
     
     return (
         <>
-        <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale h-dvh' key='mansonry'>
+        <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale lg:h-dvh h-auto' key='mansonry'>
             {imagePalettes.map(({ url, colors, name }, index) => {
                 const size = placeholders[url] || { width: 200, height: 200 };
                 return (
