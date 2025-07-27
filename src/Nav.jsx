@@ -4,7 +4,6 @@ import './Nav.css';
 import useAuth from "./hooks/useAuth.jsx";
 import Logar from "./login.jsx";
 import UploadForm from "./components/UploadImage.jsx";
-import { GlassCard } from '@developer-hub/liquid-glass'
 
 export default function Nav({ setCategoria }) {
   const { logado, sair } = useAuth();
@@ -18,8 +17,7 @@ export default function Nav({ setCategoria }) {
     const fetchCategories = async () => {
       try {
         const { data, error } = await supabase
-          .from('imagens')
-          .select("categoria", { distinct: true });
+          .from('imagens').select("categoria", { distinct: true });
         if (error) throw error;
         const uniqueCategories = [...new Set(data.map(item => item.categoria))];
         setCategories(uniqueCategories);
@@ -32,7 +30,6 @@ export default function Nav({ setCategoria }) {
 
   return (
     <>
-      
         {logado && upWindow && <UploadForm setupWindow={setupWindow} />}
         {logado && (
           <>
