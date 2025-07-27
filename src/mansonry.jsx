@@ -4,7 +4,6 @@ import Modal from './components/Modal.jsx';
 import Figure from './components/Figure.jsx';
 import { getImagesByCategory } from './contexto/ImagesDB.jsx';
 import ColorThief from 'colorthief';
-import {LGContainer} from "./components/FluidGlass.jsx";
 
 const Mansonry = ({ category }) => {
     const [images, setImages] = useState([]);

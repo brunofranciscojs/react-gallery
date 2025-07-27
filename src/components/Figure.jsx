@@ -122,8 +122,7 @@ export default function Figure({ url, cat, abrirModal, index, name, colors, setD
                         {!message && 
                         <div className='flex justify-center items-center gap-4'>
                             <input onBlur={(e) =>e.target.value.length > 0 ? handleRename(e.target.value) : console.log('nada alterado')} placeholder={'NOVO NOME'} className='bg-white/30 px-4 py-2 text-white text-sm rounded-lg placeholder:text-gray-200' />
-                        </div>
-                        }
+                        </div>}
                         {message && <span>Renomeado com sucesso!</span>}
                     </div>
                 </div>
