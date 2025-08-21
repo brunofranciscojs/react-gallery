@@ -3,9 +3,9 @@ import DeleteIcon from './DeleteIcon'
 import EditIcon from './EditIcon'
 import { useState } from 'react';
 import { supabase } from '../contexto/supabaseClient';
-import SpinIcon from './SpinIcon';
+import ReplaceIcon from './ReplaceIcon';
 
-export default function Figure({ url, cat, abrirModal, index, name, colors, setDcolor, imageLoadStatus }) {
+export default function Figure({ url, cat, abrirModal, index, name, colors, setDcolor, setUpWindow, setNova }) {
     const { logado } = useAuth();
     const [confirmation, setConfirmation] = useState(false);
     const [ren, setRen] = useState(false);
@@ -16,18 +16,14 @@ export default function Figure({ url, cat, abrirModal, index, name, colors, setD
         const category = filePath.split('/')[0];
         const newFilePath = `${category}/${newName}`;
     
-        const { data: fileData, error: downloadError } = await supabase.storage
-            .from("ilustras")
-            .download(filePath);
+        const { data: fileData, error: downloadError } = await supabase.storage.from("ilustras").download(filePath);
     
         if (downloadError) {
             console.error("Erro ao baixar o arquivo:", downloadError);
             return;
         }
     
-        const { data: uploadData, error: uploadError } = await supabase.storage
-            .from("ilustras")
-            .upload(newFilePath, fileData);
+        const { data: uploadData, error: uploadError } = await supabase.storage.from("ilustras").upload(newFilePath, fileData);
     
         if (uploadError) {
             console.error("Erro ao fazer upload com o novo nome:", uploadError);
@@ -35,18 +31,13 @@ export default function Figure({ url, cat, abrirModal, index, name, colors, setD
         }
     
         const newUrl = `https://utyaegtlratnhymumqjm.supabase.co/storage/v1/object/public/ilustras/${newFilePath}`;
-        const { error: dbError } = await supabase
-            .from("imagens")
-            .update({ url: newUrl, nome: newName })
-            .eq("url", url);
+        const { error: dbError } = await supabase.from("imagens").update({ url: newUrl, nome: newName }).eq("url", url);
     
         if (dbError) {
             console.error("Erro ao atualizar no banco:", dbError);
             return;
         }
-        const { error: deleteError } = await supabase.storage
-            .from("ilustras")
-            .remove([filePath]);
+        const { error: deleteError } = await supabase.storage.from("ilustras").remove([filePath]);
     
         if (deleteError) {
             console.error("Erro ao excluir o arquivo antigo:", deleteError);
@@ -77,12 +68,7 @@ export default function Figure({ url, cat, abrirModal, index, name, colors, setD
     return (
         <>
             <figure className={`item grid place-items-center group shadow-none hover:shadow-[--cor] hover:shadow-2xl relative duration-150 group backdrop-blur-sm bg-[--bg]`} style={{"--cor":colors[0],"--bg":colors[0]+22,transition: (index + 1 ) * .17 + 'ms'}}>
-                {!imageLoadStatus &&
-                    <span className='animate-spin block absolute top-1/2 left-1/2 [translate:-50%_-50%]'>
-                        <SpinIcon />
-                    </span>
-                }
-                
+
                 {logado &&
                     <>
                         <button className='absolute top-2 left-2 [&>svg_path]:fill-none [&>svg_path]:stroke-gray-400 duration-150 opacity-0 group-hover:opacity-100 z-50' onClick={() => setConfirmation(true)}>
@@ -121,7 +107,18 @@ export default function Figure({ url, cat, abrirModal, index, name, colors, setD
 
                         {!message && 
                         <div className='flex justify-center items-center gap-4'>
-                            <input onBlur={(e) =>e.target.value.length > 0 ? handleRename(e.target.value) : console.log('nada alterado')} placeholder={'NOVO NOME'} className='bg-white/30 px-4 py-2 text-white text-sm rounded-lg placeholder:text-gray-200' />
+                            <input onBlur={(e) =>e.target.value.length > 0 ? handleRename(e.target.value) : console.log('nada alterado')} 
+                                   placeholder={'NOVO NOME'} 
+                                   className='bg-white/30 px-4 py-2 text-white text-sm rounded-lg placeholder:text-gray-200' 
+                            />
+                            <button 
+                               onClick={()=>{
+                                setUpWindow(true); 
+                                setNova(true)
+                                localStorage.setItem('urlEditar', url);
+                              }}>
+                            <ReplaceIcon/>
+                            </button>
                         </div>}
                         {message && <span>Renomeado com sucesso!</span>}
                     </div>
