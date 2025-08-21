@@ -5,7 +5,6 @@ import Mansonry from './mansonry';
 
 export default function App() {
   const [categoria, setCategoria] = useState(localStorage.getItem('categoria') || 'jogos')
-
   return (
     <div>
       <Mansonry category={categoria} />
