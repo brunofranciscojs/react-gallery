@@ -5,13 +5,12 @@ import useAuth from "./hooks/useAuth.jsx";
 import Logar from "./login.jsx";
 import UploadForm from "./components/UploadImage.jsx";
 
-export default function Nav({ setCategoria }) {
+export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova }) {
   const { logado, sair } = useAuth();
-  const [upWindow, setupWindow] = useState(false);
   const dcolor = localStorage.getItem('dColor');
   const [categories, setCategories] = useState([]);
   const [logar, setLogar] = useState(false);
-  const [ativo, setAtivo] = useState('jogos');
+  const [ativo, setAtivo] = useState(localStorage.getItem('categoria') || 'misc');
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -30,11 +29,11 @@ export default function Nav({ setCategoria }) {
 
   return (
     <>
-        {logado && upWindow && <UploadForm setupWindow={setupWindow} />}
+        {logado && upWindow && <UploadForm setUpWindow={setUpWindow} nova={nova}/>}
         {logado && (
           <>
             <span className='log fixed right-12 top-[14px] text-gray-600 hover:text-gray-950 cursor-pointer z-50 hidden sm:block' onClick={sair}>sair</span>
-            <button className='log fixed right-6 top-[8px] text-gray-600 hover:text-gray-950 cursor-pointer z-30 text-2xl hidden sm:block' onClick={() => setupWindow(true)}> + </button>
+            <button className='log fixed right-6 top-[8px] text-gray-600 hover:text-gray-950 cursor-pointer z-30 text-2xl hidden sm:block' onClick={() => {setUpWindow(true); setNova(false)}}> + </button>
           </>
         )}
         {!logado && (
@@ -51,11 +50,11 @@ export default function Nav({ setCategoria }) {
 
         <nav>
             <ul key='categorias' 
-                className="items-start md:items-center justify-center z-50 relative md:w-fit w-full md:mx-auto mx-0 shadow-2xl bg-[#efefef] 
-                            [&_li.active]:text-black" >
+                className="items-start md:items-center justify-center z-50 relative md:w-fit w-full md:mx-auto mx-0 shadow-2xl bg-[#efefef] [&_li.active]:text-black" >
               {categories.map((table, index) => (
                 <li key={index} className={`${table.toLowerCase() === ativo ? 'active' : ''} md:text-base text-sm text-black/40 py-1.5 sm:py-3 px-2 sm:px-5 hover:text-black uppercase`}
                   onClick={() => {
+                    localStorage.setItem('categoria',table.toLowerCase())
                     setCategoria(table.toLowerCase());
                     setAtivo(table);
                   }}

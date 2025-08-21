@@ -5,15 +5,16 @@ import Figure from './components/Figure.jsx';
 import { getImagesByCategory } from './contexto/ImagesDB.jsx';
 import ColorThief from 'colorthief';
 
-const Mansonry = ({ category }) => {
+const Mansonry = ({ category, setUpWindow, setNova }) => {
     const [images, setImages] = useState([]);
     const [modal, setModal] = useState(false);
     const [openedImage, setOpenedImage] = useState(0); 
     const [imagePalettes, setImagePalettes] = useState([]);
     const [dColor, setDcolor] = useState('#0005');
     const [placeholders, setPlaceholders] = useState({});
-    const [imageLoadStatus, setImageLoadStatus] = useState({});
     const CACHE_KEY = `imagens-${category}`;
+    const LAST_CLEAN_KEY = "last-clean-images";
+    const CLEAN_INTERVAL = 24 * 60 * 60 * 1000;
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -29,15 +30,19 @@ const Mansonry = ({ category }) => {
                 return;
             }
 
-            const hasNewImages = sortedFiles.length !== cachedImages.length || 
-                               new Date(sortedFiles[0]?.created_at) > new Date(cachedImages[0]?.created_at);
+            const lastClean = localStorage.getItem(LAST_CLEAN_KEY);
+            const now = Date.now();
 
-            if (hasNewImages) {
-                setImages(sortedFiles);
-                localStorage.setItem(CACHE_KEY, JSON.stringify(sortedFiles));
-            } else {
-                setImages(cachedImages);
+            if (!lastClean || now - parseInt(lastClean, 10) > CLEAN_INTERVAL) {
+              Object.keys(localStorage).forEach((key) => {
+                if (key.startsWith("images-")) {
+                    localStorage.removeItem(key);
+                }
+              });
+
+              localStorage.setItem(LAST_CLEAN_KEY, now.toString());
             }
+            setImages(sortedFiles);
         };
         fetchImages();
     }, [category]);
@@ -54,28 +59,14 @@ const Mansonry = ({ category }) => {
 
                     return new Promise((resolve) => {
                         img.onload = () => {
-                            setTimeout(() =>{
-                                setImageLoadStatus(prev => ({ ...prev, [image.url]: true }));
-                            },600)
-
-                            try {
-                                const colorThief = new ColorThief();
-                                const palette = colorThief.getPalette(img, 3);
-                                const hexPalette = palette.map((rgb) =>
-                                    `#${rgb.map((v) => v.toString(16).padStart(2, '0')).join('')}`
-                                );
-                                
-                                const imageSize = { width: img.naturalWidth, height: img.naturalHeight };
-                                localStorage.setItem(`size-${image.url}`, JSON.stringify(imageSize));
-                                resolve({ url: image.url, colors: hexPalette, name: image.nome });
-                                
-                            } catch (error) {
-                                console.error("Erro ao extrair cores:", error);
-                                resolve({ url: image.url, colors: ['#cccccc'] });
-                            }
+                            const colorThief = new ColorThief();
+                            const palette = colorThief.getPalette(img, 3);
+                            const hexPalette = palette.map((rgb) =>
+                                `#${rgb.map((v) => v.toString(16).padStart(2, '0')).join('')}`
+                            );
+                            resolve({ url: image.url, colors: hexPalette, name: image.nome });
                         };
                         img.onerror = () => {
-                            setImageLoadStatus(prev => ({ ...prev, [image.url]: false }));
                             resolve({ url: image.url, colors: ['#cccccc'] });
                         };
                     });
@@ -128,7 +119,8 @@ const Mansonry = ({ category }) => {
                         colors={colors}
                         setDcolor={setDcolor}
                         placeholderSize={size}
-                        imageLoadStatus={imageLoadStatus[url]}
+                        setUpWindow={setUpWindow}
+                        setNova={setNova}
                     />
                 );
             })}
