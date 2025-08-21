@@ -4,7 +4,6 @@ import { useState } from "react";
 
 const Modal = ({params:{ setModal, dColor, openedImage }}) => {
     const [mirror, setMirror] = useState(false)
-
     return (
         <>
             <div className="fixed z-[90] w-full h-dvh left-0 top-0 grid place-items-center modal cl:p-8 p-0 bg-[#5557] backdrop-blur-sm backdrop-grayscale-[1] backdrop-brightness-[.8] [&_figure]:![background-color:transparent] [&_figure]:cl:block [&_figure]:hidden" style={{ "--dColor":dColor+'cc'}}>
