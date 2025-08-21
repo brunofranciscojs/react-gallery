@@ -4,7 +4,7 @@ import Nav from './Nav.jsx';
 import Mansonry from './mansonry';
 
 export default function App() {
-  const [categoria, setCategoria] = useState('jogos')
+  const [categoria, setCategoria] = useState(localStorage.getItem('categoria') || 'jogos')
 
   return (
     <div>
@@ -13,7 +13,7 @@ export default function App() {
         desenvolvido com react, supabase, tailwind
 
         <div className="flex gap-4 text-gray-400 z-50 justify-start relative lowercase ">
-          <a className="hover:text-gray-50 duration-100" href="https://github.com/brunofranciscojs">GITHUB</a>
+          <a className="hover:text-gray-50 duration-100" href="https://github.com/brunofranciscojsx">GITHUB</a>
           <a className="hover:text-gray-50 duration-100" href="https://brunofrancisco.com.br">WEBSITE</a>
           <a className="hover:text-gray-50 duration-100" href="https://linkedin.com/in/bruno-francisco-">LINKEDIN</a>
         </div>
