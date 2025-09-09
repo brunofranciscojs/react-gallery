@@ -4,14 +4,24 @@ import './Nav.css';
 import useAuth from "./hooks/useAuth.jsx";
 import Logar from "./login.jsx";
 import UploadForm from "./components/UploadImage.jsx";
+import { useNavigate } from 'react-router-dom';
 
 export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova }) {
   const { logado, sair } = useAuth();
-  const dcolor = localStorage.getItem('dColor');
   const [categories, setCategories] = useState([]);
   const [logar, setLogar] = useState(false);
   const [ativo, setAtivo] = useState(localStorage.getItem('categoria') || 'misc');
+  const navigate = useNavigate();
 
+  const slugify = (text) =>{
+      return text
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w-]+/g, "");
+  }
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -26,6 +36,12 @@ export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova
     };
     fetchCategories();
   }, []);
+
+  const handleCategoryChange = (newCategory) => {
+    setCategoria(newCategory);
+    localStorage.setItem('categoria', newCategory);
+    navigate(`/${slugify(newCategory)}`);
+  };
 
   return (
     <>
@@ -49,13 +65,11 @@ export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova
         )}
 
         <nav>
-            <ul key='categorias' 
-                className="items-start md:items-center justify-center z-50 relative md:w-fit w-full md:mx-auto mx-0 shadow-2xl bg-[#efefef] [&_li.active]:text-black" >
+            <ul className="items-start md:items-center justify-center z-50 relative md:w-fit w-full mx-0 bg-[#efefefcc] backdrop-blur-md [&_li.active]:text-black" >
               {categories.map((table, index) => (
                 <li key={index} className={`${table.toLowerCase() === ativo ? 'active' : ''} md:text-base text-sm text-black/40 py-1.5 sm:py-3 px-2 sm:px-5 hover:text-black uppercase`}
                   onClick={() => {
-                    localStorage.setItem('categoria',table.toLowerCase())
-                    setCategoria(table.toLowerCase());
+                    handleCategoryChange(table.toLowerCase());
                     setAtivo(table);
                   }}
                 >

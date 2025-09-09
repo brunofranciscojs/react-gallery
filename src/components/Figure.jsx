@@ -4,13 +4,24 @@ import EditIcon from './EditIcon'
 import { useState } from 'react';
 import { supabase } from '../contexto/supabaseClient';
 import ReplaceIcon from './ReplaceIcon';
+import { useNavigate } from 'react-router-dom';
 
-export default function Figure({ url, cat, abrirModal, index, name, colors, setDcolor, setUpWindow, setNova }) {
+export default function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova }) {
     const { logado } = useAuth();
     const [confirmation, setConfirmation] = useState(false);
     const [ren, setRen] = useState(false);
     const [message, setMessage] = useState(false);
+    const navigate = useNavigate();
     
+    const slugify = (text) =>{
+        return text
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, "-")
+            .replace(/[^\w-]+/g, "");
+    }
     const handleRename = async (newName) => {
         const filePath = url.split('/ilustras/')[1]; 
         const category = filePath.split('/')[0];
@@ -80,7 +91,7 @@ export default function Figure({ url, cat, abrirModal, index, name, colors, setD
                         </button>
                     </>
                 }
-                <img src={url} onClick={() => {abrirModal(url); setDcolor(colors[0])}} loading="lazy" decoding="async"/>
+                <img src={url} onClick={() => {navigate(`/${slugify(cat)}/${btoa(name)}`), setDcolor(colors[0])}} loading="lazy" decoding="async"/>
 
                 <figcaption className='flex flex-col justify-end text-left'>
                     <fieldset>

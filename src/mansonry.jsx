@@ -1,14 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './mansonry.css';
-import Modal from './components/Modal.jsx';
 import Figure from './components/Figure.jsx';
 import { getImagesByCategory } from './contexto/ImagesDB.jsx';
 import ColorThief from 'colorthief';
 
 const Mansonry = ({ category, setUpWindow, setNova }) => {
     const [images, setImages] = useState([]);
-    const [modal, setModal] = useState(false);
-    const [openedImage, setOpenedImage] = useState(0); 
     const [imagePalettes, setImagePalettes] = useState([]);
     const [dColor, setDcolor] = useState('#0005');
     const [placeholders, setPlaceholders] = useState({});
@@ -98,14 +95,10 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
         return () => document.removeEventListener('keydown', escFunction);
     }, []);
 
-    const abrirModal = (url) => {
-        setModal(true);
-        setOpenedImage(url);
-    };
     
     return (
         <>
-        <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale h-auto' key='mansonry'>
+        <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale h-auto mt-14' key='mansonry'>
             {imagePalettes.map(({ url, colors, name }, index) => {
                 const size = placeholders[url] || { width: 200, height: 200 };
                 return (
@@ -113,7 +106,6 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
                         key={index} 
                         url={url} 
                         cat={category} 
-                        abrirModal={abrirModal} 
                         index={index} 
                         name={name}
                         colors={colors}
@@ -125,7 +117,6 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
                 );
             })}
         </div>
-        {modal && <Modal params={{ setModal, modal, openedImage, dColor }} />}
         </>
     );
 };

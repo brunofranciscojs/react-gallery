@@ -1,6 +1,7 @@
 import ImageZoom from "react-image-zooom";
 import MirrorIcon from "./MirrorIcon";
 import { useState } from "react";
+
 const Modal = ({params:{ setModal, dColor, openedImage }}) => {
     const [mirror, setMirror] = useState(false)
     return (
