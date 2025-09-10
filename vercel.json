@@ -1,14 +1,13 @@
 {
   "builds": [
-    {
-      "src": "./api/share/[imageId].js",
-      "use": "@vercel/node"
-    }
+   { "src": "api/**/*.js", "use": "@vercel/node" } 
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "destination": "/"
-    }
-  ]
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)", "dest": "/index.html" } 
+  ],
+  "build": { 
+    "env": { "NPM_FLAGS": "--force" } 
 }
+}
+
