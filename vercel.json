@@ -9,8 +9,5 @@
     "env": {
       "NPM_FLAGS": "--force"
     }  
-  },
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" }
-  ]
+  }
 }
