@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../contexto/supabaseClient';
 import ImageZoom from "react-image-zooom";
 
-export default function ImageDetail({dColor}) {
+export default function ImageDetail() {
   const { imageId } = useParams();
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
@@ -30,7 +30,6 @@ export default function ImageDetail({dColor}) {
       }
       setImage(data[0]);
     };
-
     fetchImage();
   }, [imageId]);
 
@@ -54,22 +53,24 @@ export default function ImageDetail({dColor}) {
   if (!image) return null;
 
   return (
-    <div className="bg-[#efefef] flex items-center justify-between relative h-dvh w-[1280px] mx-auto" style={{ "--dColor":localStorage.getItem('dColor')+'cc'}}>
+    <div className="bg-[#efefef] flex gap-5 flex-col cl:flex-row items-center justify-center relative h-full w-full mx-auto z-[999]" style={{ "--dColor":localStorage.getItem('dColor')+'cc'}}>
 
-        <div className="max-w-svw z-10">
-          <a className={`leading-none text-xl cursor-pointer text-black absolute right-5 top-12`} onClick={() => navigate(`/${slugify(image.categoria)}`)}>X</a>
-  
-          <ImageZoom zoom={200} src={image.url} className={`[&_img]:shadow-xl w-full [&_img]:h-[88dvh] [&_img]:object-contain [&_img]:rounded-2xl !z-10 mx-auto [&_img]:!w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
+        <div className="z-10 w-auto relative">
+          <a className={`leading-none text-xl cursor-pointer text-black absolute right-[unset]  cl:right-0 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 z-50`} onClick={() => navigate(`/${slugify(image.categoria)}`)}>X</a>
+          <ImageZoom zoom={200} src={image.url} className={`cl:!block !hidden [&_img]:shadow-xl w-auto [&_img]:h-[88dvh] [&_img]:object-contain [&_img]:rounded-2xl !z-10 mx-auto [&_img]:!w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
+          <img src={image.url} className={`shadow-xl block cl:hidden h-[88dvh] object-contain rounded-2xl !z-10 mx-auto !w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
+          <img src={image.url} className={`h-[89dvh] cl:!block !hidden object-contain blur-[15rem] saturate-200 pointer-events-none !z-0 mx-auto absolute left-0 top-12`} />
         </div>
 
-          <img src={image.url} className={`h-[89dvh] object-contain blur-[10rem] pointer-events-none !z-0 mx-auto absolute left-0 top-12`} />
-        <div className='z-10'>
-          <h2 className="text-2xl font-semibold text-gray-800 mt-4">outras de {image.categoria}</h2>
-
-          <div className="mt-4 flex gap-4 flex-wrap max-w-[20vw] z-50 justify-end">
+        <div className='flex flex-col'>
+          <div>
+            <h1 className='text-3xl font-semibold text-gray-900 mt-6 cl:mt-0 cl:text-left text-center'>{image.nome}</h1>
+            <h2 className='text-sm text-gray-600 cl:text-left text-center mt-1'>Categoria: {image.categoria}</h2>
+          </div>
+          <div className="mt-4 flex gap-4 cl:max-w-[300px] max-w-full z-50 flex-wrap ">
             {relatedImages.map((rel) => (
-              <div key={rel.nome}  className="w-32 h-32 cursor-pointer overflow-hidden rounded-lg" onClick={() => navigate(`/imagem/${btoa(rel.nome)}`)}>
-                <img  src={rel.url} alt={rel.nome} className="w-full h-full object-cover"/>
+              <div key={rel.nome}  className="w-32 cl:h-44 h-32 cursor-pointer overflow-hidden rounded-lg hover:[&_img]:[scale:1.05]" onClick={() => navigate(`/${slugify(image.categoria)}/${btoa(rel.nome)}`)}>
+                <img  src={rel.url} alt={rel.nome} className="w-full h-full object-cover duration-100 object-top"/>
               </div>
             ))}
           </div>

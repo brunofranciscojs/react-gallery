@@ -78,7 +78,7 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
 
     return (
         <>
-            <figure className={`item grid place-items-center group shadow-none hover:shadow-[--cor] hover:shadow-2xl relative duration-150 group backdrop-blur-sm bg-[--bg]`} style={{"--cor":colors[0],"--bg":colors[0]+22,transition: (index + 1 ) * .17 + 'ms'}}>
+            <figure className={`rounded-lg item grid place-items-center group shadow-none hover:shadow-[--cor] hover:shadow-2xl relative duration-150 group backdrop-blur-sm bg-[--bg]`} style={{"--cor":colors[0],"--bg":colors[0]+22,transition: (index + 1 ) * .17 + 'ms'}}>
 
                 {logado &&
                     <>
