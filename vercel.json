@@ -1,10 +1,11 @@
 {
   "builds": [
-   { "src": "api/**/*.js", "use": "@vercel/node" } 
+   { "src": "api/**/*.js", "use": "@vercel/node" }, 
+   { "src": "dist/**", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/index.html" } 
+    { "src": "/(.*)", "dest": "/dist/index.html" } 
   ],
   "build": { 
     "env": { "NPM_FLAGS": "--force" } 
