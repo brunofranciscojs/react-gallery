@@ -1,13 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.VITE_ENDPOINT;
-const supabaseKey = process.env.VITE_API_KEY; // ⚠️ use variáveis no Vercel, não hardcode
+const supabaseKey = process.env.VITE_API_KEY; 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default async function handler(req, res) {
   const { imageId } = req.query;
 
-  // busca no Supabase
   const { data, error } = await supabase
     .from('imagens')
     .select('id, nome, url, categoria')
@@ -52,7 +51,7 @@ export default async function handler(req, res) {
       <body>
         <script>
           // redireciona para a página real da galeria
-          window.location.href = "/galeria/${imageId}";
+          window.location.href = "/${imageData.categoria}/${imageId}";
         </script>
       </body>
     </html>
