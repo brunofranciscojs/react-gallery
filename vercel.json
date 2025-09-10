@@ -2,9 +2,15 @@
   "builds": [
     { "src": "api/**/*.js", "use": "@vercel/node" }
   ],
+  "build": {
+    "env": {
+      "NPM_FLAGS": "--force"
+    }  
+  },
   "routes": [
+    { "src": "/.*", "dest": "/index.html" },
     { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/index.html" }
+    { "handle": "filesystem" }
   ]
 }
+
