@@ -48,6 +48,14 @@ export default function ImageDetail() {
 
   fetchRelated();
 }, [image]);
+  
+  // const imagePageUrl = `https://ilustracoes.brunofrancisco.com.br/share/${encodeURIComponent(image.nome)}`;
+  // const text = encodeURIComponent(`Confira esta imagem: ${image.nome}`);
+  // const waLink = `https://wa.me/?text=${text}%20${encodeURIComponent(imagePageUrl)}`;
+  // const twitterLink = `https://twitter.com/intent/tweet?url=${encodeURIComponent(imagePageUrl)}&text=${text}`;
+  // const fbLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(imagePageUrl)}`;
+  // const linkedinLink = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(imagePageUrl)}`;
+  // const redditLink = `https://www.reddit.com/submit?url=${encodeURIComponent(imagePageUrl)}&title=${text}`;
 
 
   if (!image) return null;
@@ -60,6 +68,14 @@ export default function ImageDetail() {
           <ImageZoom zoom={200} src={image.url} className={`cl:!block !hidden [&_img]:shadow-xl w-auto [&_img]:h-[88dvh] [&_img]:object-contain [&_img]:rounded-2xl !z-10 mx-auto [&_img]:!w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
           <img src={image.url} className={`shadow-xl block cl:hidden h-[88dvh] object-contain rounded-2xl !z-10 mx-auto !w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
           <img src={image.url} className={`h-[89dvh] cl:!block !hidden object-contain blur-[15rem] saturate-200 pointer-events-none !z-0 mx-auto absolute left-0 top-12`} />
+        
+          {/* <div className="share-buttons flex-col flex gap-2 mt-2 w-12 h-full">
+            <a href={waLink} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href={twitterLink} target="_blank" rel="noopener noreferrer">X</a>
+            <a href={fbLink} target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a href={linkedinLink} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href={redditLink} target="_blank" rel="noopener noreferrer">Reddit</a>
+          </div> */}
         </div>
 
         <div className='flex flex-col'>
