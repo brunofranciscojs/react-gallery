@@ -1,14 +1,8 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
   "build": {
     "env": {
       "NPM_FLAGS": "--force"
-    }  
+    }
   },
   "builds": [
     { "src": "dist/**", "use": "@vercel/static" },
