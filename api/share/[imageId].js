@@ -33,33 +33,32 @@ export default async function handler(req, res) {
     categoria: slugify(data.categoria),
   };
 
-  res.setHeader("Content-Type", "text/html");
+res.setHeader("Content-Type", "text/html; charset=utf-8");
 
-  res.send(`
-  <!DOCTYPE html>
-  <html lang="pt-br">
-    <head>
-      <meta charset="utf-8" />
-      <title>${imageData.nome}</title>
+  res.send(`<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <title>${imageData.nome}</title>
 
-      <!-- Open Graph -->
-      <meta property="og:title" content="${imageData.nome}" />
-      <meta property="og:description" content="Confira esta imagem incrível da categoria ${imageData.categoria}!" />
-      <meta property="og:image" content="${imageData.url}" />
-      <meta property="og:type" content="article" />
-      <meta property="og:url" content="https://${req.headers.host}/api/share/${data.url}" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="${imageData.nome}" />
+    <meta property="og:description" content="Confira esta imagem incrível da categoria ${imageData.categoria}!" />
+    <meta property="og:image" content="${imageData.url}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://${req.headers.host}/api/share/${imageData.nome}" />
 
-      <!-- Twitter -->
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="${imageData.nome}" />
-      <meta name="twitter:image" content="${imageData.url}" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${imageData.nome}" />
+    <meta name="twitter:image" content="${imageData.url}" />
 
-      <!-- Redirecionamento -->
-      <meta http-equiv="refresh" content="0; url=/${imageData.categoria}/${imageData.nome}" />
-    </head>
-    <body>
-      <p>Redirecionando para a página...</p>
-    </body>
-  </html>
-`);
+    <!-- Meta refresh para redirecionar a página -->
+    <meta http-equiv="refresh" content="0; url=/${imageData.categoria}/${imageData.nome}" />
+  </head>
+  <body>
+    <p>Redirecionando para a página da imagem...</p>
+    <p><a href="/${imageData.categoria}/${imageData.id}">Clique aqui se não redirecionar automaticamente</a></p>
+  </body>
+</html>`);
 }

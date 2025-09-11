@@ -5,7 +5,8 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*\\.(js|css|map|ico|png|jpg|jpeg|svg|woff2?))", "dest": "/$1" },
+    { "src": "/share/(.*)", "dest": "/api/share/[...slug].js" },
+    { "src": "/(.*\\.(js|css|map|ico|webp|avif|png|jpg|jpeg|svg|woff2?))", "dest": "/$1" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
