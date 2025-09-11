@@ -1,9 +1,11 @@
 {
+  "builds": [
+    { "src": "api/**/*.js", "use": "@vercel/node" },
+    { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } }
+  ],
   "routes": [
-    {
-      "src": "/(.*)/(.*)",
-      "dest": "/api/share/[...slug].js"
-    },
+    {"src": "/(.*)/(.*)", "dest": "/api/share/[...slug].js"},
+    {"src": "/api/share/(.*)", "dest": "/api/share/[imageId].js"},
     { "src": "/(.*\\.(js|css|map|ico|webp|avif|png|jpg|jpeg|svg|woff2?))", "dest": "/$1" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
