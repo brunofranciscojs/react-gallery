@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
   const categoria = slug[0];
   const nomeBase64 = slug[1];
-  const nomeDaImagem = atob(nomeBase64);
+  const nomeDaImagem = btoa(nomeBase64);
 
   const { data, error } = await supabase
     .from('imagens')
