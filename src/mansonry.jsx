@@ -53,7 +53,7 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
           const paletteKey = `palette-${image.url}`;
           const cachedPalette = localStorage.getItem(paletteKey);
           if (cachedPalette) {
-            return { url: image.url, colors: JSON.parse(cachedPalette), name: image.nome };
+            return { url: image.url, colors: JSON.parse(cachedPalette), name: image.nome, id: image.id };
           }
 
           const img = new Image();
@@ -81,8 +81,8 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
   }, [images]);
 
   return (
-    <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale h-auto mt-14' key='mansonry'>
-      {imagePalettes.map(({ url, colors, name }, index) => {
+    <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale h-auto py-14 px-5' key='mansonry'>
+      {imagePalettes.map(({ url, colors, name, id }, index) => {
         return (
           <Figure
             key={index}
@@ -94,6 +94,7 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
             setDcolor={setDcolor}
             setUpWindow={setUpWindow}
             setNova={setNova}
+            id={id}
           />
         );
       })}

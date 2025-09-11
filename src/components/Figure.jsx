@@ -6,13 +6,13 @@ import { supabase } from '../contexto/supabaseClient';
 import ReplaceIcon from './ReplaceIcon';
 import { useNavigate } from 'react-router-dom';
 
-export default function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova }) {
+export default function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova, id }) {
     const { logado } = useAuth();
     const [confirmation, setConfirmation] = useState(false);
     const [ren, setRen] = useState(false);
     const [message, setMessage] = useState(false);
     const navigate = useNavigate();
-    
+
     const slugify = (text) =>{
         return text
             .normalize("NFD")
@@ -78,7 +78,7 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
 
     return (
         <>
-            <figure className={`rounded-lg item grid place-items-center group shadow-none hover:shadow-[--cor] hover:shadow-2xl relative duration-150 group backdrop-blur-sm bg-[--bg]`} style={{"--cor":colors[0],"--bg":colors[0]+22,transition: (index + 1 ) * .17 + 'ms'}}>
+            <figure className={`rounded-lg item grid place-items-center group shadow-none bg-[--bg] relative duration-150 group backdrop-blur-sm `} style={{"--cor":colors[0],"--bg":colors[0]+22,transition: (index + 1 ) * .17 + 'ms'}}>
 
                 {logado &&
                     <>
@@ -91,7 +91,7 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
                         </button>
                     </>
                 }
-                <img src={url} onClick={() => {navigate(`/${slugify(cat)}/${btoa(name)}`), setDcolor(colors[0])}} loading="lazy" decoding="async"/>
+                <img src={url} onClick={() => {navigate(`/${slugify(cat)}/${id}`), setDcolor(colors[0])}} loading="lazy" decoding="async"/>
 
                 <figcaption className='flex flex-col justify-end text-left'>
                     <fieldset>
