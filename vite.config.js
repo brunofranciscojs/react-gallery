@@ -19,6 +19,7 @@ export default defineConfig({
   build: {
     ssr: true,
     outDir: 'dist',
+    external: ['react-router-dom/server'],
     rollupOptions: {
       input: '/src/server.jsx',
       output: {
