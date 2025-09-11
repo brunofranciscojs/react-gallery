@@ -17,8 +17,10 @@ export default defineConfig({
     },
   },
   build: {
+    ssr: true,
     outDir: 'dist',
     rollupOptions: {
+      input: '/src/server.jsx',
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {

@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../contexto/supabaseClient';
 import ImageZoom from "react-image-zooom";
 
-export default function ImageDetail() {
+export default function ImageDetail({ initialData }) {
   const { imageId } = useParams();
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(initialData || null);
   const navigate = useNavigate();
   const [relatedImages, setRelatedImages] = useState([]);
 
