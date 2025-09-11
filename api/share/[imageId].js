@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.VITE_ENDPOINT;
-const supabaseKey = process.env.VITE_API_KEY; 
+const supabaseUrl = 'https://utyaegtlratnhymumqjm.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0eWFlZ3RscmF0bmh5bXVtcWptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMzNTU5MDUsImV4cCI6MjA1ODkzMTkwNX0.B2-GTy9rJPgGTmDeB70CwfzbbTTdocp-1QzRaMNDntQ'; 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default async function handler(req, res) {
@@ -47,7 +47,7 @@ export default async function handler(req, res) {
       <meta property="og:description" content="Confira esta imagem incrível da categoria ${imageData.categoria}!" />
       <meta property="og:image" content="${imageData.url}" />
       <meta property="og:type" content="article" />
-      <meta property="og:url" content="https://${req.headers.host}/api/share/${imageId}" />
+      <meta property="og:url" content="https://${req.headers.host}/api/share/${data.url}" />
 
       <!-- Twitter -->
       <meta name="twitter:card" content="summary_large_image" />
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
       <meta name="twitter:image" content="${imageData.url}" />
 
       <!-- Redirecionamento -->
-      <meta http-equiv="refresh" content="0; url=/${imageData.categoria}/${imageId}" />
+      <meta http-equiv="refresh" content="0; url=/${imageData.categoria}/${imageData.nome}" />
     </head>
     <body>
       <p>Redirecionando para a página...</p>
