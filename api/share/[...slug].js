@@ -5,11 +5,7 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default async function handler(req, res) {
-  const slug = req.query.slug; // array: [categoria, nomeDaImagem]
-  if (!slug || slug.length < 2) {
-    res.status(404).send('Rota inválida');
-    return;
-  }
+ const host = req.headers.host;
  const slugify = (text) =>{
     return text
         .normalize("NFD")
@@ -19,10 +15,13 @@ export default async function handler(req, res) {
         .replace(/\s+/g, "-")
         .replace(/[^\w-]+/g, "");
 }
-  const categoria = slug[0];
-  const nomeDaImagem = slug[1];
+  const slug = req.query.slug; 
+  if (!slug || slug.length < 2) return res.status(404).send('Rota inválida');
 
-  // Busca a imagem no Supabase
+  const categoria = slug[0];
+  const nomeBase64 = slug[1];
+  const nomeDaImagem = atob(nomeBase64);
+
   const { data, error } = await supabase
     .from('imagens')
     .select('id, nome, url, categoria')
@@ -35,9 +34,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  res.setHeader("Content-Type", "text/html; charset=utf-8");
-
-  // Retorna HTML com OG + meta refresh
+res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.send(`<!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -49,7 +46,7 @@ export default async function handler(req, res) {
     <meta property="og:description" content="Confira esta imagem incrível da categoria ${data.categoria}!" />
     <meta property="og:image" content="${data.url}" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://${req.headers.host}/share/${slugify(data.categoria)}/${btoa(data.nome)}" />
+    <meta property="og:url" content="https://${host}/${slugify(data.categoria)}/${nomeBase64}" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -57,11 +54,11 @@ export default async function handler(req, res) {
     <meta name="twitter:image" content="${data.url}" />
 
     <!-- Redirecionamento para SPA -->
-    <meta http-equiv="refresh" content="0; url=/${slugify(data.categoria)}/${btoa(data.nome)}" />
+    <meta http-equiv="refresh" content="0; url=/galeria/${data.categoria}/${nomeBase64}" />
   </head>
   <body>
     <p>Redirecionando para a página da galeria...</p>
-    <p><a href="./${slugify(data.categoria)}/${btoa(data.nome)}">Clique aqui se não redirecionar automaticamente</a></p>
+    <p><a href="/galeria/${data.categoria}/${nomeBase64}">Clique aqui se não redirecionar automaticamente</a></p>
   </body>
 </html>`);
 }
