@@ -9,7 +9,6 @@ export function render(url, data) {
     </StaticRouter>
   );
 
-  // Gera HTML completo com meta tags OG
   return `
     <!DOCTYPE html>
     <html lang="pt-br">
