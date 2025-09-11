@@ -59,15 +59,15 @@ export default function ImageDetail() {
   return (
     <div className="bg-[#efefef] flex gap-5 flex-col cl:flex-row items-center justify-center relative h-full w-full mx-auto z-[999]" style={{ "--dColor":localStorage.getItem('dColor')+'cc'}}>
 
-        <div className="z-10 relative" style={{width:zoom ? '100%' : 'auto'}} onClick={() => setZoom(!zoom)}>
+        <div className="z-10 relative"onClick={() => setZoom(true)}>
           <a className={`leading-none text-xl cursor-pointer text-black absolute right-[unset]  cl:right-0 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 z-50`} onClick={() => navigate(`/${slugify(image.categoria)}`)}>X</a>
-          <ImageZoom zoom={130} fullWidth={true} src={image.url} className={`${zoom ? 'top-[1rem]' : ''} cl:!block !hidden [&_img]:shadow-xl w-auto [&_img]:h-[88dvh] [&_img]:object-contain [&_img]:rounded-2xl !z-10 mx-auto [&_img]:!w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
+          <ImageZoom zoom={220}  fullWidth={true} src={image.url} className={`cl:!block !hidden [&_img]:shadow-xl w-auto [&_img]:h-[88dvh] [&_img]:object-contain [&_img]:rounded-2xl !z-10 mx-auto [&_img]:!w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
           <img src={image.url} className={`shadow-xl block cl:hidden h-[88dvh] object-contain rounded-2xl !z-10 mx-auto !w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
           <img src={image.url} className={`h-[89dvh] cl:!block !hidden object-contain blur-[15rem] saturate-200 pointer-events-none !z-0 mx-auto absolute left-0 top-12`} />
       
         </div>
 
-        <div className='flex flex-col' style={{display:zoom ? 'none' : 'flex'}}>
+        <div className='flex flex-col'>
           <div>
             <h1 className='text-3xl font-semibold text-gray-900 mt-6 cl:mt-0 cl:text-left text-center'>{image.nome}</h1>
             <h2 className='text-sm text-gray-600 cl:text-left text-center mt-1'>Categoria: {image.categoria}</h2>

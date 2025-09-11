@@ -39,7 +39,7 @@ export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova
 
   const handleCategoryChange = (newCategory) => {
     setCategoria(newCategory);
-    localStorage.setItem('categoria', newCategory);
+    localStorage.setItem('categoria', slugify(newCategory));
     navigate(`/${slugify(newCategory)}`);
   };
 
@@ -67,7 +67,7 @@ export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova
         <nav>
             <ul className="items-start md:items-center justify-center z-50 relative md:w-fit w-full mx-0 bg-[#efefefcc] backdrop-blur-md [&_li.active]:text-black" >
               {categories.map((table, index) => (
-                <li key={index} className={`${table.toLowerCase() === ativo ? 'active' : ''} md:text-base text-sm text-black/40 py-1.5 sm:py-3 px-2 sm:px-5 hover:text-black uppercase`}
+                <li key={index} className={`${table.toLowerCase() === ativo ? 'active' : ''} md:text-base text-[.7rem] text-black/40 py-1 sm:py-3 px-2 sm:px-5 hover:text-black uppercase`}
                   onClick={() => {
                     handleCategoryChange(table.toLowerCase());
                     setAtivo(table);

@@ -3,13 +3,12 @@ body{
 }
 .mansonry {
     @apply relative columns-10 [&:has(figure:hover)_figure:hover_figcaption]:opacity-100 [&:has(figure:hover)_figure:hover_figcaption]:translate-y-0 gap-5;
-    @media screen and (max-width:1920px) {column-gap: 0px;}
     @media screen and (max-width:1720px) {column-count: 9; }
     @media screen and (max-width:1520px) {column-count: 8; }
     @media screen and (max-width:1420px) {column-count: 7; }
     @media screen and (max-width:1200px) {column-count: 5; }
     @media screen and (max-width:960px)  {column-count: 3; }
-    @media screen and (max-width:640px)  {column-gap: 0px;column-count: 2; }
+    @media screen and (max-width:640px)  {column-count: 2; }
     
     #todos {@apply hidden [scale:0] pointer-events-none opacity-0 m-0 p-0}
 
