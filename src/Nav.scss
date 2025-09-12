@@ -1,7 +1,7 @@
 nav {
     position: fixed;
     width: 100%;
-    bottom: 0;
+    top: 0;
     left: 0;
     z-index: 11;
 
@@ -25,15 +25,5 @@ nav {
         }
 
     }
-.LGContainer{
-    box-shadow: 0 10px 100px #0003 !important;
-    margin-inline: auto;
-    background: #fff9;
-    max-width: 600px !important;
-    width: 100% !important;
-    > div{
-        margin-inline: auto;
-    }
-}
 }
 
