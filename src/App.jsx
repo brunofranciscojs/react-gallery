@@ -72,7 +72,7 @@ export default function App() {
         desenvolvido com react, tailwind
   
         <div className="flex gap-4 text-gray-400 z-50 justify-center relative lowercase">
-          <a className="hover:text-gray-600 duration-100" target="_blank" href="https://github.com/brunofranciscojsx">GITHUB</a>
+          <a className="hover:text-gray-600 duration-100" target="_blank" href="https://github.com/brunofranciscojs">GITHUB</a>
           <a className="hover:text-gray-600 duration-100" target="_blank" href="https://brunofrancisco.com.br">WEBSITE</a>
           <a className="hover:text-gray-600 duration-100" target="_blank" href="https://linkedin.com/in/bruno-francisco-">LINKEDIN</a>
         </div>
