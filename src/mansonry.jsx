@@ -20,10 +20,8 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
         const cachedImages = JSON.parse(cachedData);
         setImages(cachedImages);
       }
-
       const files = await getImagesByCategory(category);
       const sortedFiles = files.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
       const lastClean = localStorage.getItem(LAST_CLEAN_KEY);
       const now = Date.now();
       if (!lastClean || now - parseInt(lastClean, 10) > CLEAN_INTERVAL) {
@@ -34,7 +32,6 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
         });
         localStorage.setItem(LAST_CLEAN_KEY, now.toString());
       }
-
       if (JSON.stringify(sortedFiles) !== cachedData) {
         setImages(sortedFiles);
         localStorage.setItem(CACHE_KEY, JSON.stringify(sortedFiles));
@@ -65,16 +62,11 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
             img.onload = () => {
               const colorThief = new ColorThief();
               const palette = colorThief.getPalette(img, 3);
-              const hexPalette = palette.map(rgb =>
-                `#${rgb.map(v => v.toString(16).padStart(2, "0")).join("")}`
-              );
+              const hexPalette = palette.map(rgb =>`#${rgb.map(v => v.toString(16).padStart(2, "0")).join("")}`);
               localStorage.setItem(paletteKey, JSON.stringify(hexPalette));
               resolve({ ...baseData, colors: hexPalette });
             };
-
-            img.onerror = () => {
-              resolve({ ...baseData, colors: ["#cccccc"] });
-            };
+            img.onerror = () =>  resolve({ ...baseData, colors: ["#cccccc"] });
           });
         })
       );
@@ -105,5 +97,4 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
     </div>
   );
 };
-
 export default Mansonry;
