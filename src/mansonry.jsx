@@ -61,15 +61,19 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
           img.src = image.url;
 
           return new Promise((resolve) => {
+            const baseData = { url: image.url, name: image.nome, id: image.id };
             img.onload = () => {
               const colorThief = new ColorThief();
               const palette = colorThief.getPalette(img, 3);
-              const hexPalette = palette.map(rgb => `#${rgb.map(v => v.toString(16).padStart(2,'0')).join('')}`);
+              const hexPalette = palette.map(rgb =>
+                `#${rgb.map(v => v.toString(16).padStart(2, "0")).join("")}`
+              );
               localStorage.setItem(paletteKey, JSON.stringify(hexPalette));
-              resolve({ url: image.url, colors: hexPalette, name: image.nome });
+              resolve({ ...baseData, colors: hexPalette });
             };
+
             img.onerror = () => {
-              resolve({ url: image.url, colors: ['#cccccc'], name: image.nome });
+              resolve({ ...baseData, colors: ["#cccccc"] });
             };
           });
         })
