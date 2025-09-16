@@ -26,21 +26,17 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
         const filePath = url.split('/ilustras/')[1]; 
         const category = filePath.split('/')[0];
         const newFilePath = `${category}/${newName}`;
-    
         const { data: fileData, error: downloadError } = await supabase.storage.from("ilustras").download(filePath);
-    
         if (downloadError) {
             console.error("Erro ao baixar o arquivo:", downloadError);
             return;
         }
-    
         const { data: uploadData, error: uploadError } = await supabase.storage.from("ilustras").upload(newFilePath, fileData);
     
         if (uploadError) {
             console.error("Erro ao fazer upload com o novo nome:", uploadError);
             return;
         }
-    
         const newUrl = `https://utyaegtlratnhymumqjm.supabase.co/storage/v1/object/public/ilustras/${newFilePath}`;
         const { error: dbError } = await supabase.from("imagens").update({ url: newUrl, nome: newName }).eq("url", url);
     
@@ -54,7 +50,6 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
             console.error("Erro ao excluir o arquivo antigo:", deleteError);
             return;
         }
-
         console.log("Arquivo renomeado com sucesso!");
         setMessage(true)
     };
@@ -100,6 +95,7 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
                     </fieldset>
                 </figcaption>
             </figure>
+
             {confirmation && !ren &&
                 <div className='fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-[999999] grid place-items-center prompt'>
                     <div className='flex flex-col justify-center items-center bg-gray-200/30 backdrop-blur-md rounded-xl px-10 py-5 gap-4 max-w-[300px] w-[90%] border-gray-400/60 border-2 shadow-2xl'>
