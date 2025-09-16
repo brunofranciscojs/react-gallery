@@ -1,8 +1,8 @@
 body{
-    @apply overflow-x-hidden bg-[#efefef] duration-200 [&:has(.fav)]:overflow-hidden
+    @apply overflow-x-hidden bg-[#efefef] duration-200 [&:has(.fav)]:overflow-hidden;
 }
 .mansonry {
-    @apply relative columns-10 [&:has(figure:hover)_figure:hover_figcaption]:opacity-100 [&:has(figure:hover)_figure:hover_figcaption]:translate-y-0 gap-5;
+    @apply relative columns-10 [&:has(figure:hover)_figure:hover_figcaption]:opacity-100 [&:has(figure:hover)_figure:hover_figcaption]:translate-y-0 gap-5 ;
     @media screen and (max-width:1720px) {column-count: 9; }
     @media screen and (max-width:1520px) {column-count: 8; }
     @media screen and (max-width:1420px) {column-count: 7; }
@@ -10,10 +10,9 @@ body{
     @media screen and (max-width:960px)  {column-count: 3; }
     @media screen and (max-width:640px)  {column-count: 2; }
     
-    #todos {@apply hidden [scale:0] pointer-events-none opacity-0 m-0 p-0}
-
+ 
     figure {
-        @apply m-0 [grid-template-rows:1fr_auto] break-inside-avoid relative duration-500 transition-all cursor-pointer overflow-hidden grid p-0 mb-5  
+        @apply m-0 [grid-template-rows:1fr_auto] break-inside-avoid relative duration-500 transition-all cursor-pointer overflow-hidden grid p-0 mb-5 
         after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-[linear-gradient(to_top,#0009,#0000)] after:saturate-[3] after:brightness-50 after:mix-blend-multiply hover:after:h-full after:duration-100 after:transition-all after:pointer-events-none;
 
         img {
@@ -23,6 +22,7 @@ body{
         figcaption {
             @apply absolute bottom-0 left-0 z-50 w-full h-full pointer-events-none px-4 py-5 duration-300 transition-all opacity-0 translate-y-8 [text-shadow:1px_0px_7px_#000a]
         }
+
     }
 }
 

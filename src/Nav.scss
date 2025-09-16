@@ -4,7 +4,9 @@ nav {
     top: 0;
     left: 0;
     z-index: 11;
-
+    isolation: isolate;
+    anchor-name: --hovered-link;
+    
     ul {
         list-style: none;
         display: flex;
@@ -22,8 +24,25 @@ nav {
             font-weight: 400;
             text-transform: lowercase;
             z-index: 1;
+            &:hover { 
+                anchor-name: --hovered-link;
+            }
         }
-
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        top: calc(anchor(bottom) - 10px);
+        left: calc(anchor(left) + 1rem);
+        right: calc(anchor(right) + 1rem);
+        bottom: calc(anchor(bottom) + 9px);
+        position-anchor: --hovered-link;
+        transition: .2s ease all;
+        z-index: 2;
+        background: black;
+    }
+    .active{
+        anchor-name: --hovered-link;
     }
 }
 
