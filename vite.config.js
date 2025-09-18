@@ -5,7 +5,6 @@ export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     exclude: ['js-big-decimal'],
-    include: ['fast-average-color'],
   },
   server: {
     proxy: {

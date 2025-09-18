@@ -28,55 +28,62 @@ function UploadForm({ setUpWindow, nova }) {
   };
 
 const handleUpload = async () => {
-  const categoriaAtual = nova ? localStorage.getItem('categoria') : category;
+  const categoriaAtual = (nova ? localStorage.getItem("categoria") : category)?.trim();
 
-  if (!file?.[0] || !categoriaAtual) {
+  if (!file || !categoriaAtual) {
     alert("Por favor, selecione um arquivo e uma categoria.");
     return;
   }
 
   setUploading(1);
 
-  if (nova) {
-      const urlEditar = localStorage.getItem('urlEditar');
-      const filePathOld = urlEditar.split('/ilustras/')[1];
+  try {
+    // Converte para AVIF via Supabase Edge Function
+    const response = await fetch("/functions/v1/convert-to-avif", {
+      method: "POST",
+      body: file,
+    });
 
-      const ext = file[0].name.split('.').pop();
-      const timestamp = Date.now();
-      const novoFilePath = `${categoriaAtual}/${timestamp}.${ext}`;
+    if (!response.ok) throw new Error("Falha ao converter para AVIF");
 
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from("ilustras").upload(novoFilePath, file[0]);
+    const avifBlob = await response.blob();
+    const avifFile = new File([avifBlob], file.name.replace(/\.\w+$/, ".avif"), {
+      type: "image/avif",
+    });
 
-      if (uploadError) {
-        console.error("Erro ao fazer upload da nova imagem:", uploadError);
-        setUploading(0);
-        return;
-      }
+    // Caminho único no Storage
+    const timestamp = Date.now();
+    const novoFilePath = `${categoriaAtual}/${timestamp}.avif`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("ilustras")
+      .upload(novoFilePath, avifFile, { upsert: true });
+
+    if (uploadError) throw uploadError;
+
+    const novaUrl = `https://utyaegtlratnhymumqjm.supabase.co/storage/v1/object/public/ilustras/${novoFilePath}`;
+
+    if (nova) {
+      const urlEditar = localStorage.getItem("urlEditar");
       localStorage.removeItem(`imagens-${categoriaAtual}`);
-      const novaUrl = `https://utyaegtlratnhymumqjm.supabase.co/storage/v1/object/public/ilustras/${novoFilePath}`;
 
       const { error: dbError } = await supabase
-        .from('imagens').update({ url: novaUrl }).eq('url', urlEditar);
+        .from("imagens")
+        .update({ url: novaUrl })
+        .eq("url", urlEditar);
 
-      if (dbError) {
-        console.error("Erro ao atualizar URL no banco:", dbError);
-        setUploading(0);
-        return;
-      }
+      if (dbError) throw dbError;
 
       console.log("URL atualizada com sucesso!");
-
-  } else {
-    if (file.length > 0) {
-      const result = await uploadFn([...file], categoriaAtual);
-      console.log("Arquivos enviados com sucesso:", result);
+    } else {
+      console.log("Novo arquivo salvo em:", novaUrl);
     }
-  }
 
-  setTimeout(() => {
     setUploading(2);
-  }, 1500);
+  } catch (err) {
+    console.error("Erro no handleUpload:", err);
+    setUploading(0);
+  }
 };
 
 
@@ -99,17 +106,13 @@ const handleUpload = async () => {
                   </div>
                 }
             </div>
-
             <div className="p-4 rounded-md shadow-md w-80">
                 <input type="text" style={{display:nova ? 'none':'flex' }} 
                        placeholder={'D I G I T E  A  C A T E G O R I A'} required onChange={handleCategoryChange}
                        className='bg-white/10 border py-2 px-5 max-w-[520px] w-full outline-none mx-3 text-gray-200  text-center'
                   />
-
                 <br /><br />
-
                 <button className='text-gray-200 duration-200' onClick={handleUpload} disabled={uploading}>
-
                   {uploading == 0 && "Enviar"}
                   {uploading == 1 && <span className={`animate-spin flex items-center duration-200 transition-all invert`}><SpinIcon/></span>}
                   {uploading == 2 && "Upload Completo!"}

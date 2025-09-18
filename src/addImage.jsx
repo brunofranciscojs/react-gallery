@@ -6,7 +6,6 @@ import useAuth from './hooks/useAuth.jsx'
 import Logar from "./login.jsx";
 import SpinIcon from './components/SpinIcon.jsx'
 import { useCategoria } from "./Context.jsx";
-import { progress } from 'framer-motion';
 
 
  export default function Upload({setupWindow, upWindow}) {
@@ -34,7 +33,7 @@ import { progress } from 'framer-motion';
         
         new Compressor(image, {
             quality: 0.8,
-            mimeType: "image/webp",
+            mimeType: "image/avif",
             resize: "contain",
             width: '1000',
             success: (compressedResult) => {
