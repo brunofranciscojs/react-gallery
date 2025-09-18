@@ -38,8 +38,7 @@ const handleUpload = async () => {
   setUploading(1);
 
   try {
-    // Converte para AVIF via Supabase Edge Function
-    const response = await fetch("/functions/v1/convert-to-avif", {
+    const response = await fetch("https://utyaegtlratnhymumqjm.supabase.co/functions/v1/convert-to-avif", {
       method: "POST",
       body: file,
     });
