@@ -2,6 +2,7 @@ import { useState } from "react";
 import { uploadFn } from "../contexto/ImagesDB";
 import SpinIcon from "./SpinIcon";
 import { supabase } from '../contexto/supabaseClient';
+import Compressor from "compressorjs";
 
 function UploadForm({ setUpWindow, nova }) {
   const [file, setFile] = useState(null);
@@ -11,15 +12,15 @@ function UploadForm({ setUpWindow, nova }) {
   const [preview, setPreview] = useState('')
 
   const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    if (!selectedFile) return;
-    setFile(selectedFile);
-    sethasImage(true);
-
-    const reader = new FileReader();
-    reader.onload = (e) => setPreview(e.target.result);
-    reader.readAsDataURL(selectedFile);
-};
+    const files = event.target.files;
+    setFile(files);
+    if(event.target.files && event.target.files[0]){
+        const arquivo = new FileReader()
+        arquivo.onload = fileLoaded
+        arquivo.readAsDataURL(event.target.files[0])
+    }
+    sethasImage(true)
+  };
 
   const fileLoaded = event => setPreview(event.target.result)
 
@@ -28,63 +29,90 @@ function UploadForm({ setUpWindow, nova }) {
   };
 
 const handleUpload = async () => {
-  const categoriaAtual = (nova ? localStorage.getItem("categoria") : category)?.trim();
+  const categoriaAtual = nova ? localStorage.getItem('categoria') : category;
 
-  if (!file || !categoriaAtual) {
+  if (!file?.[0] || !categoriaAtual) {
     alert("Por favor, selecione um arquivo e uma categoria.");
     return;
   }
 
   setUploading(1);
 
-  try {
-    const response = await fetch("https://utyaegtlratnhymumqjm.supabase.co/functions/v1/convert-to-avif", {
-      method: "POST",
-      body: file[0],
-    });
+  if (nova) {
+    const urlEditar = localStorage.getItem('urlEditar');
+    const filePathOld = urlEditar.split('/ilustras/')[1];
 
-    if (!response.ok) throw new Error("Falha ao converter para AVIF");
-
-    const avifBlob = await response.blob();
-    const avifFile = new File([avifBlob], file.name.replace(/\.\w+$/, ".avif"), {
-      type: "image/avif",
-    });
-
+    const ext = "avif"; 
     const timestamp = Date.now();
-    const novoFilePath = `${categoriaAtual}/${timestamp}.avif`;
+    const novoFilePath = `${categoriaAtual}/${timestamp}.${ext}`;
 
-    const { error: uploadError } = await supabase.storage
-      .from("ilustras")
-      .upload(novoFilePath, avifFile, { upsert: true });
+    new Compressor(file[0], {
+      quality: 0.7,
+      mimeType: "image/webp",
+      convertSize: 1, 
+      success: async (compressed) => {
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from("ilustras")
+          .upload(novoFilePath, compressed, {
+            cacheControl: "3600",
+            upsert: true,
+          });
 
-    if (uploadError) throw uploadError;
+        if (uploadError) {
+          console.error("Erro ao fazer upload da nova imagem:", uploadError);
+          setUploading(0);
+          return;
+        }
 
-    const novaUrl = `https://utyaegtlratnhymumqjm.supabase.co/storage/v1/object/public/ilustras/${novoFilePath}`;
+        localStorage.removeItem(`imagens-${categoriaAtual}`);
+        const novaUrl = `https://utyaegtlratnhymumqjm.supabase.co/storage/v1/object/public/ilustras/${novoFilePath}`;
 
-    if (nova) {
-      const urlEditar = localStorage.getItem("urlEditar");
-      localStorage.removeItem(`imagens-${categoriaAtual}`);
+        const { error: dbError } = await supabase
+          .from('imagens')
+          .update({ url: novaUrl })
+          .eq('url', urlEditar);
 
-      const { error: dbError } = await supabase
-        .from("imagens")
-        .update({ url: novaUrl })
-        .eq("url", urlEditar);
+        if (dbError) {
+          console.error("Erro ao atualizar URL no banco:", dbError);
+          setUploading(0);
+          return;
+        }
 
-      if (dbError) throw dbError;
+        console.log("URL atualizada com sucesso!");
+        setTimeout(() => {
+          setUploading(2);
+        }, 1500);
+      },
+      error(err) {
+        console.error("Erro ao comprimir:", err.message);
+        setUploading(0);
+      },
+    });
 
-      console.log("URL atualizada com sucesso!");
-    } else {
-      console.log("Novo arquivo salvo em:", novaUrl);
+  } else {
+    if (file.length > 0) {
+      const compressedFiles = await Promise.all(
+        [...file].map(f => 
+          new Promise((resolve, reject) => {
+            new Compressor(f, {
+              quality: 0.7,
+              mimeType: "image/webp",
+              convertSize: 1,
+              success: resolve,
+              error: reject,
+            });
+          })
+        )
+      );
+
+      const result = await uploadFn(compressedFiles, categoriaAtual);
+      console.log("Arquivos enviados com sucesso:", result);
+      setTimeout(() => {
+        setUploading(2);
+      }, 1500);
     }
-
-    setUploading(2);
-  } catch (err) {
-    console.error("Erro no handleUpload:", err);
-    setUploading(0);
   }
 };
-
-
 
   return (
         <div className="flex flex-col add items-center justify-center right-5 fixed top-0 left-0 bg-[#000000cc] w-full h-dvh backdrop-blur-md z-[999]">
@@ -104,13 +132,16 @@ const handleUpload = async () => {
                   </div>
                 }
             </div>
+
             <div className="p-4 rounded-md shadow-md w-80">
                 <input type="text" style={{display:nova ? 'none':'flex' }} 
                        placeholder={'D I G I T E  A  C A T E G O R I A'} required onChange={handleCategoryChange}
                        className='bg-white/10 border py-2 px-5 max-w-[520px] w-full outline-none mx-3 text-gray-200  text-center'
                   />
+
                 <br /><br />
                 <button className='text-gray-200 duration-200' onClick={handleUpload} disabled={uploading}>
+
                   {uploading == 0 && "Enviar"}
                   {uploading == 1 && <span className={`animate-spin flex items-center duration-200 transition-all invert`}><SpinIcon/></span>}
                   {uploading == 2 && "Upload Completo!"}
