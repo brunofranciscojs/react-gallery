@@ -11,15 +11,15 @@ function UploadForm({ setUpWindow, nova }) {
   const [preview, setPreview] = useState('')
 
   const handleFileChange = (event) => {
-    const files = event.target.files;
-    setFile(files);
-    if(event.target.files && event.target.files[0]){
-        const arquivo = new FileReader()
-        arquivo.onload = fileLoaded
-        arquivo.readAsDataURL(event.target.files[0])
-    }
-    sethasImage(true)
-  };
+    const selectedFile = event.target.files[0];
+    if (!selectedFile) return;
+    setFile(selectedFile);
+    sethasImage(true);
+
+    const reader = new FileReader();
+    reader.onload = (e) => setPreview(e.target.result);
+    reader.readAsDataURL(selectedFile);
+};
 
   const fileLoaded = event => setPreview(event.target.result)
 
@@ -40,7 +40,7 @@ const handleUpload = async () => {
   try {
     const response = await fetch("https://utyaegtlratnhymumqjm.supabase.co/functions/v1/convert-to-avif", {
       method: "POST",
-      body: file,
+      body: file[0],
     });
 
     if (!response.ok) throw new Error("Falha ao converter para AVIF");
@@ -50,7 +50,6 @@ const handleUpload = async () => {
       type: "image/avif",
     });
 
-    // Caminho único no Storage
     const timestamp = Date.now();
     const novoFilePath = `${categoriaAtual}/${timestamp}.avif`;
 
