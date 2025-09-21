@@ -6,7 +6,8 @@ import { supabase } from '../contexto/supabaseClient';
 import ReplaceIcon from './ReplaceIcon';
 import { useNavigate } from 'react-router-dom';
 
-export default function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova, id }) {
+
+export default function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova, id, array }) {
     const { logado } = useAuth();
     const [confirmation, setConfirmation] = useState(false);
     const [ren, setRen] = useState(false);
@@ -70,23 +71,33 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
         }
         console.log("Arquivo excluído com sucesso!");
     };
-
     return (
         <>
-            <figure className={`rounded-lg item grid place-items-center group shadow-none bg-[--bg] relative duration-150 group backdrop-blur-sm `} style={{"--cor":colors[0],"--bg":colors[0]+22,transition: (index + 1 ) * .17 + 'ms'}}>
+            <svg class="hidden" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <clipPath id="SquircleClip2" clipPathUnits="objectBoundingBox">
+                        <path d="M 0,0.5
+                            C 0,0.0575  0.0575,0  0.5,0
+                            0.9425,0  1,0.0575  1,0.5
+                            1,0.9425  0.9425,1  0.5,1
+                            0.0575,1  0,0.9425  0,0.5"></path>
+                    </clipPath>
+                </defs>
+            </svg>
+            <figure className={`item grid place-items-center group rounded-full shadow-none relative group backdrop-blur-sm bg-[--bg] [corner-shape:squircle]`} data-bg={colors[0]} style={{"--cor":colors[0],"--bg":colors[0]+22}}>
 
                 {logado &&
                     <>
-                        <button className='absolute top-2 left-2 [&>svg_path]:fill-none [&>svg_path]:stroke-gray-400 duration-150 opacity-0 group-hover:opacity-100 z-50' onClick={() => setConfirmation(true)}>
+                        <button className='absolute top-7 left-4 [&>svg_path]:fill-none [&>svg_path]:stroke-gray-800 duration-150 opacity-0 group-hover:opacity-100 z-50' onClick={() => setConfirmation(true)}>
                             <DeleteIcon />
                         </button>
         
-                        <button className='absolute top-2 right-2 [&>svg_path]:fill-none [&>svg_path]:stroke-gray-400 duration-150 opacity-0 group-hover:opacity-100 z-50' onClick={() => {setConfirmation(true); setRen(true)}}>
+                        <button className='absolute top-7 right-4 [&>svg_path]:fill-none [&>svg_path]:stroke-gray-800 duration-150 opacity-0 group-hover:opacity-100 z-50' onClick={() => {setConfirmation(true); setRen(true)}}>
                             <EditIcon />
                         </button>
                     </>
                 }
-                <img src={url} onClick={() => {navigate(`/${slugify(cat)}/${id}`), setDcolor(colors[0])}} loading="lazy" decoding="async"/>
+                <img src={url} onClick={() => {navigate(`/${slugify(cat)}/${id}`), setDcolor(colors[0])}} loading="lazy" decoding="async" />
 
                 <figcaption className='flex flex-col justify-end text-left'>
                     <fieldset>

@@ -76,11 +76,13 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
     fetchColorPalettes();
   }, [images]);
 
+    
   return (
     <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale h-auto py-14 px-5' key='mansonry'>
-      {imagePalettes.map(({ url, colors, name, id }, index) => {
+      {imagePalettes.map(({ url, colors, name, id }, index, array) => {
         return (
           <Figure
+            array={array}
             key={index}
             url={url}
             cat={category}

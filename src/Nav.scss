@@ -1,12 +1,12 @@
 nav {
     position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
+    width: fit-content;
+    bottom: 2rem;
+    left: 50%;
     z-index: 11;
     isolation: isolate;
     anchor-name: --hovered-link;
-    
+    translate: -50% 0;
     ul {
         list-style: none;
         display: flex;
@@ -29,7 +29,7 @@ nav {
             }
         }
     }
-    &:after {
+    &:aftere {
         content: '';
         position: absolute;
         top: calc(anchor(bottom) - 10px);
@@ -41,7 +41,7 @@ nav {
         z-index: 2;
         background: black;
     }
-    .active{
+    .activee{
         anchor-name: --hovered-link;
     }
 }
