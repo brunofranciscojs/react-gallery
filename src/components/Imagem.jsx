@@ -1,14 +1,16 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { supabase } from '../contexto/supabaseClient';
 import ImageZoom from "react-image-zooom";
 
-export default function ImageDetail() {
+export default function Imagem() {
   const { imageId } = useParams();
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
   const [relatedImages, setRelatedImages] = useState([]);
-
+  const [searchParams] = useSearchParams();
+  const bgc = decodeURIComponent(searchParams.get("bgc"));
+  
   const slugify = (text) =>{
         return text
           .normalize("NFD")
@@ -31,8 +33,17 @@ export default function ImageDetail() {
         navigate('/');
         return;
       }
-      setImage(data[0]);
-    };
+      if (!error && data) {
+        const comCor = data.map((img) => {
+          const paletteKey = `palette-${img.url}`;
+          const cachedPalette = localStorage.getItem(paletteKey);
+          const colors = cachedPalette ? JSON.parse(cachedPalette) : ["#cccccc"];
+          return { ...img, colors };
+        });
+      setImage(comCor[0]);
+    }
+  }
+
     fetchImage();
   }, [imageId]);
 
@@ -40,41 +51,52 @@ export default function ImageDetail() {
   if (!image) return;
 
   const fetchRelated = async () => {
-    const { data, error } = await supabase.rpc('related_images_random', {
-      p_categoria: image.categoria,
-      p_exclude_nome: image.nome,
-      p_id: image.id,
-      p_limit: 6
-    });
+      const { data, error } = await supabase.rpc("related_images_random", {
+        p_categoria: image.categoria,
+        p_exclude_nome: image.nome,
+        p_id: image.id,
+        p_limit: 6,
+      });
 
-    if (!error) setRelatedImages(data);
-  };
+    if (!error && data) {
+      const enriched = data.map((img) => {
+        const paletteKey = `palette-${img.url}`;
+        const cachedPalette = localStorage.getItem(paletteKey);
+        const colors = cachedPalette ? JSON.parse(cachedPalette) : ["#cccccc"];
+        return { ...img, colors };
+      });
+
+      setRelatedImages(enriched);
+    }
+};
   fetchRelated();
 }, [image]);
-
 
   if (!image) return null;
 
   return (
-    <div className="bg-gray-200 flex gap-5 flex-col cl:flex-row items-center justify-center relative h-full w-full mx-auto" style={{ "--dColor":localStorage.getItem('dColor')+'cc'}}>
-        <div className="z-10 relative">
-          <a className={`leading-none text-xl cursor-pointer text-black absolute right-[unset] cl:right-0 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 z-50`} onClick={() => navigate(`/${slugify(image.categoria)}`)}>X</a>
-          <ImageZoom zoom={220}  fullWidth={true} src={image.url} className={`cl:!block !hidden [&_img]:shadow-xl w-auto [&_img]:h-[88dvh] [&_img]:object-contain [&_img]:rounded-2xl !z-10 mx-auto [&_img]:!w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
-          <img src={image.url} className={`shadow-xl block cl:hidden h-[88dvh] object-contain rounded-2xl !z-10 mx-auto !w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
-        </div>
+    <div className="bg-gray-200 flex gap-5 flex-col-reverse xl:flex-row items-start justify-center relative h-full w-full mx-auto imagem z-50">
 
-        <div className='flex flex-col'>
+        <div className='flex flex-col xl:w-1/2 w-full items-center self-center'>
           <div>
             <h1 className='text-3xl font-semibold text-gray-900 mt-6 cl:mt-0 cl:text-left text-center'>{image.nome}</h1>
             <h2 className='text-sm text-gray-600 cl:text-left text-center mt-1'>Categoria: {image.categoria}</h2>
           </div>
-          <div className="mt-4 flex gap-4 cl:max-w-[300px] max-w-full z-50 flex-wrap ">
+          <div className="mt-4 flex gap-4 xl:max-w-[400px] max-w-full z-50 flex-wrap p-12 place-self-center">
             {relatedImages.map((rel) => (
-              <div key={rel.nome}  className="w-32 cl:h-44 h-32 cursor-pointer overflow-hidden rounded-lg hover:[&_img]:[scale:1.05]" onClick={() => navigate(`/${slugify(image.categoria)}/${rel.id}`)}>
+              <div key={rel.nome} style={{background:rel.colors[0]+'aa'}} className="w-32 cl:h-44 h-32 cursor-pointer overflow-hidden hover:[&_img]:[scale:1.05] [corner-shape:squircle] rounded-full" 
+                   onClick={() => navigate(`/${slugify(image.categoria)}/${rel.id}?bgc=${encodeURIComponent(rel.colors[0])}`)}>
                 <img  src={rel.url} alt={rel.nome} className="w-full h-full object-cover duration-100 object-top"/>
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="z-10 relative xl:w-1/2 w-full min-h-dvh" style={{background:bgc+'77', boxShadow:'-2rem 0 10rem'+bgc+77}}>
+          <a style={{background:bgc}} className={`leading-none text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 z-50 mix-blend-multiply rounded-full p-2 h-8 w-8`} 
+             onClick={() => navigate(`/${slugify(image.categoria)}`)}>X</a>
+          <ImageZoom zoom={220}  fullWidth={true} src={image.url} className={`[&_img]:mx-auto cl:!block !hidden w-auto [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl !z-10 mx-auto [&_img]:!w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
+          <img src={image.url} className={`block cl:hidden h-dvh object-contain rounded-2xl !z-10 mx-auto !w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
         </div>
     </div>
   );

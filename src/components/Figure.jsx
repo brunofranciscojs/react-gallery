@@ -73,7 +73,7 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
     };
     return (
         <>
-            <svg class="hidden" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
+            <svg className="hidden" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <clipPath id="SquircleClip2" clipPathUnits="objectBoundingBox">
                         <path d="M 0,0.5
@@ -84,20 +84,20 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
                     </clipPath>
                 </defs>
             </svg>
-            <figure className={`item grid place-items-center group rounded-full shadow-none relative group backdrop-blur-sm bg-[--bg] [corner-shape:squircle]`} data-bg={colors[0]} style={{"--cor":colors[0],"--bg":colors[0]+22}}>
+            <figure className={`item grid place-items-center group rounded-full shadow-none relative group backdrop-blur-sm bg-[--bg] [corner-shape:squircle]`} style={{"--cor":colors[0],"--bg":colors[0]+22}}>
 
                 {logado &&
                     <>
-                        <button className='absolute top-7 left-4 [&>svg_path]:fill-none [&>svg_path]:stroke-gray-800 duration-150 opacity-0 group-hover:opacity-100 z-50' onClick={() => setConfirmation(true)}>
-                            <DeleteIcon />
-                        </button>
-        
-                        <button className='absolute top-7 right-4 [&>svg_path]:fill-none [&>svg_path]:stroke-gray-800 duration-150 opacity-0 group-hover:opacity-100 z-50' onClick={() => {setConfirmation(true); setRen(true)}}>
-                            <EditIcon />
-                        </button>
+                    <button className='absolute top-7 left-4 [&>svg_path]:fill-none [&>svg_path]:stroke-gray-800 duration-150 opacity-0 group-hover:opacity-100 z-50' onClick={() => setConfirmation(true)}>
+                        <DeleteIcon />
+                    </button>
+    
+                    <button className='absolute top-7 right-4 [&>svg_path]:fill-none [&>svg_path]:stroke-gray-800 duration-150 opacity-0 group-hover:opacity-100 z-50' onClick={() => {setConfirmation(true); setRen(true)}}>
+                        <EditIcon />
+                    </button>
                     </>
                 }
-                <img src={url} onClick={() => {navigate(`/${slugify(cat)}/${id}`), setDcolor(colors[0])}} loading="lazy" decoding="async" />
+                <img src={url} onClick={() => {navigate(`/${slugify(cat)}/${id}?bgc=${encodeURIComponent(colors[0])}`)}} loading="lazy" decoding="async" />
 
                 <figcaption className='flex flex-col justify-end text-left'>
                     <fieldset>

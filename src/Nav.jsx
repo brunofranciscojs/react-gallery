@@ -81,9 +81,9 @@ export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova
             </defs>
           </svg>
 
-            <div className="w-full h-12 rounded-full absolute left-1/2 -translate-x-1/2 bottom-[0] z-[40] [backdrop-filter:url(#blurMe)]"></div>
+            <div className="w-full h-12 rounded-full absolute left-1/2 -translate-x-1/2 bottom-[0] z-[9] [backdrop-filter:url(#blurMe)]"></div>
             
-            <ul className="rounded-full items-start md:items-center justify-center z-50 relative md:w-fit w-full mx-0 [&_li.active]:text-white 
+            <ul className="rounded-full items-start md:items-center justify-center z-10 relative xl:w-fit w-[90svw] mx-0 [&_li.active]:text-white 
                            [backdrop-filter:url(#displacementFilter)] shadow-[2px_2px_20px_#0003,inset_-2px_-2px_3px_#fff6] mt-3 ml-3 bg-[#0001] ">
 
               {categories.map((table, index) => (

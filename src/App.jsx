@@ -41,8 +41,8 @@ export default function App() {
   return (
   <>
       <BrowserRouter>
-          <Nav setCategoria={setCategoria} setUpWindow={setUpWindow} upWindow={upWindow} nova={nova} setNova={setNova}/>
   
+          <Nav setCategoria={setCategoria} setUpWindow={setUpWindow} upWindow={upWindow} nova={nova} setNova={setNova}/>
           <Routes>
             <Route path="/" element={<Navigate to={`/${categoria}`} />} />
             {categories.map(cat => {
@@ -68,7 +68,7 @@ export default function App() {
   
   
       </BrowserRouter>
-      <footer className="text-right text-gray-700 dark:text-gray-400 px-8 pt-20 text-sm z-0 w-full relative bottom-0 left-0 pb-5">
+      <footer className="text-right text-gray-700 dark:text-gray-400 px-8 pt-20 text-sm z-0 w-full absolute bottom-0 left-0 pb-5">
         desenvolvido com react, tailwind
   
         <div className="flex gap-4 text-gray-400 z-50 justify-end relative lowercase">
