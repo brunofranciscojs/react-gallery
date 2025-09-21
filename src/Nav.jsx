@@ -13,7 +13,7 @@ export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova
   const [ativo, setAtivo] = useState(localStorage.getItem('categoria') || 'misc');
   const navigate = useNavigate();
   const glassFilter = `data:image/png;base64,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`
-  
+
   const slugify = (text) =>{
       return text
         .normalize("NFD")
@@ -81,18 +81,20 @@ export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova
             </defs>
           </svg>
 
-            <div className="w-full h-12 rounded-full absolute left-1/2 -translate-x-1/2 bottom-[0] z-[9] [backdrop-filter:url(#blurMe)]"></div>
+            <div className="w-full h-[3.2rem] rounded-full absolute left-1/2 -translate-x-1/2 bottom-[0] z-[9] [backdrop-filter:url(#blurMe)]"></div>
             
-            <ul className="rounded-full items-start md:items-center justify-center z-10 relative xl:w-fit w-[90svw] mx-0 [&_li.active]:text-white 
-                           [backdrop-filter:url(#displacementFilter)] shadow-[2px_2px_20px_#0003,inset_-2px_-2px_3px_#fff6] mt-3 ml-3 bg-[#0001] ">
+            <ul className="rounded-full items-start md:items-center justify-center z-10 relative xl:w-fit w-[90svw] mx-auto [&_li.active]:text-white
+                           [backdrop-filter:url(#displacementFilter)] shadow-[inset_1px_1px_6px_#0004,inset_-2px_-2px_6px_#fffa,0_20px_40px_#0005] mt-3 ml-3 bg-[#0003]">
 
               {categories.map((table, index) => (
-                <li key={index} className={`${table.toLowerCase() === ativo ? 'active' : ''} md:text-lg text-[.7rem] text-white py-1 sm:py-3 px-2 sm:px-5 hover:text-white/40 uppercase [text-shadow:0_.2px_5px_#0008]`}
-                  onClick={() => {
-                    handleCategoryChange(table.toLowerCase());
-                    setAtivo(table);
-                  }}
-                >
+                <li key={index} 
+                  className={
+                    `${table.toLowerCase() === ativo ? 'active' : ''} 
+                      md:text-lg text-[.7rem] font-[400] text-white/90 py-1 sm:py-3 px-2 sm:px-5 hover:text-white hover:[text-shadow:0_0_10px_white] uppercase`}
+                      onClick={() => {
+                        handleCategoryChange(table.toLowerCase());
+                        setAtivo(table);
+                      }}>
                   {table}
                 </li>
               ))}

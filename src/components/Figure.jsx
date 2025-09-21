@@ -73,17 +73,6 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
     };
     return (
         <>
-            <svg className="hidden" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <clipPath id="SquircleClip2" clipPathUnits="objectBoundingBox">
-                        <path d="M 0,0.5
-                            C 0,0.0575  0.0575,0  0.5,0
-                            0.9425,0  1,0.0575  1,0.5
-                            1,0.9425  0.9425,1  0.5,1
-                            0.0575,1  0,0.9425  0,0.5"></path>
-                    </clipPath>
-                </defs>
-            </svg>
             <figure className={`item grid place-items-center group rounded-full shadow-none relative group backdrop-blur-sm bg-[--bg] [corner-shape:squircle]`} style={{"--cor":colors[0],"--bg":colors[0]+22}}>
 
                 {logado &&
@@ -97,7 +86,7 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
                     </button>
                     </>
                 }
-                <img src={url} onClick={() => {navigate(`/${slugify(cat)}/${id}?bgc=${encodeURIComponent(colors[0])}`)}} loading="lazy" decoding="async" />
+                <img src={url} onClick={() => {navigate(`/${slugify(cat)}/${id}?bgc=${encodeURIComponent(colors[0])}`)}} loading="lazy" decoding="async" className='mix-blend-darken' />
 
                 <figcaption className='flex flex-col justify-end text-left'>
                     <fieldset>
