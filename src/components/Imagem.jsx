@@ -94,7 +94,7 @@ export default function Imagem() {
         <div className="z-10 relative xl:w-[60%] w-full min-h-dvh " data-image={image.nome}>
           <a style={{background:bgc}} className={`leading-none text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 z-50  rounded-full p-2 h-8 w-8`} 
              onClick={() => navigate(`/${slugify(image.categoria)}`)}>X</a>
-          <ImageZoom zoom={220}  fullWidth={true} src={image.url} className={`[&_img]:mx-auto cl:!block !hidden w-auto [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl !z-10 mx-auto [&_img]:!w-auto duration-100 !bg-transparent`} />
+          <ImageZoom zoom={170}  fullWidth={true} src={image.url} className={`[&_img]:mx-auto cl:!block !hidden w-auto [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl !z-10 mx-auto [&_img]:!w-auto duration-100 !bg-transparent`} />
           <img src={image.url} className={`xl:block hidden h-dvh object-contain [scale:.9] !z-0 blur-[10rem] saturate-[3] mx-auto !w-auto duration-100 absolute top-0 left-1/2 -translate-x-1/2 mix-blend-hard-light`} />
           <img src={image.url} className={`block xl:hidden h-dvh object-contain rounded-2xl !z-10 mx-auto !w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
         </div>

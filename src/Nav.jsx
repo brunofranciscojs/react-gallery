@@ -67,11 +67,60 @@ export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova
 
         <nav>
           <svg style={{display:'none'}}>
-              <filter id="displacementFilter">
-                  <feImage href={glassFilter}></feImage>
-                  <feDisplacementMap in="SourceGraphic" scale="100" xChannelSelector="R" yChannelSelector="B" />
-              </filter>
-          </svg>
+      <filter
+        id="glass-distortion"
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+        filterUnits="objectBoundingBox"
+      >
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.01 0.01"
+          numOctaves="1"
+          seed="5"
+          result="turbulence"
+        />
+
+        <feComponentTransfer in="turbulence" result="mapped">
+          <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
+          <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
+          <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
+        </feComponentTransfer>
+
+        <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
+
+        <feSpecularLighting
+          in="softMap"
+          surfaceScale="5"
+          specularConstant="1"
+          specularExponent="100"
+          lightingColor="white"
+          result="specLight"
+        >
+          <fePointLight x="-200" y="-200" z="300" />
+        </feSpecularLighting>
+
+        <feComposite
+          in="specLight"
+          operator="arithmetic"
+          k1="0"
+          k2="1"
+          k3="1"
+          k4="0"
+          result="litImage"
+        />
+
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="softMap"
+          scale="150"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        />
+      </filter>
+    </svg>
 
           <svg style={{display:'none'}}>
             <defs>
@@ -84,7 +133,7 @@ export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova
             <div className="w-full h-[3.2rem] rounded-full absolute left-1/2 -translate-x-1/2 bottom-[0] z-[9] [backdrop-filter:url(#blurMe)]"></div>
             
             <ul className="rounded-full items-start md:items-center justify-center z-10 relative xl:w-fit w-[90svw] mx-auto [&_li.active]:text-white
-                           [backdrop-filter:url(#displacementFilter)] shadow-[inset_1px_1px_6px_#0004,inset_-2px_-2px_6px_#fffa,0_20px_40px_#0005] mt-3 ml-3 bg-[#0003]">
+                           [backdrop-filter:url(#glass-distortion)] shadow-[inset_1px_1px_6px_#0004,inset_-2px_-2px_6px_#fffa,0_20px_40px_#0005] mt-3 ml-3 bg-[#0003]">
 
               {categories.map((table, index) => (
                 <li key={index} 
