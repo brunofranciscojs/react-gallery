@@ -9,12 +9,16 @@
     @media screen and (max-width:640px)  {column-count: 2; }
 
     figure {
-        @apply m-0 [grid-template-rows:1fr_auto] break-inside-avoid relative duration-500 transition-all cursor-pointer overflow-hidden grid p-0 mb-5 
-            after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-[linear-gradient(to_top,#0009,#0000)]
-            after:saturate-[3] hover:after:h-full after:duration-100 after:transition-all after:pointer-events-none;
+        @apply m-0 [grid-template-rows:1fr_auto] break-inside-avoid relative duration-500 transition-all cursor-pointer overflow-hidden grid p-0 mb-5;
 
-        img {
-            @apply [grid-row:1/-1] [grid-column:1] max-w-full block duration-300 transition-all relative hover:[scale:1.1] ;
+        div {
+            @apply overflow-hidden h-full w-full relative [grid-row:1/-1] [grid-column:1]
+            after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0 after:bg-[linear-gradient(to_top,#0009,#0000)]
+            after:saturate-[3] after:duration-100 after:transition-all after:pointer-events-none after:z-50 hover:after:h-full;
+            
+            img{
+                @apply w-full block duration-100;
+            }
         }
         figcaption {
             @apply absolute bottom-3 left-4 z-50 w-full h-full pointer-events-none px-4 py-5 duration-300 transition-all opacity-0 translate-y-8 [text-shadow:1px_0px_7px_#000a]
@@ -23,9 +27,3 @@
 }
 @keyframes scaling{ from{ opacity: 0; } to{ opacity:1 }}
 
-
-figure{
-    @supports not (background: paint(squircle)) {
-      border-radius: 24px;
-    }
-}

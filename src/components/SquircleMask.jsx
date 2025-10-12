@@ -1,7 +1,6 @@
 export default function SquircleMask({ smoothness = 0.02 }) {
     return (
-        <svg width="0" height="0" style={{ position: 'absolute' }}>
-            <defs>
+        <svg width="0" height="0">
                 <clipPath id="squircle-mask" clipPathUnits="objectBoundingBox">
                     <path d={`M 0.5 0 
                               C ${smoothness} 0 0 ${smoothness} 0 0.5 
@@ -10,7 +9,6 @@ export default function SquircleMask({ smoothness = 0.02 }) {
                               C 1 ${smoothness} ${1-smoothness} 0 0.5 0 Z`} 
                     />
                 </clipPath>
-            </defs>
         </svg>
     );
 }

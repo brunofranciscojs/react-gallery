@@ -7,7 +7,6 @@ import ReplaceIcon from './ReplaceIcon';
 import { useNavigate } from 'react-router-dom';
 import { flushSync } from 'react-dom';
 
-
 export default function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova, id, array }) {
     const { logado } = useAuth();
     const [confirmation, setConfirmation] = useState(false);
@@ -87,9 +86,9 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
         }
     };
     return (
-        <>
-            <figure style={{ "--cor":colors[0],"--bg":colors[0]+22 }}
-                    className={`[clip-path:url(#squircle-mask)] [-webkit-clip-path:url(#squircle-mask)] item grid place-items-center group shadow-none relative group backdrop-blur-sm bg-[--bg] `}>
+        <>       
+            <figure style={{ "--cor":colors[0],"--bg":colors[0]+22 }} onClick={handleClick}
+                    className={`item grid place-items-center group shadow-none relative group backdrop-blur-sm `}>
 
                 {logado &&
                     <>
@@ -102,7 +101,9 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
                     </button>
                     </>
                 }
-                <img src={url} onClick={handleClick} loading="lazy" decoding="async" className='mix-blend-darken' />
+                <div className='[clip-path:url(#squircle-mask)] [-webkit-clip-path:url(#squircle-mask)] bg-[--bg]'>
+                    <img src={url} loading="lazy" decoding="async" className='mix-blend-darken ' />
+                </div>
 
                 <figcaption style={{ viewTransitionName: `caption-${id}` }} className='flex flex-col justify-end text-left'>
                     <fieldset>
