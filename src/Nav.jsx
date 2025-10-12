@@ -5,6 +5,7 @@ import useAuth from "./hooks/useAuth.jsx";
 import Logar from "./login.jsx";
 import UploadForm from "./components/UploadImage.jsx";
 import { useNavigate } from 'react-router-dom';
+import { flushSync } from 'react-dom';
 
 export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova }) {
   const { logado, sair } = useAuth();
@@ -39,9 +40,26 @@ export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova
   }, []);
 
   const handleCategoryChange = (newCategory) => {
-    setCategoria(newCategory);
-    localStorage.setItem('categoria', slugify(newCategory));
-    navigate(`/${slugify(newCategory)}`);
+    const targetPath = `/${slugify(newCategory)}`;
+    setAtivo(newCategory);
+
+    // View Transition API
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        flushSync(() => {
+          setCategoria(newCategory);
+          setAtivo(newCategory);
+          localStorage.setItem('categoria', slugify(newCategory));
+          navigate(targetPath);
+        });
+      });
+    } else {
+      // Fallback
+      setCategoria(newCategory);
+      setAtivo(newCategory);
+      localStorage.setItem('categoria', slugify(newCategory));
+      navigate(targetPath);
+    }
   };
 
   return (
@@ -65,85 +83,12 @@ export default function Nav({ setCategoria, upWindow, setUpWindow, nova, setNova
           </div>
         )}
 
-        <nav>
-          <svg style={{display:'none'}}>
-      <filter
-        id="glass-distortion"
-        x="0%"
-        y="0%"
-        width="100%"
-        height="100%"
-        filterUnits="objectBoundingBox"
-      >
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.01 0.01"
-          numOctaves="1"
-          seed="5"
-          result="turbulence"
-        />
-
-        <feComponentTransfer in="turbulence" result="mapped">
-          <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
-          <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
-          <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
-        </feComponentTransfer>
-
-        <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
-
-        <feSpecularLighting
-          in="softMap"
-          surfaceScale="5"
-          specularConstant="1"
-          specularExponent="100"
-          lightingColor="white"
-          result="specLight"
-        >
-          <fePointLight x="-200" y="-200" z="300" />
-        </feSpecularLighting>
-
-        <feComposite
-          in="specLight"
-          operator="arithmetic"
-          k1="0"
-          k2="1"
-          k3="1"
-          k4="0"
-          result="litImage"
-        />
-
-        <feDisplacementMap
-          in="SourceGraphic"
-          in2="softMap"
-          scale="150"
-          xChannelSelector="R"
-          yChannelSelector="G"
-        />
-      </filter>
-    </svg>
-
-          <svg style={{display:'none'}}>
-            <defs>
-              <filter id="blurMe">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
-              </filter>
-            </defs>
-          </svg>
-
-            <div className="w-full h-[3.2rem] rounded-full absolute left-1/2 -translate-x-1/2 bottom-[0] z-[9] [backdrop-filter:url(#blurMe)]"></div>
-            
-            <ul className="rounded-full items-start md:items-center justify-center z-10 relative xl:w-fit w-[90svw] mx-auto [&_li.active]:text-white
-                           [backdrop-filter:url(#glass-distortion)] shadow-[inset_1px_1px_6px_#0004,inset_-2px_-2px_6px_#fffa,0_20px_40px_#0005] mt-3 ml-3 bg-[#0003]">
-
+        <nav style={{ viewTransitionName: 'main-nav' }}>
+            <ul className="items-start md:items-center justify-center z-10 relative xl:w-fit w-[90svw] mx-auto [&_li.active]:text-white mt-3 ml-3 bg-[#0003] rounded-2xl">
               {categories.map((table, index) => (
-                <li key={index} 
-                  className={
-                    `${table.toLowerCase() === ativo ? 'active' : ''} 
-                      md:text-lg text-[.7rem] font-[400] text-white/90 py-1 sm:py-3 px-2 sm:px-5 hover:text-white hover:[text-shadow:0_0_10px_white] uppercase`}
-                      onClick={() => {
-                        handleCategoryChange(table.toLowerCase());
-                        setAtivo(table);
-                      }}>
+                <li key={index} className={`${table.toLowerCase() === ativo ? 'active' : ''} md:text-lg text-[.7rem] font-[400] text-white/90 py-1 sm:py-3 px-2 sm:px-5 hover:text-white hover:[text-shadow:0_0_10px_white] uppercase`}
+                      onClick={() =>  handleCategoryChange(table.toLowerCase())}
+                      style={{ viewTransitionName: table.toLowerCase() === ativo ? 'active-category' : '' }}>
                   {table}
                 </li>
               ))}

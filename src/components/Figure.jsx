@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { supabase } from '../contexto/supabaseClient';
 import ReplaceIcon from './ReplaceIcon';
 import { useNavigate } from 'react-router-dom';
+import { flushSync } from 'react-dom';
 
 
 export default function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova, id, array }) {
@@ -71,9 +72,24 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
         }
         console.log("Arquivo excluído com sucesso!");
     };
+
+    const handleClick = () => {
+        const targetPath = `/${slugify(cat)}/${id}?bgc=${encodeURIComponent(colors[0])}`;
+        
+        if (document.startViewTransition) {
+            document.startViewTransition(() => {
+                flushSync(() => {
+                    navigate(targetPath);
+                });
+            });
+        } else {
+            navigate(targetPath);
+        }
+    };
     return (
         <>
-            <figure className={`item grid place-items-center group rounded-full shadow-none relative group backdrop-blur-sm bg-[--bg] [corner-shape:squircle]`} style={{"--cor":colors[0],"--bg":colors[0]+22}}>
+            <figure style={{ "--cor":colors[0],"--bg":colors[0]+22 }}
+                    className={`[clip-path:url(#squircle-mask)] [-webkit-clip-path:url(#squircle-mask)] item grid place-items-center group shadow-none relative group backdrop-blur-sm bg-[--bg] `}>
 
                 {logado &&
                     <>
@@ -86,9 +102,9 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
                     </button>
                     </>
                 }
-                <img src={url} onClick={() => {navigate(`/${slugify(cat)}/${id}?bgc=${encodeURIComponent(colors[0])}`)}} loading="lazy" decoding="async" className='mix-blend-darken' />
+                <img src={url} onClick={handleClick} loading="lazy" decoding="async" className='mix-blend-darken' />
 
-                <figcaption className='flex flex-col justify-end text-left'>
+                <figcaption style={{ viewTransitionName: `caption-${id}` }} className='flex flex-col justify-end text-left'>
                     <fieldset>
                         <legend className="text-xs leading-none">{cat}</legend>
                         <span className='text-base text-gray-50 font-semibold !leading-[1] block text-balance'>{name}</span>

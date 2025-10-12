@@ -3,6 +3,7 @@ import './mansonry.css';
 import Figure from './components/Figure.jsx';
 import { getImagesByCategory } from './contexto/ImagesDB.jsx';
 import ColorThief from 'colorthief';
+import SquircleMask from './components/SquircleMask';
 
 const Mansonry = ({ category, setUpWindow, setNova }) => {
   const [images, setImages] = useState([]);
@@ -79,6 +80,7 @@ const Mansonry = ({ category, setUpWindow, setNova }) => {
     
   return (
     <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale h-auto py-14 px-5' key='mansonry'>
+
       {imagePalettes.map(({ url, colors, name, id }, index, array) => {
         return (
           <Figure

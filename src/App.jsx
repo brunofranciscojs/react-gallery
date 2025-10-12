@@ -5,6 +5,7 @@ import Nav from './Nav.jsx';
 import Mansonry from './mansonry';
 import { supabase } from './contexto/supabaseClient'; 
 import Imagem from './components/Imagem.jsx';
+import SquircleMask from './components/SquircleMask';
 
 export default function App() {
   const [categoria, setCategoria] = useState(localStorage.getItem('categoria') || 'misc');
@@ -40,20 +41,23 @@ export default function App() {
 
   return (
   <>
+       <SquircleMask />
+
       <BrowserRouter>
   
           <Nav setCategoria={setCategoria} setUpWindow={setUpWindow} upWindow={upWindow} nova={nova} setNova={setNova}/>
           <Routes>
             <Route path="/" element={<Navigate to={`/${categoria}`} />} />
             {categories.map(cat => {
-                const slug = slugify(cat);
-  
-                return (
-                  <Route 
-                    key={slug} 
-                    path={`/${slug}`} 
-                    element={
-                      <Mansonry 
+              const slug = slugify(cat);
+              
+              return (
+                <Route 
+                key={slug} 
+                path={`/${slug}`} 
+                element={
+                
+                  <Mansonry 
                         category={cat}
                         upWindow={upWindow} 
                         setUpWindow={setUpWindow}

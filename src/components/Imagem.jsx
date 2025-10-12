@@ -30,7 +30,7 @@ export default function Imagem() {
 
       if (error) {
         console.error('Error fetching image:', error);
-        navigate('/');
+        navigate('/', { viewTransition: true });
         return;
       }
       if (!error && data) {
@@ -83,20 +83,20 @@ export default function Imagem() {
           </div>
           <div className="mt-4 flex gap-4 xl:max-w-[600px] max-w-full z-50 flex-wrap p-12 place-self-center">
             {relatedImages.map((rel) => (
-              <div key={rel.nome} className="bg-gray-300 w-32 cl:h-44 h-32 cursor-pointer overflow-hidden hover:[&_img]:[scale:1.05] [corner-shape:squircle] rounded-full" 
-                   onClick={() => navigate(`/${slugify(image.categoria)}/${rel.id}?bgc=${encodeURIComponent(rel.colors[0])}`)}>
+              <div key={rel.nome} className="bg-gray-300 w-32 cl:h-44 h-32 cursor-pointer overflow-hidden hover:[&_img]:[scale:1.05] [clip-path:url(#squircle-mask)] [-webkit-clip-path:url(#squircle-mask)]" 
+                   onClick={() => navigate(`/${slugify(image.categoria)}/${rel.id}?bgc=${encodeURIComponent(rel.colors[0])}`, { viewTransition: true })}>
                 <img  src={rel.url} alt={rel.nome} className="w-full h-full object-cover duration-100 object-top"/>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="z-10 relative xl:w-[60%] w-full min-h-dvh " data-image={image.nome}>
-          <a style={{background:bgc}} className={`leading-none text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 z-50  rounded-full p-2 h-8 w-8`} 
-             onClick={() => navigate(`/${slugify(image.categoria)}`)}>X</a>
-          <ImageZoom zoom={170}  fullWidth={true} src={image.url} className={`[&_img]:mx-auto cl:!block !hidden w-auto [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl !z-10 mx-auto [&_img]:!w-auto duration-100 !bg-transparent`} />
-          <img src={image.url} className={`xl:block hidden h-dvh object-contain [scale:.9] !z-0 blur-[10rem] saturate-[3] mx-auto !w-auto duration-100 absolute top-0 left-1/2 -translate-x-1/2 mix-blend-hard-light`} />
-          <img src={image.url} className={`block xl:hidden h-dvh object-contain rounded-2xl !z-10 mx-auto !w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
+        <div className="z-10 relative xl:w-[60%] w-full min-h-dvh " data-image={image.nome} style={{ viewTransitionName: `figure-${image.id}` }}>
+          <a style={{background:bgc, viewTransitionName: `caption-${image.id}` }} className={`leading-none text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 z-50  rounded-full p-2 h-8 w-8`} 
+             onClick={() => navigate(`/${slugify(image.categoria)}`, { viewTransition: true })}>X</a>
+          <ImageZoom zoom={170}  fullWidth={true} src={image.url} className={`[clip-path:url(#squircle-mask)] [-webkit-clip-path:url(#squircle-mask)]  [&_img]:mx-auto cl:!block !hidden w-auto [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl !z-10 mx-auto [&_img]:!w-auto duration-100 !bg-transparent`} />
+          <img src={image.url} style={{ viewTransitionName: `figure-${image.id}` }} className={`[clip-path:url(#squircle-mask)] [-webkit-clip-path:url(#squircle-mask)] xl:block hidden h-dvh object-contain [scale:.9] !z-0 blur-[10rem] saturate-[3] mx-auto !w-auto duration-100 absolute top-0 left-1/2 -translate-x-1/2 mix-blend-hard-light`} />
+          <img src={image.url} style={{ viewTransitionName: `figure-${image.id}` }} className={`[clip-path:url(#squircle-mask)] [-webkit-clip-path:url(#squircle-mask)] block xl:hidden h-dvh object-contain rounded-2xl !z-10 mx-auto !w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
         </div>
     </div>
   );

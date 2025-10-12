@@ -13,3 +13,52 @@ body{
     background-attachment: fixed !important;
     background-size: cover !important;
 }
+.squircle {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+@supports (corner-shape: squircle) {
+    .squircle {
+        corner-shape: squircle;
+        border-radius: 100px;
+    }
+}
+
+::view-transition-old(figure-*),
+::view-transition-new(figure-*) {
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
+
+::view-transition-old(image-*),
+::view-transition-new(image-*) {
+    animation-duration: 0.4s;
+    animation-delay: .5s;
+}
+
+::view-transition-old(caption-*) {
+    animation: fade-out 0.3s ease-out;
+}
+
+::view-transition-new(caption-*) {
+    animation: fade-in 0.3s ease-in 0.2s;
+}
+
+@keyframes fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    from { 
+      opacity: 0;
+    }
+}
+
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-delay: .2s;
+}
