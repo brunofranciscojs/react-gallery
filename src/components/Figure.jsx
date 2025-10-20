@@ -1,13 +1,13 @@
+import { useState, memo } from 'react';
 import useAuth from '../hooks/useAuth'
 import DeleteIcon from './DeleteIcon'
 import EditIcon from './EditIcon'
-import { useState } from 'react';
 import { supabase } from '../contexto/supabaseClient';
 import ReplaceIcon from './ReplaceIcon';
 import { useNavigate } from 'react-router-dom';
 import { flushSync } from 'react-dom';
 
-export default function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova, id, array }) {
+function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova, id, array }) {
     const { logado } = useAuth();
     const [confirmation, setConfirmation] = useState(false);
     const [ren, setRen] = useState(false);
@@ -87,7 +87,7 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
     };
     return (
         <>       
-            <figure style={{ "--cor":colors[0],"--bg":colors[0]+22 }} onClick={handleClick}
+            <figure style={{ "--cor":colors[0],"--bg":colors[0]+22 }} 
                     className={`item grid place-items-center group shadow-none relative group backdrop-blur-sm `}>
 
                 {logado &&
@@ -101,7 +101,7 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
                     </button>
                     </>
                 }
-                <div className='[clip-path:url(#squircle-mask)] [-webkit-clip-path:url(#squircle-mask)] bg-[--bg]'>
+                <div className='[clip-path:url(#squircle-mask)] [-webkit-clip-path:url(#squircle-mask)] bg-[--bg]' onClick={handleClick}>
                     <img src={url} loading="lazy" decoding="async" className='mix-blend-darken ' />
                 </div>
 
@@ -151,3 +151,4 @@ export default function Figure({ url, cat, index, name, colors, setDcolor, setUp
         </>
     );
 };
+export default memo(Figure)
