@@ -322,9 +322,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/utils.js [app-ssr] (ecmascript)");
 ;
 ;
-async function uploadFn(files, category) {
+async function uploadFn(filesData, category) {
     const uploadedFiles = [];
-    for (const file of files){
+    for (const item of filesData){
+        const { file, width, height } = item;
         const filePath = `${category}/${file.name}`;
         const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].storage.from("ilustras").upload(filePath, file);
         if (error) {
@@ -336,7 +337,9 @@ async function uploadFn(files, category) {
             {
                 nome: file.name,
                 url,
-                categoria: category
+                categoria: category,
+                width,
+                height
             }
         ]);
         if (dbError) {
@@ -497,6 +500,10 @@ function UploadForm({ setUpWindow, nova }) {
                 mimeType: "image/webp",
                 convertSize: 1,
                 success: async (compressed)=>{
+                    const img = new Image();
+                    img.src = URL.createObjectURL(compressed);
+                    await img.decode();
+                    const { naturalWidth: width, naturalHeight: height } = img;
                     const { data: uploadData, error: uploadError } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].storage.from("ilustras").upload(novoFilePath, compressed, {
                         cacheControl: "3600",
                         upsert: true
@@ -509,7 +516,9 @@ function UploadForm({ setUpWindow, nova }) {
                     localStorage.removeItem(`imagens-${categoriaAtual}`);
                     const novaUrl = `https://utyaegtlratnhymumqjm.supabase.co/storage/v1/object/public/ilustras/${novoFilePath}`;
                     const { error: dbError } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('imagens').update({
-                        url: novaUrl
+                        url: novaUrl,
+                        width,
+                        height
                     }).eq('url', urlEditar);
                     if (dbError) {
                         console.error("Erro ao atualizar URL no banco:", dbError);
@@ -535,7 +544,16 @@ function UploadForm({ setUpWindow, nova }) {
                             quality: 0.7,
                             mimeType: "image/webp",
                             convertSize: 1,
-                            success: resolve,
+                            success: async (compressed)=>{
+                                const img = new Image();
+                                img.src = URL.createObjectURL(compressed);
+                                await img.decode();
+                                resolve({
+                                    file: compressed,
+                                    width: img.naturalWidth,
+                                    height: img.naturalHeight
+                                });
+                            },
                             error: reject
                         });
                     })));
@@ -558,7 +576,7 @@ function UploadForm({ setUpWindow, nova }) {
                 children: "X"
             }, void 0, false, {
                 fileName: "[project]/components/UploadImage.jsx",
-                lineNumber: 119,
+                lineNumber: 133,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -572,7 +590,7 @@ function UploadForm({ setUpWindow, nova }) {
                         className: "p-28 bg-[#ffffff22] border-4 border-dashed border-gray-500 rounded-lg mt-2 [&::file-selector-button]:opacity-0  max-w-[520px] w-full text-transparent    before:content-['DRAG_&_DROP'] before:text-white before:flex before:justify-center"
                     }, void 0, false, {
                         fileName: "[project]/components/UploadImage.jsx",
-                        lineNumber: 122,
+                        lineNumber: 136,
                         columnNumber: 11
                     }, this),
                     hasImage && preview && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -583,7 +601,7 @@ function UploadForm({ setUpWindow, nova }) {
                                 className: "block w-96 h-96 object-contain"
                             }, void 0, false, {
                                 fileName: "[project]/components/UploadImage.jsx",
-                                lineNumber: 127,
+                                lineNumber: 141,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -592,19 +610,19 @@ function UploadForm({ setUpWindow, nova }) {
                                 children: "escolher outra"
                             }, void 0, false, {
                                 fileName: "[project]/components/UploadImage.jsx",
-                                lineNumber: 128,
+                                lineNumber: 142,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/UploadImage.jsx",
-                        lineNumber: 126,
+                        lineNumber: 140,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/UploadImage.jsx",
-                lineNumber: 120,
+                lineNumber: 134,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -621,17 +639,17 @@ function UploadForm({ setUpWindow, nova }) {
                         className: "bg-white/10 border py-2 px-5 max-w-[520px] w-full outline-none mx-3 text-gray-200  text-center"
                     }, void 0, false, {
                         fileName: "[project]/components/UploadImage.jsx",
-                        lineNumber: 137,
+                        lineNumber: 151,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                         fileName: "[project]/components/UploadImage.jsx",
-                        lineNumber: 142,
+                        lineNumber: 156,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                         fileName: "[project]/components/UploadImage.jsx",
-                        lineNumber: 142,
+                        lineNumber: 156,
                         columnNumber: 15
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -644,31 +662,31 @@ function UploadForm({ setUpWindow, nova }) {
                                 className: `animate-spin flex items-center duration-200 transition-all invert`,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$SpinIcon$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/components/UploadImage.jsx",
-                                    lineNumber: 146,
+                                    lineNumber: 160,
                                     columnNumber: 116
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/UploadImage.jsx",
-                                lineNumber: 146,
+                                lineNumber: 160,
                                 columnNumber: 30
                             }, this),
                             uploading == 2 && "Upload Completo!"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/UploadImage.jsx",
-                        lineNumber: 143,
+                        lineNumber: 157,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/UploadImage.jsx",
-                lineNumber: 136,
+                lineNumber: 150,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/UploadImage.jsx",
-        lineNumber: 118,
+        lineNumber: 132,
         columnNumber: 5
     }, this);
 }
@@ -798,8 +816,9 @@ function Nav() {
                 style: {
                     viewTransitionName: 'main-nav'
                 },
+                className: "bg-[#0003]  mt-3 ml-3 rounded-2xl",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                    className: "items-start md:items-center justify-center z-10 relative xl:w-fit w-[90svw] mx-auto [&_li.active]:text-white mt-3 ml-3 bg-[#0003] rounded-2xl",
+                    className: "items-start md:items-center justify-center z-10 relative xl:w-fit w-[90svw] mx-auto [&_li.active]:text-white",
                     children: categories.map((table, index)=>{
                         const categorySlug = slugify(table);
                         const isActive = categorySlug === activeCategory;

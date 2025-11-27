@@ -37,8 +37,8 @@ export default function Nav() {
         </div>
       )}
 
-      <nav style={{ viewTransitionName: 'main-nav' }}>
-        <ul className="items-start md:items-center justify-center z-10 relative xl:w-fit w-[90svw] mx-auto [&_li.active]:text-white mt-3 ml-3 bg-[#0003] rounded-2xl">
+      <nav style={{ viewTransitionName: 'main-nav' }} className="bg-[#0003]  mt-3 ml-3 rounded-2xl">
+        <ul className="items-start md:items-center justify-center z-10 relative xl:w-fit w-[90svw] mx-auto [&_li.active]:text-white">
           {categories.map((table, index) => {
             const categorySlug = slugify(table);
             const isActive = categorySlug === activeCategory;

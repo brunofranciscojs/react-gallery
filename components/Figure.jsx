@@ -16,7 +16,6 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
     const [imageLoaded, setImageLoaded] = useState(false);
     const router = useRouter();
 
-    // Calculate aspect ratio if dimensions are available
     const aspectRatio = width && height ? `${width}/${height}` : 'auto';
 
     const slugify = (text) => {
@@ -101,13 +100,7 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                     onClick={handleClick} style={{ aspectRatio }}>
                     <article className='absolute inset-0 transition-all duration-400 animate-[placehold_calc(var(--index)*0.1s)_linear_infinite_forwards] bg-size-[268px_100%] bg-[--bg] bg-[linear-gradient(to_right,#bbb_-10%,var(--bg)_18%,#bbb_53%)] blur-[15px] placeholder' />
 
-                    <Image
-                        src={url}
-                        alt={name}
-                        width={width}
-                        height={height}
-                        loading="lazy"
-                        decoding="async"
+                    <Image src={url.replace(/\s/g, '%20')} alt={name} width={width} height={height} loading="lazy" decoding="async"
                         className={`mix-blend-darken transition-all duration-500 opacity-0`}
                         onLoad={() => setTimeout(() => setImageLoaded(true), 100)}
                     />

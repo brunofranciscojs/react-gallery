@@ -218,7 +218,6 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
     const [message, setMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [imageLoaded, setImageLoaded] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
-    // Calculate aspect ratio if dimensions are available
     const aspectRatio = width && height ? `${width}/${height}` : 'auto';
     const slugify = (text)=>{
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/\s+/g, "-").replace(/[^\w-]+/g, "");
@@ -293,12 +292,12 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                                 onClick: ()=>setConfirmation(true),
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$DeleteIcon$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 92,
+                                    lineNumber: 91,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/Figure.jsx",
-                                lineNumber: 91,
+                                lineNumber: 90,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -309,12 +308,12 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                                 },
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$EditIcon$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 96,
+                                    lineNumber: 95,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/Figure.jsx",
-                                lineNumber: 95,
+                                lineNumber: 94,
                                 columnNumber: 25
                             }, this)
                         ]
@@ -330,11 +329,11 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                                 className: "absolute inset-0 transition-all duration-400 animate-[placehold_calc(var(--index)*0.1s)_linear_infinite_forwards] bg-size-[268px_100%] bg-[--bg] bg-[linear-gradient(to_right,#bbb_-10%,var(--bg)_18%,#bbb_53%)] blur-[15px] placeholder"
                             }, void 0, false, {
                                 fileName: "[project]/components/Figure.jsx",
-                                lineNumber: 102,
+                                lineNumber: 101,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                src: url,
+                                src: url.replace(/\s/g, '%20'),
                                 alt: name,
                                 width: width,
                                 height: height,
@@ -344,13 +343,13 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                                 onLoad: ()=>setTimeout(()=>setImageLoaded(true), 100)
                             }, void 0, false, {
                                 fileName: "[project]/components/Figure.jsx",
-                                lineNumber: 104,
+                                lineNumber: 103,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/Figure.jsx",
-                        lineNumber: 100,
+                        lineNumber: 99,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("figcaption", {
@@ -365,7 +364,7 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                                     children: cat
                                 }, void 0, false, {
                                     fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 118,
+                                    lineNumber: 111,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -373,24 +372,24 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                                     children: name
                                 }, void 0, false, {
                                     fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 119,
+                                    lineNumber: 112,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/Figure.jsx",
-                            lineNumber: 117,
+                            lineNumber: 110,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/Figure.jsx",
-                        lineNumber: 116,
+                        lineNumber: 109,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/Figure.jsx",
-                lineNumber: 86,
+                lineNumber: 85,
                 columnNumber: 13
             }, this),
             confirmation && !ren && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -403,7 +402,7 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                             children: "TEM CERTEZA?"
                         }, void 0, false, {
                             fileName: "[project]/components/Figure.jsx",
-                            lineNumber: 127,
+                            lineNumber: 120,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -417,7 +416,7 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                                     children: " DELETAR"
                                 }, void 0, false, {
                                     fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 129,
+                                    lineNumber: 122,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -426,24 +425,24 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                                     children: "CANCELAR"
                                 }, void 0, false, {
                                     fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 130,
+                                    lineNumber: 123,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/Figure.jsx",
-                            lineNumber: 128,
+                            lineNumber: 121,
                             columnNumber: 25
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/Figure.jsx",
-                    lineNumber: 126,
+                    lineNumber: 119,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/Figure.jsx",
-                lineNumber: 125,
+                lineNumber: 118,
                 columnNumber: 17
             }, this),
             confirmation && ren && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -457,7 +456,7 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                             children: "x"
                         }, void 0, false, {
                             fileName: "[project]/components/Figure.jsx",
-                            lineNumber: 138,
+                            lineNumber: 131,
                             columnNumber: 25
                         }, this),
                         !message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -469,7 +468,7 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                                     className: "bg-white/30 px-4 py-2 text-white text-sm rounded-lg placeholder:text-gray-200"
                                 }, void 0, false, {
                                     fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 142,
+                                    lineNumber: 135,
                                     columnNumber: 33
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -480,36 +479,36 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                                     },
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ReplaceIcon$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                         fileName: "[project]/components/Figure.jsx",
-                                        lineNumber: 152,
+                                        lineNumber: 145,
                                         columnNumber: 37
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 146,
+                                    lineNumber: 139,
                                     columnNumber: 33
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/Figure.jsx",
-                            lineNumber: 141,
+                            lineNumber: 134,
                             columnNumber: 29
                         }, this),
                         message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                             children: "Renomeado com sucesso!"
                         }, void 0, false, {
                             fileName: "[project]/components/Figure.jsx",
-                            lineNumber: 155,
+                            lineNumber: 148,
                             columnNumber: 37
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/Figure.jsx",
-                    lineNumber: 137,
+                    lineNumber: 130,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/Figure.jsx",
-                lineNumber: 136,
+                lineNumber: 129,
                 columnNumber: 17
             }, this)
         ]

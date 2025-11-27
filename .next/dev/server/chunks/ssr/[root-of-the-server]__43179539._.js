@@ -120,9 +120,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/utils.js [app-rsc] (ecmascript)");
 ;
 ;
-async function uploadFn(files, category) {
+async function uploadFn(filesData, category) {
     const uploadedFiles = [];
-    for (const file of files){
+    for (const item of filesData){
+        const { file, width, height } = item;
         const filePath = `${category}/${file.name}`;
         const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["supabase"].storage.from("ilustras").upload(filePath, file);
         if (error) {
@@ -134,7 +135,9 @@ async function uploadFn(files, category) {
             {
                 nome: file.name,
                 url,
-                categoria: category
+                categoria: category,
+                width,
+                height
             }
         ]);
         if (dbError) {

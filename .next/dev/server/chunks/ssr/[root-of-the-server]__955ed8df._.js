@@ -120,9 +120,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/utils.js [app-rsc] (ecmascript)");
 ;
 ;
-async function uploadFn(files, category) {
+async function uploadFn(filesData, category) {
     const uploadedFiles = [];
-    for (const file of files){
+    for (const item of filesData){
+        const { file, width, height } = item;
         const filePath = `${category}/${file.name}`;
         const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["supabase"].storage.from("ilustras").upload(filePath, file);
         if (error) {
@@ -134,7 +135,9 @@ async function uploadFn(files, category) {
             {
                 nome: file.name,
                 url,
-                categoria: category
+                categoria: category,
+                width,
+                height
             }
         ]);
         if (dbError) {
@@ -208,6 +211,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ImagesDB$2e$jsx__$5b$
 async function generateMetadata({ params }) {
     const { imageId, category } = await params;
     const image = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ImagesDB$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getImageById"])(imageId);
+    const nome = image.nome.replace('.webp').replace('.avif', '').replace('.jpg', '').replace('.png', '');
     if (!image) {
         return {
             title: 'Imagem não encontrada',
@@ -215,17 +219,17 @@ async function generateMetadata({ params }) {
         };
     }
     return {
-        title: image.nome || 'Galeria de Imagens',
+        title: nome + 'Ilustras Bruno' || 'Galeria de Imagens',
         description: `Visualizar imagem na categoria ${category}`,
         openGraph: {
-            title: image.nome || 'Galeria de Imagens',
+            title: nome + 'Ilustras Bruno' || 'Galeria de Imagens',
             description: `Visualizar imagem na categoria ${category}`,
             images: [
                 {
                     url: image.url,
                     width: 1200,
                     height: 630,
-                    alt: image.nome || 'Imagem da galeria'
+                    alt: nome || 'Imagem da galeria'
                 }
             ]
         }

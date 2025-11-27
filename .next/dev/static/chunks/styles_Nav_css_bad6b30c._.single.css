@@ -3,6 +3,8 @@ nav {
   z-index: 11;
   isolation: isolate;
   anchor-name: --hovered-link;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   width: fit-content;
   position: fixed;
   bottom: 2rem;

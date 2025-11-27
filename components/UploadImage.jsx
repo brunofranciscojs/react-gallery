@@ -51,6 +51,11 @@ function UploadForm({ setUpWindow, nova }) {
         mimeType: "image/webp",
         convertSize: 1,
         success: async (compressed) => {
+          const img = new Image();
+          img.src = URL.createObjectURL(compressed);
+          await img.decode();
+          const { naturalWidth: width, naturalHeight: height } = img;
+
           const { data: uploadData, error: uploadError } = await supabase.storage
             .from("ilustras")
             .upload(novoFilePath, compressed, {
@@ -69,7 +74,7 @@ function UploadForm({ setUpWindow, nova }) {
 
           const { error: dbError } = await supabase
             .from('imagens')
-            .update({ url: novaUrl })
+            .update({ url: novaUrl, width, height })
             .eq('url', urlEditar);
 
           if (dbError) {
@@ -98,7 +103,16 @@ function UploadForm({ setUpWindow, nova }) {
                 quality: 0.7,
                 mimeType: "image/webp",
                 convertSize: 1,
-                success: resolve,
+                success: async (compressed) => {
+                  const img = new Image();
+                  img.src = URL.createObjectURL(compressed);
+                  await img.decode();
+                  resolve({
+                    file: compressed,
+                    width: img.naturalWidth,
+                    height: img.naturalHeight
+                  });
+                },
                 error: reject,
               });
             })

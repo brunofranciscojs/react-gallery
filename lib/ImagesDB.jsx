@@ -1,10 +1,11 @@
 import { supabase } from './supabaseClient';
 import { slugify } from '@/lib/utils';
 
-export async function uploadFn(files, category) {
+export async function uploadFn(filesData, category) {
     const uploadedFiles = [];
 
-    for (const file of files) {
+    for (const item of filesData) {
+        const { file, width, height } = item;
         const filePath = `${category}/${file.name}`;
         const { data, error } = await supabase.storage
             .from("ilustras")
@@ -15,7 +16,7 @@ export async function uploadFn(files, category) {
         }
         const url = `https://utyaegtlratnhymumqjm.supabase.co/storage/v1/object/public/ilustras/${filePath}`;
         const { error: dbError } = await supabase.from("imagens").insert([
-            { nome: file.name, url, categoria: category }
+            { nome: file.name, url, categoria: category, width, height }
         ]);
         if (dbError) {
             console.error("Erro ao salvar no banco:", dbError);

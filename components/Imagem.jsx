@@ -1,10 +1,8 @@
 "use client";
-
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import ImageZoom from "react-image-zooom";
-import { flushSync } from 'react-dom';
+import Image from 'next/image';
 
 export default function Imagem() {
   const params = useParams();
@@ -30,7 +28,7 @@ export default function Imagem() {
     const fetchImage = async () => {
       const { data, error } = await supabase
         .from('imagens')
-        .select('url, nome, categoria, id')
+        .select('url, nome, categoria, id, width, height')
         .eq('id', imageId)
 
       if (error) {
@@ -78,19 +76,10 @@ export default function Imagem() {
 
   const handleClose = () => {
     const targetPath = `/${slugify(image.categoria)}`;
-
-    if (!document.startViewTransition) {
-      navigate.push(targetPath);
-      return;
-    }
-
-    document.startViewTransition(() => {
-      flushSync(() => {
-        navigate.push(targetPath);
-      });
-    });
+    navigate.push(targetPath);
   };
 
+  console.log(image);
 
   if (!image) return null;
 
@@ -114,9 +103,13 @@ export default function Imagem() {
       <div className="z-10 relative xl:w-[60%] w-full min-h-dvh [view-transition-name:figure-img]" data-image={image.nome}>
         <button style={{ background: bgc, viewTransitionName: `figure-caption` }} className={`leading-none text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 z-50  rounded-full p-2 h-8 w-8`}
           onClick={handleClose}>X</button>
-        <ImageZoom zoom={170} fullWidth={true} src={image.url} className={`[clip-path:url(#squircle-mask)] [-webkit-clip-path:url(#squircle-mask)]  [&_img]:mx-auto cl:!block !hidden w-auto [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl !z-10 mx-auto [&_img]:!w-auto duration-100 !bg-transparent`} />
-        <img src={image.url} className={`[clip-path:url(#squircle-mask)] [-webkit-clip-path:url(#squircle-mask)] xl:block hidden h-dvh object-contain [scale:.9] !z-0 blur-[10rem] saturate-[3] mx-auto !w-auto duration-100 absolute top-0 left-1/2 -translate-x-1/2 mix-blend-hard-light`} />
-        <img src={image.url} style={{ viewTransitionName: `figures-${image.id}` }} className={`[clip-path:url(#squircle-mask)] [-webkit-clip-path:url(#squircle-mask)] block xl:hidden h-dvh object-contain rounded-2xl !z-10 mx-auto !w-auto duration-100 [anchor-name:--mirror] p-8 !bg-transparent`} />
+        <Image
+          alt={image.nome}
+          width={image.width || 800}
+          height={image.height || 600}
+          src={image.url}
+          style={{ "--shadow": image.colors[0] + 66 }}
+          className={`mx-auto cl:!block !hidden h-dvh object-contain rounded-2xl !z-40 !w-auto duration-100 !bg-transparent relative drop-shadow-[0_0_40px_var(--shadow)]`} />
       </div>
     </div>
   );
