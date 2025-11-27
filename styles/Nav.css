@@ -1,0 +1,6 @@
+nav{ position:fixed; width:fit-content; bottom:2rem; left:50%; z-index:11; isolation:isolate; anchor-name:--hovered-link; translate:-50% 0 }
+nav ul{ list-style:none; display:flex; flex-direction:row; align-items:flex-start; transition:.2s; z-index:999; flex-wrap:wrap; position:relative }
+nav ul li{ cursor:pointer; transition:.2s; position:relative; font-weight:400; text-transform:lowercase; z-index:1 }
+nav ul li:hover{ anchor-name:--hovered-link }
+nav:after{ content:""; position:absolute; top:calc(anchor(bottom) - 10px); left:calc(anchor(left) + 1rem); right:calc(anchor(right) + 1rem); bottom:calc(anchor(bottom) + 9px); position-anchor:--hovered-link; transition:.2s ease all; z-index:2; background:#000 }
+nav .activee{ anchor-name:--hovered-link }

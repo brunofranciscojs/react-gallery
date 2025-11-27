@@ -11,6 +11,12 @@ const nextConfig = {
             },
             {
                 protocol: 'https',
+                hostname: 'utyaegtlratnhymumqjm.supabase.co',
+                port: '',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
                 hostname: 'raw.githubusercontent.com',
                 port: '',
                 pathname: '/**',

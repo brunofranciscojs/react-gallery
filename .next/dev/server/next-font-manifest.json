@@ -1,8 +1,5 @@
 {
-  "app": {
-    "[project]/src/app/[category]/[imageId]/page": [],
-    "[project]/src/app/[category]/page": []
-  },
+  "app": {},
   "appUsingSizeAdjust": false,
   "pages": {},
   "pagesUsingSizeAdjust": false
