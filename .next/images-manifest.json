@@ -49,6 +49,12 @@
       },
       {
         "protocol": "https",
+        "hostname": "^(?:^(?:utyaegtlratnhymumqjm\\.supabase\\.co)$)$",
+        "port": "",
+        "pathname": "^(?:\\/(?!\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?))$"
+      },
+      {
+        "protocol": "https",
         "hostname": "^(?:^(?:raw\\.githubusercontent\\.com)$)$",
         "port": "",
         "pathname": "^(?:\\/(?!\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?))$"

@@ -311,6 +311,8 @@ function Logar() {
 "use strict";
 
 __turbopack_context__.s([
+    "getImageById",
+    ()=>getImageById,
     "getImagesByCategory",
     ()=>getImagesByCategory,
     "uploadFn",
@@ -378,6 +380,14 @@ async function getImagesByCategory(slug) {
     if (error) {
         console.error("Erro ao buscar imagens:", error);
         return [];
+    }
+    return data;
+}
+async function getImageById(id) {
+    const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from("imagens").select("*").eq("id", id).single();
+    if (error) {
+        console.error("Erro ao buscar imagem por id:", error);
+        return null;
     }
     return data;
 }

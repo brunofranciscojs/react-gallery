@@ -73,3 +73,18 @@ export async function getImagesByCategory(slug) {
 
     return data;
 }
+
+export async function getImageById(id) {
+    const { data, error } = await supabase
+        .from("imagens")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if (error) {
+        console.error("Erro ao buscar imagem por id:", error);
+        return null;
+    }
+
+    return data;
+}
