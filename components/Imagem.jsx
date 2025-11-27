@@ -79,8 +79,6 @@ export default function Imagem() {
     navigate.push(targetPath);
   };
 
-  console.log(image);
-
   if (!image) return null;
 
   return (
@@ -109,7 +107,7 @@ export default function Imagem() {
           height={image.height || 600}
           src={image.url}
           style={{ "--shadow": image.colors[0] + 66 }}
-          className={`mx-auto cl:!block !hidden h-dvh object-contain rounded-2xl !z-40 !w-auto duration-100 !bg-transparent relative drop-shadow-[0_0_40px_var(--shadow)]`} />
+          className={`mx-auto block h-dvh object-contain rounded-2xl !z-40 !w-auto duration-100 !bg-transparent relative drop-shadow-[0_0_40px_var(--shadow)]`} />
       </div>
     </div>
   );
