@@ -82,7 +82,7 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
     };
     return (
         <>
-            <figure style={{ "--cor": colors[0], "--bg": colors[0] + 22, "--index": index + 40 }}
+            <figure style={{ "--cor": colors[0], "--bg": colors[0] + 22, "--index": index + 40 }} onClick={handleClick}
                 className={`item grid place-items-center group shadow-none relative group backdrop-blur-sm `}>
 
                 {logado &&
@@ -97,7 +97,7 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                     </>
                 }
                 <div className={`bg-[--bg] relative overflow-hidden [clip-path:url('#squircle-mask')] [-webkit-clip-path:url('#squircle-mask')] ${imageLoaded ? 'loaded' : ''}`}
-                    onClick={handleClick} style={{ aspectRatio }}>
+                    style={{ aspectRatio }}>
                     <article className='absolute inset-0 transition-all duration-400 animate-[placehold_calc(var(--index)*0.1s)_linear_infinite_forwards] bg-size-[268px_100%] bg-[--bg] bg-[linear-gradient(to_right,#bbb_-10%,var(--bg)_18%,#bbb_53%)] blur-[15px] placeholder' />
 
                     <Image src={url.replace(/\s/g, '%20')} alt={name} width={width} height={height} loading="lazy" decoding="async"

@@ -88,7 +88,6 @@ function Imagem() {
         const targetPath = `/${slugify(image.categoria)}`;
         navigate.push(targetPath);
     };
-    console.log(image);
     if (!image) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "bg-gray-200 flex gap-5 flex-col-reverse xl:flex-row items-start justify-center relative h-full w-full mx-auto imagem z-50",
@@ -103,7 +102,7 @@ function Imagem() {
                                 children: image.nome
                             }, void 0, false, {
                                 fileName: "[project]/components/Imagem.jsx",
-                                lineNumber: 90,
+                                lineNumber: 88,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -114,13 +113,13 @@ function Imagem() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/Imagem.jsx",
-                                lineNumber: 91,
+                                lineNumber: 89,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/Imagem.jsx",
-                        lineNumber: 89,
+                        lineNumber: 87,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -137,23 +136,23 @@ function Imagem() {
                                     className: "w-full h-full object-cover duration-100 object-top"
                                 }, void 0, false, {
                                     fileName: "[project]/components/Imagem.jsx",
-                                    lineNumber: 97,
+                                    lineNumber: 95,
                                     columnNumber: 15
                                 }, this)
                             }, rel.nome, false, {
                                 fileName: "[project]/components/Imagem.jsx",
-                                lineNumber: 95,
+                                lineNumber: 93,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/components/Imagem.jsx",
-                        lineNumber: 93,
+                        lineNumber: 91,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/Imagem.jsx",
-                lineNumber: 88,
+                lineNumber: 86,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -170,7 +169,7 @@ function Imagem() {
                         children: "X"
                     }, void 0, false, {
                         fileName: "[project]/components/Imagem.jsx",
-                        lineNumber: 104,
+                        lineNumber: 102,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -181,22 +180,22 @@ function Imagem() {
                         style: {
                             "--shadow": image.colors[0] + 66
                         },
-                        className: `mx-auto cl:!block !hidden h-dvh object-contain rounded-2xl !z-40 !w-auto duration-100 !bg-transparent relative drop-shadow-[0_0_40px_var(--shadow)]`
+                        className: `mx-auto block h-dvh object-contain rounded-2xl !z-40 !w-auto duration-100 !bg-transparent relative drop-shadow-[0_0_40px_var(--shadow)]`
                     }, void 0, false, {
                         fileName: "[project]/components/Imagem.jsx",
-                        lineNumber: 106,
+                        lineNumber: 104,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/Imagem.jsx",
-                lineNumber: 103,
+                lineNumber: 101,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/Imagem.jsx",
-        lineNumber: 87,
+        lineNumber: 85,
         columnNumber: 5
     }, this);
 }
