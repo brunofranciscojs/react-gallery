@@ -1,0 +1,53 @@
+/* [project]/src/Nav.css [app-client] (css) */
+nav {
+  z-index: 11;
+  isolation: isolate;
+  anchor-name: --hovered-link;
+  width: fit-content;
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  translate: -50%;
+}
+
+nav ul {
+  z-index: 999;
+  flex-flow: wrap;
+  align-items: flex-start;
+  list-style: none;
+  transition: all .2s;
+  display: flex;
+  position: relative;
+}
+
+nav ul li {
+  cursor: pointer;
+  text-transform: lowercase;
+  z-index: 1;
+  font-weight: 400;
+  transition: all .2s;
+  position: relative;
+}
+
+nav ul li:hover {
+  anchor-name: --hovered-link;
+}
+
+nav:after {
+  content: "";
+  top: calc(anchor(bottom)  - 10px);
+  left: calc(anchor(left)  + 1rem);
+  right: calc(anchor(right)  + 1rem);
+  bottom: calc(anchor(bottom)  + 9px);
+  position-anchor: --hovered-link;
+  z-index: 2;
+  background: #000;
+  transition: all .2s;
+  position: absolute;
+}
+
+nav .activee {
+  anchor-name: --hovered-link;
+}
+
+/*# sourceMappingURL=src_Nav_css_bad6b30c._.single.css.map*/

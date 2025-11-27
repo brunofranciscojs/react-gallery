@@ -1,0 +1,9 @@
+{
+  "/[category]/[imageId]/page": "/[category]/[imageId]",
+  "/[category]/page": "/[category]",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/share/[...slug]/route": "/api/share/[...slug]",
+  "/api/share/[imageId]/route": "/api/share/[imageId]",
+  "/page": "/"
+}

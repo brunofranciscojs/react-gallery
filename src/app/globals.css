@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Highland Jakarta";
+  src: url("../assets/HighJakarta.woff2");
+}
+
+body {
+  background: #f0f0f0;
+  font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
+    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  position: relative;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  @apply overflow-x-hidden duration-200 [&:has(.fav)]:overflow-hidden h-fit [interpolate-size:allow-keywords] [background:linear-gradient(to_bottom,#e5e7ebcc,#e5e7ebcc),url(../assets/blurred.avif)];
+  background-attachment: fixed !important;
+  background-size: cover !important;
+}
+
+.squircle {
+  border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+}
+
+@supports(corner-shape: squircle) {
+  .squircle {
+    corner-shape: squircle;
+    border-radius: 100px;
+  }
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+[style*="view-transition-name"][style*="figure-"] {
+  contain: layout;
+}
+
+::view-transition-old(root) {
+  animation: none;
+}
+
+::view-transition-new(root) {
+  animation: none;
+}
+
+/* ::view-transition-old(figure-*) {
+  animation: scaleDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+::view-transition-new(figure-*) {
+  animation: scaleUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+} */
+
+::view-transition-old(figure-caption) {
+  animation: fadeOut 0.3s ease-out;
+}
+
+::view-transition-new(figure-caption) {
+  animation: fadeIn 0.3s ease-in 0.1s;
+}
+
+@keyframes scaleUp {
+  from {
+    scale: 0.5;
+    opacity: 0.5;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+@keyframes scaleDown {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "app": {
+    "[project]/src/app/[category]/[imageId]/page": [],
+    "[project]/src/app/[category]/page": [],
+    "[project]/src/app/_not-found/page": [],
+    "[project]/src/app/page": []
+  },
+  "appUsingSizeAdjust": false,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}
