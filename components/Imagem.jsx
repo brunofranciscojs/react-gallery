@@ -3,6 +3,7 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Imagem() {
   const params = useParams();
@@ -74,11 +75,6 @@ export default function Imagem() {
     fetchRelated();
   }, [image]);
 
-  const handleClose = () => {
-    const targetPath = `/${slugify(image.categoria)}`;
-    navigate.push(targetPath);
-  };
-
   if (!image) return null;
 
   return (
@@ -99,8 +95,11 @@ export default function Imagem() {
       </div>
 
       <div className="z-10 relative xl:w-[60%] w-full min-h-dvh [view-transition-name:figure-img]" data-image={image.nome}>
-        <button style={{ background: bgc, viewTransitionName: `figure-caption` }} className={`leading-none text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 z-50  rounded-full p-2 h-8 w-8`}
-          onClick={handleClose}>X</button>
+        <Link href={`/${slugify(image.categoria)}`} style={{ "--bg": bgc }}
+          className={`bg-[--bg] leading-none text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 !z-50  rounded-full text-center leading-9 h-9 w-9`}>
+          X
+        </Link>
+
         <Image
           alt={image.nome}
           width={image.width || 800}
