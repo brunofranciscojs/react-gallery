@@ -263,7 +263,6 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                     "--bg": colors[0] + 22,
                     "--index": index + 40
                 },
-                onClick: handleClick,
                 className: `item grid place-items-center group shadow-none relative group backdrop-blur-sm `,
                 children: [
                     logado && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -300,6 +299,7 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                         ]
                     }, void 0, true),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        onClick: handleClick,
                         className: `bg-[--bg] relative overflow-hidden [clip-path:url('#squircle-mask')] [-webkit-clip-path:url('#squircle-mask')] ${imageLoaded ? 'loaded' : ''}`,
                         style: {
                             aspectRatio

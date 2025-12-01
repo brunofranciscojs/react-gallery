@@ -162,7 +162,7 @@ function Imagem() {
                         style: {
                             "--bg": bgc
                         },
-                        className: `bg-[--bg] leading-none text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 !z-50  rounded-full text-center leading-9 h-9 w-9`,
+                        className: `bg-[--bg] text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 !z-50  rounded-full text-center leading-9 h-9 w-9`,
                         children: "X"
                     }, void 0, false, {
                         fileName: "[project]/components/Imagem.jsx",

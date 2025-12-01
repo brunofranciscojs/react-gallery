@@ -177,7 +177,9 @@ async function getImagesByCategory(slug) {
         if (!realCategory) realCategory = potentialName;
     }
     console.log(`Slug: ${slug} -> Real Category: ${realCategory}`);
-    const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["supabase"].from("imagens").select("*").eq("categoria", realCategory); // Use eq with the real name
+    const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["supabase"].from("imagens").select("*").eq("categoria", realCategory).order('created_at', {
+        ascending: false
+    }); // Use eq with the real name
     if (error) {
         console.error("Erro ao buscar imagens:", error);
         return [];

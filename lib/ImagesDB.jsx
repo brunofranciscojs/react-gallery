@@ -65,7 +65,8 @@ export async function getImagesByCategory(slug) {
     const { data, error } = await supabase
         .from("imagens")
         .select("*")
-        .eq("categoria", realCategory); // Use eq with the real name
+        .eq("categoria", realCategory)
+        .order('created_at', { ascending: false }); // Use eq with the real name
 
     if (error) {
         console.error("Erro ao buscar imagens:", error);

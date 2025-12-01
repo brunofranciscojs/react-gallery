@@ -42,15 +42,16 @@ function UploadForm({ setUpWindow, nova }) {
       const urlEditar = localStorage.getItem('urlEditar');
       const filePathOld = urlEditar.split('/ilustras/')[1];
 
-      const ext = "avif";
-      const timestamp = Date.now();
-      const novoFilePath = `${categoriaAtual}/${timestamp}.${ext}`;
 
       new Compressor(file[0], {
         quality: 0.7,
-        mimeType: "image/webp",
         convertSize: 1,
         success: async (compressed) => {
+          const timestamp = Date.now();
+          const mimeExt = compressed.type.split('/')[1];
+          const ext = mimeExt === 'jpeg' ? 'jpg' : mimeExt;
+          const novoFilePath = `${categoriaAtual}/${timestamp}.${ext}`;
+
           const img = new Image();
           img.src = URL.createObjectURL(compressed);
           await img.decode();
@@ -101,7 +102,6 @@ function UploadForm({ setUpWindow, nova }) {
             new Promise((resolve, reject) => {
               new Compressor(f, {
                 quality: 0.7,
-                mimeType: "image/webp",
                 convertSize: 1,
                 success: async (compressed) => {
                   const img = new Image();
@@ -133,7 +133,7 @@ function UploadForm({ setUpWindow, nova }) {
       <button className='text-white z-30' onClick={() => { uploading ? window.location.reload() : setUpWindow(false) }} >X</button>
       <div className='flex gap-5'>
         {!hasImage &&
-          <input type="file" accept="/image/*" multiple onChange={handleFileChange} className="p-28 bg-[#ffffff22] border-4 border-dashed border-gray-500 rounded-lg mt-2 [&::file-selector-button]:opacity-0  max-w-[520px] w-full text-transparent 
+          <input type="file" accept="image/*" multiple onChange={handleFileChange} className="p-28 bg-[#ffffff22] border-4 border-dashed border-gray-500 rounded-lg mt-2 [&::file-selector-button]:opacity-0  max-w-[520px] w-full text-transparent 
                     before:content-['DRAG_&_DROP'] before:text-white before:flex before:justify-center" />
         }
         {hasImage && preview &&

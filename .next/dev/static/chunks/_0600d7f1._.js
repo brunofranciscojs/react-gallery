@@ -398,7 +398,9 @@ async function getImagesByCategory(slug) {
         if (!realCategory) realCategory = potentialName;
     }
     console.log(`Slug: ${slug} -> Real Category: ${realCategory}`);
-    const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from("imagens").select("*").eq("categoria", realCategory); // Use eq with the real name
+    const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from("imagens").select("*").eq("categoria", realCategory).order('created_at', {
+        ascending: false
+    }); // Use eq with the real name
     if (error) {
         console.error("Erro ao buscar imagens:", error);
         return [];
@@ -522,14 +524,14 @@ function UploadForm({ setUpWindow, nova }) {
         if (nova) {
             const urlEditar = localStorage.getItem('urlEditar');
             const filePathOld = urlEditar.split('/ilustras/')[1];
-            const ext = "avif";
-            const timestamp = Date.now();
-            const novoFilePath = `${categoriaAtual}/${timestamp}.${ext}`;
             new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$compressorjs$2f$dist$2f$compressor$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"](file[0], {
                 quality: 0.7,
-                mimeType: "image/webp",
                 convertSize: 1,
                 success: async (compressed)=>{
+                    const timestamp = Date.now();
+                    const mimeExt = compressed.type.split('/')[1];
+                    const ext = mimeExt === 'jpeg' ? 'jpg' : mimeExt;
+                    const novoFilePath = `${categoriaAtual}/${timestamp}.${ext}`;
                     const img = new Image();
                     img.src = URL.createObjectURL(compressed);
                     await img.decode();
@@ -572,7 +574,6 @@ function UploadForm({ setUpWindow, nova }) {
                 ].map((f)=>new Promise((resolve, reject)=>{
                         new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$compressorjs$2f$dist$2f$compressor$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"](f, {
                             quality: 0.7,
-                            mimeType: "image/webp",
                             convertSize: 1,
                             success: async (compressed)=>{
                                 const img = new Image();
@@ -614,7 +615,7 @@ function UploadForm({ setUpWindow, nova }) {
                 children: [
                     !hasImage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                         type: "file",
-                        accept: "/image/*",
+                        accept: "image/*",
                         multiple: true,
                         onChange: handleFileChange,
                         className: "p-28 bg-[#ffffff22] border-4 border-dashed border-gray-500 rounded-lg mt-2 [&::file-selector-button]:opacity-0  max-w-[520px] w-full text-transparent    before:content-['DRAG_&_DROP'] before:text-white before:flex before:justify-center"
