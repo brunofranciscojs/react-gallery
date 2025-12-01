@@ -364,10 +364,6 @@ img, video {
   top: unset;
 }
 
-.\!z-40 {
-  z-index: 40 !important;
-}
-
 .\!z-50 {
   z-index: 50 !important;
 }
@@ -488,10 +484,6 @@ img, video {
 
 .min-h-dvh {
   min-height: 100dvh;
-}
-
-.\!w-auto {
-  width: auto !important;
 }
 
 .w-32 {
@@ -726,10 +718,6 @@ img, video {
 .border-gray-600 {
   --tw-border-opacity: 1;
   border-color: rgb(75 85 99 / var(--tw-border-opacity, 1));
-}
-
-.\!bg-transparent {
-  background-color: #0000 !important;
 }
 
 .bg-\[\#00000011\] {
@@ -1078,11 +1066,6 @@ img, video {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
-.drop-shadow-\[0_0_40px_var\(--shadow\)\] {
-  --tw-drop-shadow: drop-shadow(0 0 40px var(--shadow));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
 .invert {
   --tw-invert: invert(100%);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -1325,6 +1308,11 @@ nav .activee {
   anchor-name: --hovered-link;
 }
 
+[data-image] figure {
+  background-color: #0000 !important;
+  width: 100% !important;
+}
+
 .placeholder\:text-gray-200::placeholder {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity, 1));
@@ -1507,6 +1495,49 @@ nav .activee {
 
 .\[\&\>svg_path\]\:stroke-gray-800 > svg path {
   stroke: #1f2937;
+}
+
+.\[\&_img\]\:relative img {
+  position: relative;
+}
+
+.\[\&_img\]\:\!z-40 img {
+  z-index: 40 !important;
+}
+
+.\[\&_img\]\:mx-auto img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.\[\&_img\]\:block img {
+  display: block;
+}
+
+.\[\&_img\]\:h-dvh img {
+  height: 100dvh;
+}
+
+.\[\&_img\]\:\!w-auto img {
+  width: auto !important;
+}
+
+.\[\&_img\]\:rounded-2xl img {
+  border-radius: 1rem;
+}
+
+.\[\&_img\]\:\!bg-transparent img {
+  background-color: #0000 !important;
+}
+
+.\[\&_img\]\:object-contain img {
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+
+.\[\&_img\]\:drop-shadow-\[0_0_40px_var\(--shadow\)\] img {
+  --tw-drop-shadow: drop-shadow(0 0 40px var(--shadow));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .hover\:\[\&_img\]\:\[scale\:1\.05\] img:hover {

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import Image from 'next/image';
 import Link from 'next/link';
+import ImageZoom from 'react-image-zooom';
 
 export default function Imagem() {
   const params = useParams();
@@ -100,13 +101,12 @@ export default function Imagem() {
           X
         </Link>
 
-        <Image
+        <ImageZoom
           alt={image.nome}
-          width={image.width || 800}
-          height={image.height || 600}
           src={image.url}
+          zoom={200}
           style={{ "--shadow": image.colors[0] + 66 }}
-          className={`mx-auto block h-dvh object-contain rounded-2xl !z-40 !w-auto duration-100 !bg-transparent relative drop-shadow-[0_0_40px_var(--shadow)]`} />
+          className={`[&_img]:mx-auto h-dvh w-full [&_img]:block [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl [&_img]:!z-40 [&_img]:!w-auto [&_img]:!bg-transparent [&_img]:relative [&_img]:drop-shadow-[0_0_40px_var(--shadow)]`} fullWidth={true} />
       </div>
     </div>
   );
