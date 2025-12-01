@@ -213,7 +213,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ImagesDB$2e$jsx__$5b$
 async function generateMetadata({ params }) {
     const { imageId, category } = await params;
     const image = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ImagesDB$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getImageById"])(imageId);
-    const nome = image.nome.replace('.webp').replace('.avif', '').replace('.jpg', '').replace('.png', '');
+    const extRm = (string)=>string.replace('.webp', '').replace('.avif', '').replace('.jpg', '').replace('.png', '');
+    const nome = image.nome;
     if (!image) {
         return {
             title: 'Imagem não encontrada',
@@ -221,17 +222,17 @@ async function generateMetadata({ params }) {
         };
     }
     return {
-        title: nome + 'Ilustras Bruno' || 'Galeria de Imagens',
+        title: extRm(nome) + ' - Ilustras Bruno' || ' Galeria de Imagens',
         description: `Visualizar imagem na categoria ${category}`,
         openGraph: {
-            title: nome + 'Ilustras Bruno' || 'Galeria de Imagens',
+            title: extRm(nome) + ' - Ilustras Bruno' || ' Galeria de Imagens',
             description: `Visualizar imagem na categoria ${category}`,
             images: [
                 {
                     url: image.url,
                     width: 1200,
                     height: 630,
-                    alt: nome || 'Imagem da galeria'
+                    alt: extRm(nome) || ' Imagem da galeria'
                 }
             ]
         }
@@ -240,7 +241,7 @@ async function generateMetadata({ params }) {
 function ImagePage() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$Imagem$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
         fileName: "[project]/app/[category]/[imageId]/page.jsx",
-        lineNumber: 34,
+        lineNumber: 36,
         columnNumber: 12
     }, this);
 }

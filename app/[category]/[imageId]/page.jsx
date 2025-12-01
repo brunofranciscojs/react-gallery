@@ -4,7 +4,9 @@ import { getImageById } from '@/lib/ImagesDB';
 export async function generateMetadata({ params }) {
     const { imageId, category } = await params;
     const image = await getImageById(imageId);
-    const nome = image.nome.replace('.webp').replace('.avif', '').replace('.jpg', '').replace('.png', '');
+    const extRm = (string) => string.replace('.webp', '').replace('.avif', '').replace('.jpg', '').replace('.png', '')
+    const nome = image.nome;
+
     if (!image) {
         return {
             title: 'Imagem não encontrada',
@@ -13,17 +15,17 @@ export async function generateMetadata({ params }) {
     }
 
     return {
-        title: nome + ' - Ilustras Bruno' || ' Galeria de Imagens',
+        title: extRm(nome) + ' - Ilustras Bruno' || ' Galeria de Imagens',
         description: `Visualizar imagem na categoria ${category}`,
         openGraph: {
-            title: nome + ' - Ilustras Bruno' || ' Galeria de Imagens',
+            title: extRm(nome) + ' - Ilustras Bruno' || ' Galeria de Imagens',
             description: `Visualizar imagem na categoria ${category}`,
             images: [
                 {
                     url: image.url,
                     width: 1200,
                     height: 630,
-                    alt: nome || ' Imagem da galeria',
+                    alt: extRm(nome) || ' Imagem da galeria',
                 },
             ],
         },

@@ -64,7 +64,7 @@ export async function GET(request, { params }) {
   </head>
   <body>
     <p>Redirecionando para a página da galeria...</p>
-    <p><a href="/galeria/${data.categoria}/${nomeBase64}">Clique aqui se não redirecionar automaticamente</a></p>
+    <p><a href="/${data.categoria}/${nomeBase64}">Clique aqui se não redirecionar automaticamente</a></p>
   </body>
 </html>`;
 
