@@ -212,10 +212,6 @@ var _s = __turbopack_context__.k.signature();
 ;
 function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova, id, array, width, height }) {
     _s();
-    const { logado } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooks$2f$useAuth$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])();
-    const [confirmation, setConfirmation] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [ren, setRen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [message, setMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [imageLoaded, setImageLoaded] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const aspectRatio = width && height ? `${width}/${height}` : 'auto';
@@ -275,248 +271,91 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
         const targetPath = `/${slugify(cat)}/${id}?bgc=${encodeURIComponent(colors[0])}`;
         router.push(targetPath);
     };
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("figure", {
+        style: {
+            "--cor": colors[0],
+            "--bg": colors[0] + 22,
+            "--index": index + 40
+        },
+        className: `item grid place-items-center group shadow-none relative group backdrop-blur-sm `,
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("figure", {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                onClick: handleClick,
+                className: `bg-[--bg] relative overflow-hidden [clip-path:url('#squircle-mask')] [-webkit-clip-path:url('#squircle-mask')] ${imageLoaded ? 'loaded' : ''}`,
                 style: {
-                    "--cor": colors[0],
-                    "--bg": colors[0] + 22,
-                    "--index": index + 40
+                    aspectRatio
                 },
-                className: `item grid place-items-center group shadow-none relative group backdrop-blur-sm `,
                 children: [
-                    logado && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                className: "absolute top-7 left-4 [&>svg_path]:fill-none [&>svg_path]:stroke-gray-800 duration-150 opacity-0 group-hover:opacity-100 z-50",
-                                onClick: ()=>setConfirmation(true),
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$DeleteIcon$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
-                                    fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 91,
-                                    columnNumber: 29
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/components/Figure.jsx",
-                                lineNumber: 90,
-                                columnNumber: 25
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                className: "absolute top-7 right-4 [&>svg_path]:fill-none [&>svg_path]:stroke-gray-800 duration-150 opacity-0 group-hover:opacity-100 z-50",
-                                onClick: ()=>{
-                                    setConfirmation(true);
-                                    setRen(true);
-                                },
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$EditIcon$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
-                                    fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 95,
-                                    columnNumber: 29
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/components/Figure.jsx",
-                                lineNumber: 94,
-                                columnNumber: 25
-                            }, this)
-                        ]
-                    }, void 0, true),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        onClick: handleClick,
-                        className: `bg-[--bg] relative overflow-hidden [clip-path:url('#squircle-mask')] [-webkit-clip-path:url('#squircle-mask')] ${imageLoaded ? 'loaded' : ''}`,
-                        style: {
-                            aspectRatio
-                        },
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
-                                className: "absolute inset-0 transition-all duration-400 animate-[placehold_calc(var(--index)*0.1s)_linear_infinite_forwards] bg-size-[268px_100%] bg-[--bg] bg-[linear-gradient(to_right,#bbb_-10%,var(--bg)_18%,#bbb_53%)] blur-[15px] placeholder"
-                            }, void 0, false, {
-                                fileName: "[project]/components/Figure.jsx",
-                                lineNumber: 101,
-                                columnNumber: 21
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                src: url.replace(/\s/g, '%20'),
-                                alt: name,
-                                width: width,
-                                height: height,
-                                loading: "lazy",
-                                decoding: "async",
-                                className: `mix-blend-darken transition-all duration-500 opacity-0`,
-                                onLoad: ()=>setTimeout(()=>setImageLoaded(true), 100)
-                            }, void 0, false, {
-                                fileName: "[project]/components/Figure.jsx",
-                                lineNumber: 103,
-                                columnNumber: 21
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/components/Figure.jsx",
-                        lineNumber: 99,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("figcaption", {
-                        style: {
-                            viewTransitionName: `caption-${id}`
-                        },
-                        className: "flex flex-col justify-end text-left",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("fieldset", {
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("legend", {
-                                    className: "text-xs leading-none text-gray-50 ",
-                                    children: cat
-                                }, void 0, false, {
-                                    fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 111,
-                                    columnNumber: 25
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-base text-gray-50 font-semibold !leading-[1] block text-balance",
-                                    children: name
-                                }, void 0, false, {
-                                    fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 112,
-                                    columnNumber: 25
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/components/Figure.jsx",
-                            lineNumber: 110,
-                            columnNumber: 21
-                        }, this)
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
+                        className: "absolute inset-0 transition-all duration-400 animate-[placehold_calc(var(--index)*0.1s)_linear_infinite_forwards] bg-size-[268px_100%] bg-[--bg] bg-[linear-gradient(to_right,#bbb_-10%,var(--bg)_18%,#bbb_53%)] blur-[15px] placeholder"
                     }, void 0, false, {
                         fileName: "[project]/components/Figure.jsx",
-                        lineNumber: 109,
+                        lineNumber: 86,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                        src: url.replace(/\s/g, '%20'),
+                        alt: name,
+                        width: width,
+                        height: height,
+                        loading: "lazy",
+                        decoding: "async",
+                        className: `mix-blend-darken transition-all duration-500 opacity-0`,
+                        onLoad: ()=>setTimeout(()=>setImageLoaded(true), 100)
+                    }, void 0, false, {
+                        fileName: "[project]/components/Figure.jsx",
+                        lineNumber: 88,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/Figure.jsx",
-                lineNumber: 85,
+                lineNumber: 84,
                 columnNumber: 13
             }, this),
-            confirmation && !ren && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-[999999] grid place-items-center prompt",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex flex-col justify-center items-center bg-gray-200/30 backdrop-blur-md rounded-xl px-10 py-5 gap-4 max-w-[300px] w-[90%] border-gray-400/60 border-2 shadow-2xl",
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("figcaption", {
+                style: {
+                    viewTransitionName: `caption-${id}`
+                },
+                className: "flex flex-col justify-end text-left",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("fieldset", {
                     children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                            className: "font-semibold text-gray-50",
-                            children: "TEM CERTEZA?"
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("legend", {
+                            className: "text-xs leading-none text-gray-50 ",
+                            children: cat
                         }, void 0, false, {
                             fileName: "[project]/components/Figure.jsx",
-                            lineNumber: 120,
-                            columnNumber: 25
+                            lineNumber: 96,
+                            columnNumber: 21
                         }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex justify-center items-center gap-4",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>{
-                                        handleDelete(url), setConfirmation(false);
-                                    },
-                                    className: "bg-black px-4 py-2 text-white text-sm rounded-lg",
-                                    children: " DELETAR"
-                                }, void 0, false, {
-                                    fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 122,
-                                    columnNumber: 29
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>setConfirmation(false),
-                                    className: "bg-white px-4 py-2 text-black text-sm rounded-lg",
-                                    children: "CANCELAR"
-                                }, void 0, false, {
-                                    fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 123,
-                                    columnNumber: 29
-                                }, this)
-                            ]
-                        }, void 0, true, {
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-base text-gray-50 font-semibold !leading-[1] block text-balance",
+                            children: name
+                        }, void 0, false, {
                             fileName: "[project]/components/Figure.jsx",
-                            lineNumber: 121,
-                            columnNumber: 25
+                            lineNumber: 97,
+                            columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/Figure.jsx",
-                    lineNumber: 119,
-                    columnNumber: 21
+                    lineNumber: 95,
+                    columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/Figure.jsx",
-                lineNumber: 118,
-                columnNumber: 17
-            }, this),
-            confirmation && ren && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-[999999] grid place-items-center prompt",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex flex-col justify-center items-center bg-[#444a] rounded-xl px-10 py-5 gap-4 max-w-[300px] w-[90%] border-gray-400/60 border-2 shadow-2xl relative backdrop-blur-md",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            className: "absolute right-2 top-0 text-white border-0 text-base z-50 cursor-pointer",
-                            onClick: ()=>setConfirmation(false),
-                            children: "x"
-                        }, void 0, false, {
-                            fileName: "[project]/components/Figure.jsx",
-                            lineNumber: 131,
-                            columnNumber: 25
-                        }, this),
-                        !message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex justify-center items-center gap-4",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                    onBlur: (e)=>e.target.value.length > 0 ? handleRename(e.target.value) : console.log('nada alterado'),
-                                    placeholder: 'NOVO NOME',
-                                    className: "bg-white/30 px-4 py-2 text-white text-sm rounded-lg placeholder:text-gray-200"
-                                }, void 0, false, {
-                                    fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 135,
-                                    columnNumber: 33
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>{
-                                        setUpWindow(true);
-                                        setNova(true);
-                                        localStorage.setItem('urlEditar', url);
-                                    },
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ReplaceIcon$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
-                                        fileName: "[project]/components/Figure.jsx",
-                                        lineNumber: 145,
-                                        columnNumber: 37
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/components/Figure.jsx",
-                                    lineNumber: 139,
-                                    columnNumber: 33
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/components/Figure.jsx",
-                            lineNumber: 134,
-                            columnNumber: 29
-                        }, this),
-                        message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            children: "Renomeado com sucesso!"
-                        }, void 0, false, {
-                            fileName: "[project]/components/Figure.jsx",
-                            lineNumber: 148,
-                            columnNumber: 37
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/components/Figure.jsx",
-                    lineNumber: 130,
-                    columnNumber: 21
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/components/Figure.jsx",
-                lineNumber: 129,
-                columnNumber: 17
+                lineNumber: 94,
+                columnNumber: 13
             }, this)
         ]
-    }, void 0, true);
+    }, void 0, true, {
+        fileName: "[project]/components/Figure.jsx",
+        lineNumber: 81,
+        columnNumber: 9
+    }, this);
 }
-_s(Figure, "5eXBtm6qlCasE4vzh24HNyzc7yc=", false, function() {
+_s(Figure, "iUt2ErW7TcJmBeEuiRdkyXqcSxg=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$hooks$2f$useAuth$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
 });

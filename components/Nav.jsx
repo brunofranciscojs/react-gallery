@@ -30,7 +30,7 @@ export default function Nav() {
           <button className='log text-2xl cursor-pointer text-gray-700 z-50 relative top-2' onClick={() => setLogar(true)}> + </button>
           {logar && (
             <>
-              <button className='log text-2xl cursor-pointer text-gray-700 z-50 absolute lpt:top-[.45rem] md:-left-[21rem] top-[3.4rem] -left-1 backdrop-blur px-2' onClick={() => setLogar(false)}>x</button>
+              <button className='log text-2xl cursor-pointer text-gray-700 z-50 absolute lpt:top-[.45rem] top-[3.4rem] backdrop-blur px-2' onClick={() => setLogar(false)}>x</button>
               <Logar />
             </>
           )}

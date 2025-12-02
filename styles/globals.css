@@ -32,4 +32,6 @@ nav ul li{ cursor:pointer; transition:.2s; position:relative; font-weight:400; t
 nav ul li:hover{ anchor-name:--hovered-link }
 nav:after{ content:""; position:absolute; top:calc(anchor(bottom) - 10px); left:calc(anchor(left) + 1rem); right:calc(anchor(right) + 1rem); bottom:calc(anchor(bottom) + 9px); position-anchor:--hovered-link; transition:.2s ease all; z-index:2; background:#000 }
 nav .activee{ anchor-name:--hovered-link }
-[data-image] figure{ background-color:rgba(0,0,0,0) !important; width:100% !important }
+[data-image] figure{ background-color:rgba(0,0,0,0) !important; width:100% !important; z-index:3 !important }
+@media screen and (max-width:960px){ [data-image] figure{display:none !important }
+}
