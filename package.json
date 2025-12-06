@@ -14,7 +14,7 @@
     "autoprefixer": "^10.4.21",
     "colorthief": "^2.6.0",
     "compressorjs": "^1.2.1",
-    "next": "^16.0.5",
+    "next": "^16.0.7",
     "process": "^0.11.10",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
