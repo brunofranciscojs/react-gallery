@@ -1319,6 +1319,9 @@ nav {
 }
 
 nav ul {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: #f0f0f0cc;
   flex-flow: wrap;
   align-items: flex-start;
   list-style: none;

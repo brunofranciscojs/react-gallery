@@ -116,7 +116,6 @@ nav {
     left: 0;
     z-index: 11;
     isolation: isolate;
-
     ul {
         list-style: none;
         display: flex;
@@ -125,7 +124,8 @@ nav {
         transition: .2s;
         flex-wrap: wrap;
         position: relative;
-        
+        backdrop-filter: blur(10px);
+        background: #f0f0f0cc;
       a {
           cursor: pointer;
           transition: .2s;
