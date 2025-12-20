@@ -30,9 +30,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  @apply overflow-x-hidden duration-200 [&:has(.fav)]:overflow-hidden h-fit [interpolate-size:allow-keywords] [background:linear-gradient(to_bottom,#e5e7ebcc,#e5e7ebcc),url(/_next/static/media/blurred.0b4acc7b.avif)];
   background-attachment: fixed !important;
   background-size: cover !important;
+  @apply overflow-x-hidden duration-200 [&:has(.fav)]:overflow-hidden h-fit [interpolate-size:allow-keywords] [background:linear-gradient(to_bottom,#e5e7ebcc,#e5e7ebcc),url(/_next/static/media/blurred.0b4acc7b.avif)];
 }
 
 .squircle {
@@ -61,14 +61,9 @@ body {
 ::view-transition-new(root) {
   animation: none;
 }
-
-/* ::view-transition-old(figure-*) {
-  animation: scaleDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+::view-transition-old(figure) {
+  animation: scaleDown 0.3s ease-out;
 }
-
-::view-transition-new(figure-*) {
-  animation: scaleUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-} */
 
 ::view-transition-old(figure-caption) {
   animation: fadeOut 0.3s ease-out;
@@ -116,48 +111,45 @@ body {
 }
 nav {
     position: fixed;
-    width: fit-content;
-    bottom: 2rem;
-    left: 50%;
+    width: 100%;
+    top: 0;
+    left: 0;
     z-index: 11;
     isolation: isolate;
-    anchor-name: --hovered-link;
-    translate: -50% 0;
+
     ul {
         list-style: none;
         display: flex;
         flex-direction: row;
         align-items: flex-start;
         transition: .2s;
-        z-index: 999;
         flex-wrap: wrap;
         position: relative;
-
-        li {
-            cursor: pointer;
-            transition: .2s;
-            position: relative;
-            font-weight: 400;
-            text-transform: lowercase;
-            z-index: 1;
-            &:hover { 
-                anchor-name: --hovered-link;
-            }
+        
+      a {
+          cursor: pointer;
+          transition: .2s;
+          position: relative;
+          font-weight: 400;
+          text-transform: lowercase;
+          
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            position-anchor: --hovered-link;
+            top: calc(anchor(bottom) - 10px);
+            bottom: calc(anchor(bottom) + 0px);
+            left: calc(anchor(left) + 0px);
+            right: calc(anchor(right) + 0px);
+            transition: .2s ease all;
+            z-index: 9999999999;
+            background: #d3d2d2;
+            clip-path: url(#diamante-invertido);
         }
     }
-    &:after {
-        content: '';
-        position: absolute;
-        top: calc(anchor(bottom) - 10px);
-        left: calc(anchor(left) + 1rem);
-        right: calc(anchor(right) + 1rem);
-        bottom: calc(anchor(bottom) + 9px);
-        position-anchor: --hovered-link;
-        transition: .2s ease all;
-        z-index: 2;
-        background: black;
-    }
-    .activee{
+    
+    .active{
         anchor-name: --hovered-link;
     }
 }

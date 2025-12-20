@@ -18,6 +18,15 @@ export default function Nav() {
 
   return (
     <>
+      <svg width="0" height="0">
+        <defs>
+          <clipPath id="diamante-invertido">
+            <rect x="0" y="0" width="100%" height="100%" />
+            <polygon points="50,0 100,50 50,100 0,50" fill="black" clip-rule="evenodd" />
+          </clipPath>
+        </defs>
+      </svg>
+
       {logado && upWindow && <UploadForm setUpWindow={setUpWindow} nova={nova} />}
       {logado && (
         <>
@@ -25,6 +34,7 @@ export default function Nav() {
           <button className='log fixed right-6 top-[8px] text-gray-600 hover:text-gray-950 cursor-pointer z-30 text-2xl hidden sm:block' onClick={() => { setUpWindow(true); setNova(false) }}> + </button>
         </>
       )}
+
       {!logado && (
         <div className='flex flex-row add items-center fixed top-0 right-8 z-50'>
           <button className='log text-2xl cursor-pointer text-gray-700 z-50 relative top-2' onClick={() => setLogar(true)}> + </button>
@@ -37,25 +47,16 @@ export default function Nav() {
         </div>
       )}
 
-      <nav style={{ viewTransitionName: 'main-nav' }} className="bg-[#0003]  mt-3 ml-3 rounded-2xl">
-        <ul className="items-start md:items-center justify-center z-10 relative xl:w-fit w-[90svw] mx-auto [&_li.active]:text-white">
+      <nav>
+        <ul className="items-start md:items-center justify-center z-10 relative w-full mx-auto [&_.active]:text-black shadow-xl shadow-black/5">
           {categories.map((table, index) => {
             const categorySlug = slugify(table);
             const isActive = categorySlug === activeCategory;
             return (
-              <Link
-                key={index}
-                href={`/${categorySlug}`}
-                passHref
-                legacyBehavior={false}
-              >
-                <li
-                  className={`${isActive ? 'active' : ''} md:text-lg text-[.7rem] font-[400] text-white/90 py-1 sm:py-3 px-2 sm:px-5 hover:text-white hover:[text-shadow:0_0_10px_white] uppercase cursor-pointer`}
-                  style={{ viewTransitionName: isActive ? 'active-category' : '' }}
-                >
+                <Link href={`/${categorySlug}`} passHref legacyBehavior={false} key={index} 
+                      className={`${isActive ? 'active' : ''} md:text-lg text-[.9rem] max-w-[130px] font-[400] text-black/40 py-2 sm:py-3 px-2 sm:px-5 hover:text-black hover:[text-shadow:0_0_10px_white] uppercase cursor-pointer`}>
                   {table}
-                </li>
-              </Link>
+                </Link>
             );
           })}
         </ul>

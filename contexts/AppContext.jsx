@@ -7,14 +7,12 @@ import { slugify } from '@/lib/utils';
 const AppContext = createContext();
 
 export function AppProvider({ children }) {
-    // Initialize with 'misc' to avoid hydration mismatch, or handle it in useEffect
     const [categoria, setCategoria] = useState('misc');
     const [upWindow, setUpWindow] = useState(false);
     const [nova, setNova] = useState(false);
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        // Client-side only initialization
         const storedCategory = localStorage.getItem('categoria');
         if (storedCategory) {
             setCategoria(storedCategory);

@@ -84,7 +84,7 @@ const Mansonry = ({ category, initialImages = [] }) => {
 
 
   return (
-    <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale h-auto py-14 px-5' key='mansonry'>
+    <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale h-auto py-24 px-5' key='mansonry'>
       {imagePalettes.map(({ url, colors, name, id, width, height }, index, array) => {
         return (
           <Figure

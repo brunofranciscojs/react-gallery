@@ -9,9 +9,8 @@ export default function ClientLayout({ children }) {
     return (
         <AppProvider>
             <AuthProvider>
-                <SquircleMask />
-                {/* Nav needs to be updated to use context internally */}
                 <Nav />
+                <SquircleMask />
                 {children}
             </AuthProvider>
         </AppProvider>

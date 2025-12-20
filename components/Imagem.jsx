@@ -238,7 +238,7 @@ export default function Imagem() {
             <div className='flex flex-col justify-center items-center bg-gray-200/30 backdrop-blur-md rounded-xl px-10 py-5 gap-4 max-w-[300px] w-[90%] border-gray-400/60 border-2 shadow-2xl'>
               <h2 className='font-semibold text-gray-50'>TEM CERTEZA?</h2>
               <div className='flex justify-center items-center gap-4'>
-                <button onClick={() => { handleDelete(url), setConfirmation(false) }} className='bg-black px-4 py-2 text-white text-sm rounded-lg'> DELETAR</button>
+                <button onClick={() => { handleDelete(image.url), setConfirmation(false) }} className='bg-black px-4 py-2 text-white text-sm rounded-lg'> DELETAR</button>
                 <button onClick={() => setConfirmation(false)} className='bg-white px-4 py-2 text-black text-sm rounded-lg'>CANCELAR</button>
               </div>
             </div>
@@ -259,7 +259,7 @@ export default function Imagem() {
                     onClick={() => {
                       setUpWindow(true);
                       setNova(true)
-                      localStorage.setItem('urlEditar', url);
+                      localStorage.setItem('urlEditar', image.url);
                     }}>
                     <ReplaceIcon />
                   </button>
