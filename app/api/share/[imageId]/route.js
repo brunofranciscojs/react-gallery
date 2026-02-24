@@ -25,36 +25,41 @@ export async function GET(request, { params }) {
         .eq('id', imageId)
         .single();
 
-    const extRm = (string) => string.replace('.webp', '').replace('.avif', '').replace('.jpg', '').replace('.png', '')
-
     if (error || !data) {
         return new Response('Imagem não encontrada', { status: 404 });
     }
+
+    const imageData = {
+        id: data.id,
+        nome: btoa(data.nome),
+        url: data.url,
+        categoria: slugify(data.categoria),
+    };
 
     const html = `<!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <meta charset="utf-8" />
-    <title>${extRm(data.nome)} - Ilustras Bruno</title>
+    <title>${imageData.nome}</title>
 
     <!-- Open Graph -->
-    <meta property="og:title" content="${extRm(data.nome)} - Ilustras Bruno" />
-    <meta property="og:description" content="Confira esta imagem incrível da categoria ${slugify(data.categoria)}!" />
-    <meta property="og:image" content="${data.url}" />
+    <meta property="og:title" content="${imageData.nome}" />
+    <meta property="og:description" content="Confira esta imagem incrível da categoria ${imageData.categoria}!" />
+    <meta property="og:image" content="${imageData.url}" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://${host}/api/share/${data.id}" />
+    <meta property="og:url" content="https://${host}/api/share/${imageData.nome}" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${extRm(data.nome)} - Ilustras Bruno" />
-    <meta name="twitter:image" content="${data.url}" />
+    <meta name="twitter:title" content="${imageData.nome}" />
+    <meta name="twitter:image" content="${imageData.url}" />
 
     <!-- Meta refresh para redirecionar a página -->
-    <meta http-equiv="refresh" content="0; url=/${slugify(data.categoria)}/${data.id}" />
+    <meta http-equiv="refresh" content="0; url=/${imageData.categoria}/${imageData.nome}" />
   </head>
   <body>
     <p>Redirecionando para a página da imagem...</p>
-    <p><a href="/${slugify(data.categoria)}/${data.id}">Clique aqui se não redirecionar automaticamente</a></p>
+    <p><a href="/${imageData.categoria}/${imageData.id}">Clique aqui se não redirecionar automaticamente</a></p>
   </body>
 </html>`;
 

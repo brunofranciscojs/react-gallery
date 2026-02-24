@@ -1,0 +1,9 @@
+{
+  "/[category]/[imageId]/page": "app/[category]/[imageId]/page.js",
+  "/[category]/page": "app/[category]/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/share/[...slug]/route": "app/api/share/[...slug]/route.js",
+  "/api/share/[imageId]/route": "app/api/share/[imageId]/route.js",
+  "/page": "app/page.js"
+}

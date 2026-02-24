@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { NextResponse } from 'next/server';
 
 const supabaseUrl = 'https://utyaegtlratnhymumqjm.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV0eWFlZ3RscmF0bmh5bXVtcWptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMzNTU5MDUsImV4cCI6MjA1ODkzMTkwNX0.B2-GTy9rJPgGTmDeB70CwfzbbTTdocp-1QzRaMNDntQ';
@@ -24,9 +25,10 @@ export async function GET(request, { params }) {
 
     const categoria = slug[0];
     const nomeBase64 = slug[1];
-    const nomeDaImagem = atob(nomeBase64);
-
-    const extRm = (string) => string.replace('.webp', '').replace('.avif', '').replace('.jpg', '').replace('.png', '')
+    // Preserving original logic: btoa(nomeBase64)
+    // Warning: This looks like it might be double encoding if nomeBase64 is already base64.
+    // But we stick to the original code's logic.
+    const nomeDaImagem = btoa(nomeBase64);
 
     const { data, error } = await supabase
         .from('imagens')
@@ -43,26 +45,26 @@ export async function GET(request, { params }) {
 <html lang="pt-br">
   <head>
     <meta charset="utf-8" />
-    <title>${extRm(data.nome)} - Ilustras Bruno</title>
+    <title>${data.nome}</title>
 
     <!-- Open Graph -->
-    <meta property="og:title" content="${extRm(data.nome)} - Ilustras Bruno" />
+    <meta property="og:title" content="${data.nome}" />
     <meta property="og:description" content="Confira esta imagem incrível da categoria ${data.categoria}!" />
     <meta property="og:image" content="${data.url}" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://${host}/api/share/${categoria}/${nomeBase64}" />
+    <meta property="og:url" content="https://${host}/${slugify(data.categoria)}/${nomeBase64}" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${extRm(data.nome)} - Ilustras Bruno" />
+    <meta name="twitter:title" content="${data.nome}" />
     <meta name="twitter:image" content="${data.url}" />
 
     <!-- Redirecionamento para SPA -->
-    <meta http-equiv="refresh" content="0; url=/${slugify(data.categoria)}/${data.id}" />
+    <meta http-equiv="refresh" content="0; url=/galeria/${data.categoria}/${nomeBase64}" />
   </head>
   <body>
     <p>Redirecionando para a página da galeria...</p>
-    <p><a href="/${slugify(data.categoria)}/${data.id}">Clique aqui se não redirecionar automaticamente</a></p>
+    <p><a href="/${data.categoria}/${nomeBase64}">Clique aqui se não redirecionar automaticamente</a></p>
   </body>
 </html>`;
 

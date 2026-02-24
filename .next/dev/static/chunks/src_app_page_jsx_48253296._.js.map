@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Bruno/OneDrive/Documentos/GitHub/react-gallery/src/app/page.jsx"],"sourcesContent":["\"use client\";\r\n\r\nimport { useEffect } from 'react';\r\nimport { useRouter } from 'next/navigation';\r\nimport { useAppContext } from '../context/AppContext';\r\n\r\nexport default function Home() {\r\n    const { categoria, slugify } = useAppContext();\r\n    const router = useRouter();\r\n\r\n    useEffect(() => {\r\n        if (categoria) {\r\n            router.replace(`/${slugify(categoria)}`);\r\n        } else {\r\n            router.replace('/misc');\r\n        }\r\n    }, [categoria, router, slugify]);\r\n\r\n    return null;\r\n}\r\n"],"names":[],"mappings":";;;;AAEA;AACA;AACA;;AAJA;;;;AAMe,SAAS;;IACpB,MAAM,EAAE,SAAS,EAAE,OAAO,EAAE,GAAG,IAAA,iJAAa;IAC5C,MAAM,SAAS,IAAA,kJAAS;IAExB,IAAA,0KAAS;0BAAC;YACN,IAAI,WAAW;gBACX,OAAO,OAAO,CAAC,CAAC,CAAC,EAAE,QAAQ,YAAY;YAC3C,OAAO;gBACH,OAAO,OAAO,CAAC;YACnB;QACJ;yBAAG;QAAC;QAAW;QAAQ;KAAQ;IAE/B,OAAO;AACX;GAbwB;;QACW,iJAAa;QAC7B,kJAAS;;;KAFJ"}}]
+}

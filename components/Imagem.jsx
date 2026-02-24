@@ -9,7 +9,6 @@ import useAuth from '@/hooks/useAuth'
 import DeleteIcon from '@/components/DeleteIcon'
 import EditIcon from '@/components/EditIcon'
 import ReplaceIcon from '@/components/ReplaceIcon';
-import { useAppContext } from '@/contexts/AppContext';
 
 export default function Imagem() {
   const params = useParams();
@@ -28,8 +27,6 @@ export default function Imagem() {
   const wParam = searchParams.get('w');
   const hParam = searchParams.get('h');
   const catParam = searchParams.get('cat');
-
-  const { setUpWindow, setNova } = useAppContext();
 
   const [image, setImage] = useState(() => {
     if (urlParam && nameParam) {
@@ -56,7 +53,7 @@ export default function Imagem() {
       .replace(/[^\w-]+/g, "");
   }
 
-  const handleRename = async (newName, url) => {
+  const handleRename = async (newName) => {
     const filePath = url.split('/ilustras/')[1];
     const category = filePath.split('/')[0];
     const newFilePath = `${category}/${newName}`;
@@ -201,7 +198,7 @@ export default function Imagem() {
         </div>
       </div>
 
-      <div className="z-10 relative xl:w-[60%] w-full min-h-dvh [view-transition-name:figure-img]" data-image={image.nome} data-url={image.url}>
+      <div className="z-10 relative xl:w-[60%] w-full min-h-dvh [view-transition-name:figure-img]" data-image={image.nome}>
         <Link href={`/${slugify(image.categoria)}`} style={{ "--bg": bgc }}
           className={`bg-[--bg] text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 !z-50  rounded-full text-center leading-9 h-9 w-9`}>
           X
@@ -254,7 +251,7 @@ export default function Imagem() {
 
               {!message &&
                 <div className='flex justify-center items-center gap-4'>
-                  <input onBlur={(e) => e.target.value.length > 0 ? handleRename(e.target.value, image.url) : console.log('nada alterado')}
+                  <input onBlur={(e) => e.target.value.length > 0 ? handleRename(e.target.value) : console.log('nada alterado')}
                     placeholder={'NOVO NOME'}
                     className='bg-white/30 px-4 py-2 text-white text-sm rounded-lg placeholder:text-gray-200'
                   />
