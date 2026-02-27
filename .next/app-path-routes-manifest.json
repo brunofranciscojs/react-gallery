@@ -5,5 +5,6 @@
   "/_not-found/page": "/_not-found",
   "/api/share/[...slug]/route": "/api/share/[...slug]",
   "/api/share/[imageId]/route": "/api/share/[imageId]",
-  "/page": "/"
+  "/page": "/",
+  "/sitemap.xml/route": "/sitemap.xml"
 }

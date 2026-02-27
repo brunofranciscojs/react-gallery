@@ -90,3 +90,31 @@ export async function getImageById(id) {
 
     return data;
 }
+
+export async function getAllCategories() {
+    const { data, error } = await supabase
+        .from("imagens")
+        .select("categoria");
+
+    if (error) {
+        console.error("Erro ao buscar todas as categorias:", error);
+        return [];
+    }
+
+    const uniqueCategories = [...new Set(data.map(item => item.categoria))];
+    return uniqueCategories;
+}
+
+export async function getAllImages() {
+    const { data, error } = await supabase
+        .from("imagens")
+        .select("id, nome, categoria, created_at")
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        console.error("Erro ao buscar todas as imagens:", error);
+        return [];
+    }
+
+    return data;
+}

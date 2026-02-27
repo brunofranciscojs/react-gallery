@@ -328,6 +328,10 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "use strict";
 
 __turbopack_context__.s([
+    "getAllCategories",
+    ()=>getAllCategories,
+    "getAllImages",
+    ()=>getAllImages,
     "getImageById",
     ()=>getImageById,
     "getImagesByCategory",
@@ -410,6 +414,27 @@ async function getImageById(id) {
     if (error) {
         console.error("Erro ao buscar imagem por id:", error);
         return null;
+    }
+    return data;
+}
+async function getAllCategories() {
+    const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from("imagens").select("categoria");
+    if (error) {
+        console.error("Erro ao buscar todas as categorias:", error);
+        return [];
+    }
+    const uniqueCategories = [
+        ...new Set(data.map((item)=>item.categoria))
+    ];
+    return uniqueCategories;
+}
+async function getAllImages() {
+    const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from("imagens").select("id, nome, categoria, created_at").order('created_at', {
+        ascending: false
+    });
+    if (error) {
+        console.error("Erro ao buscar todas as imagens:", error);
+        return [];
     }
     return data;
 }

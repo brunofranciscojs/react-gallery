@@ -5,5 +5,6 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/api/share/[...slug]/route": "app/api/share/[...slug]/route.js",
   "/api/share/[imageId]/route": "app/api/share/[imageId]/route.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js"
 }
