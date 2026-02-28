@@ -509,6 +509,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ImagesDB$2e$jsx__$5b$
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$SpinIcon$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/SpinIcon.jsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabaseClient$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/supabaseClient.jsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$compressorjs$2f$dist$2f$compressor$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/compressorjs/dist/compressor.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$contexts$2f$AppContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/contexts/AppContext.jsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 ;
@@ -516,13 +517,15 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-function UploadForm({ setUpWindow, nova }) {
+;
+function UploadForm() {
     _s();
     const [file, setFile] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [category, setCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [uploading, setUploading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [hasImage, sethasImage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [preview, setPreview] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const { upWindow, setUpWindow, nova, setNova, categories, slugify } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$contexts$2f$AppContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAppContext"])();
     const handleFileChange = (event)=>{
         const files = event.target.files;
         setFile(files);
@@ -630,7 +633,7 @@ function UploadForm({ setUpWindow, nova }) {
                 children: "X"
             }, void 0, false, {
                 fileName: "[project]/components/UploadImage.jsx",
-                lineNumber: 133,
+                lineNumber: 135,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -644,7 +647,7 @@ function UploadForm({ setUpWindow, nova }) {
                         className: "p-28 bg-[#ffffff22] border-4 border-dashed border-gray-500 rounded-lg mt-2 [&::file-selector-button]:opacity-0  max-w-[520px] w-full text-transparent    before:content-['DRAG_&_DROP'] before:text-white before:flex before:justify-center"
                     }, void 0, false, {
                         fileName: "[project]/components/UploadImage.jsx",
-                        lineNumber: 136,
+                        lineNumber: 138,
                         columnNumber: 11
                     }, this),
                     hasImage && preview && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -655,7 +658,7 @@ function UploadForm({ setUpWindow, nova }) {
                                 className: "block w-96 h-96 object-contain"
                             }, void 0, false, {
                                 fileName: "[project]/components/UploadImage.jsx",
-                                lineNumber: 141,
+                                lineNumber: 143,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -664,19 +667,19 @@ function UploadForm({ setUpWindow, nova }) {
                                 children: "escolher outra"
                             }, void 0, false, {
                                 fileName: "[project]/components/UploadImage.jsx",
-                                lineNumber: 142,
+                                lineNumber: 144,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/UploadImage.jsx",
-                        lineNumber: 140,
+                        lineNumber: 142,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/UploadImage.jsx",
-                lineNumber: 134,
+                lineNumber: 136,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -693,17 +696,17 @@ function UploadForm({ setUpWindow, nova }) {
                         className: "bg-white/10 border py-2 px-5 max-w-[520px] w-full outline-none mx-3 text-gray-200  text-center"
                     }, void 0, false, {
                         fileName: "[project]/components/UploadImage.jsx",
-                        lineNumber: 151,
+                        lineNumber: 153,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                         fileName: "[project]/components/UploadImage.jsx",
-                        lineNumber: 156,
+                        lineNumber: 158,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                         fileName: "[project]/components/UploadImage.jsx",
-                        lineNumber: 156,
+                        lineNumber: 158,
                         columnNumber: 15
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -716,35 +719,39 @@ function UploadForm({ setUpWindow, nova }) {
                                 className: `animate-spin flex items-center duration-200 transition-all invert`,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$SpinIcon$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/components/UploadImage.jsx",
-                                    lineNumber: 160,
+                                    lineNumber: 162,
                                     columnNumber: 116
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/UploadImage.jsx",
-                                lineNumber: 160,
+                                lineNumber: 162,
                                 columnNumber: 30
                             }, this),
                             uploading == 2 && "Upload Completo!"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/UploadImage.jsx",
-                        lineNumber: 157,
+                        lineNumber: 159,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/UploadImage.jsx",
-                lineNumber: 150,
+                lineNumber: 152,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/UploadImage.jsx",
-        lineNumber: 132,
+        lineNumber: 134,
         columnNumber: 5
     }, this);
 }
-_s(UploadForm, "z+LVU5QkJjDAIY35Yb0+Ra3vhsI=");
+_s(UploadForm, "u58rsgCI+XWdwb2qZCFKFj0Qdzc=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$contexts$2f$AppContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAppContext"]
+    ];
+});
 _c = UploadForm;
 const __TURBOPACK__default__export__ = UploadForm;
 var _c;
@@ -808,7 +815,7 @@ function Nav() {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("polygon", {
                                 points: "50,0 100,50 50,100 0,50",
                                 fill: "black",
-                                "clip-rule": "evenodd"
+                                clipRule: "evenodd"
                             }, void 0, false, {
                                 fileName: "[project]/components/Nav.jsx",
                                 lineNumber: 25,
@@ -914,7 +921,7 @@ function Nav() {
                         }, index, false, {
                             fileName: "[project]/components/Nav.jsx",
                             lineNumber: 56,
-                            columnNumber: 17
+                            columnNumber: 15
                         }, this);
                     })
                 }, void 0, false, {

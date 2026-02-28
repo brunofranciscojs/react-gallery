@@ -22,7 +22,7 @@ export default function Nav() {
         <defs>
           <clipPath id="diamante-invertido">
             <rect x="0" y="0" width="100%" height="100%" />
-            <polygon points="50,0 100,50 50,100 0,50" fill="black" clip-rule="evenodd" />
+            <polygon points="50,0 100,50 50,100 0,50" fill="black" clipRule="evenodd" />
           </clipPath>
         </defs>
       </svg>
@@ -53,10 +53,10 @@ export default function Nav() {
             const categorySlug = slugify(table);
             const isActive = categorySlug === activeCategory;
             return (
-                <Link href={`/${categorySlug}`} passHref legacyBehavior={false} key={index} 
-                      className={`${isActive ? 'active' : ''} md:text-lg text-[.9rem] max-w-[130px] font-[400] text-black/40 py-2 sm:py-3 px-2 sm:px-5 hover:text-black hover:[text-shadow:0_0_10px_white] uppercase cursor-pointer`}>
-                  {table}
-                </Link>
+              <Link href={`/${categorySlug}`} passHref legacyBehavior={false} key={index}
+                className={`${isActive ? 'active' : ''} md:text-lg text-[.9rem] max-w-[130px] font-[400] text-black/40 py-2 sm:py-3 px-2 sm:px-5 hover:text-black hover:[text-shadow:0_0_10px_white] uppercase cursor-pointer`}>
+                {table}
+              </Link>
             );
           })}
         </ul>

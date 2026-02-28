@@ -9,6 +9,7 @@ import useAuth from '@/hooks/useAuth'
 import DeleteIcon from '@/components/DeleteIcon'
 import EditIcon from '@/components/EditIcon'
 import ReplaceIcon from '@/components/ReplaceIcon';
+import { useAppContext } from '@/contexts/AppContext';
 
 export default function Imagem() {
   const params = useParams();
@@ -19,6 +20,7 @@ export default function Imagem() {
   const [confirmation, setConfirmation] = useState(false);
   const [ren, setRen] = useState(false);
   const [message, setMessage] = useState(false);
+  const { upWindow, setUpWindow, nova, setNova, categories, slugify } = useAppContext();
 
   const searchParams = useSearchParams();
   const bgc = decodeURIComponent(searchParams.get("bgc"));
@@ -42,16 +44,6 @@ export default function Imagem() {
     }
     return null;
   });
-
-  const slugify = (text) => {
-    return text
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, "-")
-      .replace(/[^\w-]+/g, "");
-  }
 
   const handleRename = async (newName) => {
     const filePath = url.split('/ilustras/')[1];

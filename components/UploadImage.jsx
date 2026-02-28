@@ -3,13 +3,15 @@ import { uploadFn } from "@/lib/ImagesDB";
 import SpinIcon from "@/components/SpinIcon";
 import { supabase } from '@/lib/supabaseClient';
 import Compressor from "compressorjs";
+import { useAppContext } from '@/contexts/AppContext';
 
-function UploadForm({ setUpWindow, nova }) {
+function UploadForm() {
   const [file, setFile] = useState(null);
   const [category, setCategory] = useState("");
   const [uploading, setUploading] = useState(0);
   const [hasImage, sethasImage] = useState(false)
   const [preview, setPreview] = useState('')
+  const { upWindow, setUpWindow, nova, setNova, categories, slugify } = useAppContext();
 
   const handleFileChange = (event) => {
     const files = event.target.files;
