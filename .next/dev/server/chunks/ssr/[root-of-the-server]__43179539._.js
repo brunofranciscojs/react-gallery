@@ -225,7 +225,9 @@ async function getAllImages() {
 
 __turbopack_context__.s([
     "default",
-    ()=>CategoryPage
+    ()=>CategoryPage,
+    "generateMetadata",
+    ()=>generateMetadata
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$mansonry$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/mansonry.jsx [app-rsc] (ecmascript)");
@@ -233,6 +235,41 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ImagesDB$2e$jsx__$5b$
 ;
 ;
 ;
+async function generateMetadata({ params }) {
+    const { category } = await params;
+    const images = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ImagesDB$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getImagesByCategory"])(category);
+    const randomImage = images.length > 0 ? images[Math.floor(Math.random() * images.length)] : null;
+    const title = `${category.charAt(0).toUpperCase() + category.slice(1)} - Ilustras Bruno`;
+    const description = `Confira a coleção de ilustrações na categoria ${category}. ${images.length} imagens disponíveis.`;
+    const metadata = {
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            type: 'website'
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description
+        }
+    };
+    if (randomImage) {
+        metadata.openGraph.images = [
+            {
+                url: randomImage.url,
+                width: randomImage.width || 1200,
+                height: randomImage.height || 630,
+                alt: randomImage.nome
+            }
+        ];
+        metadata.twitter.images = [
+            randomImage.url
+        ];
+    }
+    return metadata;
+}
 async function CategoryPage({ params }) {
     const { category } = await params;
     const initialImages = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ImagesDB$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getImagesByCategory"])(category);
@@ -241,7 +278,7 @@ async function CategoryPage({ params }) {
         initialImages: initialImages
     }, void 0, false, {
         fileName: "[project]/app/[category]/page.jsx",
-        lineNumber: 7,
+        lineNumber: 48,
         columnNumber: 12
     }, this);
 }

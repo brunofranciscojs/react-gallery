@@ -1,1 +1,0 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,12442,(t,e,o)=>{"use strict";e.exports=function(){throw Error("ws does not work in the browser. Browser clients must use the native WebSocket object")}}]);
