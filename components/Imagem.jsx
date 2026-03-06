@@ -161,12 +161,12 @@ export default function Imagem() {
         </div>
 
         <div className="z-10 relative xl:w-[60%] w-full min-h-dvh">
-          <Link href={`/`} style={{ "--bg": bgc }}
+          <Link href={`/`} style={{ "--bg": `#${bgc}` }}
             className={`bg-[--bg] text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 !z-50  rounded-full text-center leading-9 h-9 w-9`}>
             X
           </Link>
           <div className="h-dvh w-full flex items-center justify-center">
-            <div className="w-10 h-10 border-4 border-gray-300 border-t-[--bg] rounded-full animate-spin" style={{ "--bg": bgc || '#ccc' }}></div>
+            <div className="w-10 h-10 border-4 border-gray-300 border-t-[--bg] rounded-full animate-spin" style={{ "--bg": `#${bgc}` || '#ccc' }}></div>
           </div>
         </div>
       </div>
@@ -174,7 +174,7 @@ export default function Imagem() {
   }
 
   return (
-    <div className="bg-gray-200 flex gap-5 flex-col-reverse xl:flex-row items-start justify-center relative h-full w-full mx-auto imagem z-50">
+    <div {... { popover: '' }} data-color={`#${bgc}`} id={image.id} className="bg-gray-200 flex gap-5 flex-col-reverse xl:flex-row items-start justify-center relative h-full w-full mx-auto imagem z-50">
       <div className='flex flex-col xl:w-[40%] w-full items-center self-center'>
         <div>
           <h1 className='text-3xl font-semibold text-gray-900 mt-6 cl:mt-0 cl:text-left text-center'>{image.nome}</h1>
@@ -190,9 +190,9 @@ export default function Imagem() {
         </div>
       </div>
 
-      <div className="z-10 relative xl:w-[60%] w-full min-h-dvh [view-transition-name:figure-img]" data-image={image.nome}>
-        <Link href={`/${slugify(image.categoria)}`} style={{ "--bg": bgc }}
-          className={`bg-[--bg] text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 !z-50  rounded-full text-center leading-9 h-9 w-9`}>
+      <div className="z-10 relative xl:w-[60%] w-full min-h-dvh [view-transition-name:figure-img]" style={{ "--bg": '#' + bgc, "--shadow:": "#" + bgc + 66 }}>
+        <Link href={`/${slugify(image.categoria)}`}
+          className={`bg-[--bg] text-lg cursor-pointer text-white block absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 !z-50  rounded-full text-center leading-9 h-9 w-9`}>
           X
         </Link>
 
@@ -201,65 +201,16 @@ export default function Imagem() {
           src={image.url}
           zoom={200}
           fullWidth={true}
-          style={{ "--shadow": image.colors[0] + 66 }}
-          className={`z-0 [&_img]:mx-auto h-dvh w-full [&_img]:block [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl [&_img]:!z-40 [&_img]:!w-auto [&_img]:!bg-transparent [&_img]:relative [&_img]:drop-shadow-[0_0_40px_var(--shadow)]`}
+          className={`z-0 [&_img]:mx-auto h-dvh w-full [&_img]:block [&_img]:h-dvh !bg-transparent [&_img]:object-contain [&_img]:rounded-2xl [&_img]:!z-40 [&_img]:!w-auto [&_img]:!bg-transparent [&_img]:relative [&_img]:drop-shadow-[0_0_40px_var(--shadow)]`}
         />
         <Image
           alt={image.nome}
           src={image.url}
           width={image.width || 800}
           height={image.height || 600}
-          style={{ "--shadow": image.colors[0] + 66 }}
           className={`mx-auto block h-dvh object-contain rounded-2xl !z-40 !w-auto !bg-transparent relative drop-shadow-[0_0_40px_var(--shadow)] cl:hidden`}
 
         />
-        {logado &&
-          <div className='absolute right-10 top-24 py-3 z-[999] h-24 flex flex-col justify-between px-3'>
-            <button className='[&>svg_path]:fill-none [&>svg_path]:stroke-gray-800 duration-150 z-50' onClick={() => setConfirmation(true)}>
-              <DeleteIcon />
-            </button>
-
-            <button className='[&>svg_path]:fill-none [&>svg_path]:stroke-gray-800 duration-150 z-50' onClick={() => { setConfirmation(true); setRen(true) }}>
-              <EditIcon />
-            </button>
-          </div>
-        }
-
-        {confirmation && !ren &&
-          <div className='fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-[999999] grid place-items-center prompt'>
-            <div className='flex flex-col justify-center items-center bg-gray-200/30 backdrop-blur-md rounded-xl px-10 py-5 gap-4 max-w-[300px] w-[90%] border-gray-400/60 border-2 shadow-2xl'>
-              <h2 className='font-semibold text-gray-50'>TEM CERTEZA?</h2>
-              <div className='flex justify-center items-center gap-4'>
-                <button onClick={() => { handleDelete(image.url), setConfirmation(false) }} className='bg-black px-4 py-2 text-white text-sm rounded-lg'> DELETAR</button>
-                <button onClick={() => setConfirmation(false)} className='bg-white px-4 py-2 text-black text-sm rounded-lg'>CANCELAR</button>
-              </div>
-            </div>
-          </div>
-        }
-        {confirmation && ren &&
-          <div className='fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-[999999] grid place-items-center prompt'>
-            <div className='flex flex-col justify-center items-center bg-[#444a] rounded-xl px-10 py-5 gap-4 max-w-[300px] w-[90%] border-gray-400/60 border-2 shadow-2xl relative backdrop-blur-md'>
-              <button className='absolute right-2 top-0 text-white border-0 text-base z-50 cursor-pointer' onClick={() => setConfirmation(false)}>x</button>
-
-              {!message &&
-                <div className='flex justify-center items-center gap-4'>
-                  <input onBlur={(e) => e.target.value.length > 0 ? handleRename(e.target.value) : console.log('nada alterado')}
-                    placeholder={'NOVO NOME'}
-                    className='bg-white/30 px-4 py-2 text-white text-sm rounded-lg placeholder:text-gray-200'
-                  />
-                  <button
-                    onClick={() => {
-                      setUpWindow(true);
-                      setNova(true)
-                      localStorage.setItem('urlEditar', image.url);
-                    }}>
-                    <ReplaceIcon />
-                  </button>
-                </div>}
-              {message && <span>Renomeado com sucesso!</span>}
-            </div>
-          </div>
-        }
       </div>
     </div >
   );

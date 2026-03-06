@@ -356,6 +356,10 @@ img, video {
   top: unset;
 }
 
+.\!z-10 {
+  z-index: 10 !important;
+}
+
 .\!z-40 {
   z-index: 40 !important;
 }
@@ -386,6 +390,14 @@ img, video {
 
 .z-\[999\] {
   z-index: 999;
+}
+
+.z-20 {
+  z-index: 20;
+}
+
+.\!-z-10 {
+  z-index: -10 !important;
 }
 
 .mx-3 {
@@ -490,6 +502,10 @@ img, video {
   width: auto !important;
 }
 
+.\!w-svw {
+  width: 100svw !important;
+}
+
 .w-10 {
   width: 2.5rem;
 }
@@ -569,6 +585,10 @@ img, video {
 
 .-translate-y-1\/2 {
   --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -755,6 +775,15 @@ img, video {
   border-top-color: var(--bg);
 }
 
+.\!bg-\[--bg\] {
+  background-color: var(--bg) !important;
+}
+
+.\!bg-\[red\] {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1)) !important;
+}
+
 .\!bg-transparent {
   background-color: #0000 !important;
 }
@@ -836,6 +865,10 @@ img, video {
 
 .bg-white\/80 {
   background-color: #fffc;
+}
+
+.\!bg-\[color-mix\(in_srgb\,var\(--bg\)_70\%\,_\#000\)\] {
+  background-color: color-mix(in srgb, var(--bg) 70%, #000) !important;
 }
 
 .bg-\[linear-gradient\(to_right\,\#bbb_-10\%\,var\(--bg\)_18\%\,\#bbb_53\%\)\] {
@@ -940,6 +973,11 @@ img, video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.px-1 {
+  padding-left: .25rem;
+  padding-right: .25rem;
 }
 
 .text-left {
@@ -1069,8 +1107,16 @@ img, video {
   opacity: 0;
 }
 
+.opacity-25 {
+  opacity: .25;
+}
+
 .mix-blend-darken {
   mix-blend-mode: darken;
+}
+
+.mix-blend-difference {
+  mix-blend-mode: difference;
 }
 
 .shadow-2xl {
@@ -1109,6 +1155,16 @@ img, video {
 
 .blur-\[15px\] {
   --tw-blur: blur(15px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.blur-xl {
+  --tw-blur: blur(24px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.blur-3xl {
+  --tw-blur: blur(64px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
@@ -1300,12 +1356,9 @@ body:has(.fav) {
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
   to {
     opacity: 1;
+    scale: 1;
   }
 }
 
@@ -1368,9 +1421,31 @@ nav .active {
   }
 }
 
+[popover] {
+  bottom: unset;
+  right: unset;
+  opacity: 0;
+  border: none;
+  width: 100%;
+  max-width: 100%;
+  height: 100dvh;
+  max-height: 100%;
+  animation: .6s forwards fadeIn;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  overflow-y: hidden;
+  translate: -50% -50%;
+  scale: 1.05;
+}
+
 .placeholder\:text-gray-200::placeholder {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity, 1));
+}
+
+.backdrop\:bg-black\/30::backdrop {
+  background-color: #0000004d;
 }
 
 .before\:flex:before {
@@ -1532,6 +1607,10 @@ nav .active {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.\[\&\:popover-open\]\:flex:popover-open {
+  display: flex;
+}
+
 .hover\:\[\&\>svg\]\:brightness-\[5\] > svg:hover {
   --tw-brightness: brightness(5);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -1547,6 +1626,10 @@ nav .active {
 
 .\[\&\>svg_path\]\:stroke-gray-800 > svg path {
   stroke: #1f2937;
+}
+
+.\[\&\>svg_path\]\:stroke-gray-50 > svg path {
+  stroke: #f9fafb;
 }
 
 .\[\&_\.active\]\:text-black .active {

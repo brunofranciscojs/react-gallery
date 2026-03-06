@@ -5,6 +5,8 @@ import { useAppContext } from '@/contexts/AppContext';
 import '@/styles/mansonry.css';
 import Figure from '@/components/Figure.jsx';
 import ColorThief from 'colorthief';
+import Image from 'next/image';
+import ModalImage from './ModalImage';
 
 const Mansonry = ({ category, initialImages = [] }) => {
   const { setUpWindow, setNova } = useAppContext();
@@ -40,7 +42,7 @@ const Mansonry = ({ category, initialImages = [] }) => {
             };
           }
 
-          const img = new Image();
+          const img = new window.Image();
           img.crossOrigin = 'Anonymous';
           img.src = image.url;
 
@@ -51,7 +53,6 @@ const Mansonry = ({ category, initialImages = [] }) => {
               const palette = colorThief.getPalette(img, 3);
               const hexPalette = palette.map(rgb => `#${rgb.map(v => v.toString(16).padStart(2, "0")).join("")}`);
 
-              // Save dimensions
               const dimensions = {
                 width: img.naturalWidth,
                 height: img.naturalHeight
@@ -84,26 +85,45 @@ const Mansonry = ({ category, initialImages = [] }) => {
 
 
   return (
-    <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale h-auto py-24 px-5' key='mansonry'>
+    <div className='mansonry z-10 [&:has(.prompt)_figure]:grayscale h-auto py-24 px-5' >
       {imagePalettes.map(({ url, colors, name, id, width, height }, index, array) => {
         return (
-          <Figure
-            array={array}
-            key={index}
-            url={url}
-            cat={category}
-            index={index}
-            name={name}
-            colors={colors}
-            setDcolor={setDcolor}
-            setUpWindow={setUpWindow}
-            setNova={setNova}
-            id={id}
-            width={width}
-            height={height}
-          />
+          <React.Fragment key={id}>
+            <Figure
+              array={array}
+              key={index}
+              url={url}
+              cat={category}
+              index={index}
+              name={name}
+              colors={colors}
+              setDcolor={setDcolor}
+              setUpWindow={setUpWindow}
+              setNova={setNova}
+              id={id}
+              width={width}
+              height={height}
+            />
+
+            <ModalImage
+              key={index + 1}
+              url={url}
+              cat={category}
+              index={index}
+              name={name}
+              colors={colors}
+              setDcolor={setDcolor}
+              setUpWindow={setUpWindow}
+              setNova={setNova}
+              id={id}
+              width={width}
+              height={height}
+            />
+
+          </React.Fragment>
         );
       })}
+
     </div>
   );
 };

@@ -38,7 +38,7 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
     };
 
     return (
-        <Link href={targetPath}>
+        <button popoverTarget={id} className='outline-none block' data-path={targetPath}>
             <figure onMouseEnter={handleMouseEnter} style={{ "--cor": colors[0], "--bg": colors[0] + 22, "--index": index + 40 }}
                 className={`item grid place-items-center group shadow-none relative group backdrop-blur-sm `}>
 
@@ -59,7 +59,7 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                     </fieldset>
                 </figcaption>
             </figure>
-        </Link>
+        </button>
     );
 };
 export default memo(Figure)

@@ -62,7 +62,7 @@ __turbopack_context__.s([
     ()=>slugify
 ]);
 const slugify = (text)=>{
-    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/\s+/g, "-").replace(/[^\w-]+/g, "");
+    return String(text).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/\s+/g, "-").replace(/[^\w-]+/g, "");
 };
 }),
 "[project]/contexts/AppContext.jsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
