@@ -260,6 +260,10 @@ img, video {
   display: none;
 }
 
+.static {
+  position: static;
+}
+
 .fixed {
   position: fixed;
 }
@@ -274,6 +278,10 @@ img, video {
 
 .inset-0 {
   inset: 0;
+}
+
+.inset-\[unset\] {
+  inset: unset;
 }
 
 .bottom-20 {
@@ -356,8 +364,12 @@ img, video {
   top: unset;
 }
 
-.\!z-10 {
-  z-index: 10 !important;
+.bottom-\[unset\] {
+  bottom: unset;
+}
+
+.left-\[unset\] {
+  left: unset;
 }
 
 .\!z-40 {
@@ -376,6 +388,10 @@ img, video {
   z-index: 10;
 }
 
+.z-20 {
+  z-index: 20;
+}
+
 .z-30 {
   z-index: 30;
 }
@@ -392,12 +408,8 @@ img, video {
   z-index: 999;
 }
 
-.z-20 {
-  z-index: 20;
-}
-
-.\!-z-10 {
-  z-index: -10 !important;
+.m-\[unset\] {
+  margin: unset;
 }
 
 .mx-3 {
@@ -450,10 +462,6 @@ img, video {
   height: 2.5rem;
 }
 
-.h-24 {
-  height: 6rem;
-}
-
 .h-32 {
   height: 8rem;
 }
@@ -494,16 +502,16 @@ img, video {
   height: 100vh;
 }
 
+.h-\[unset\] {
+  height: unset;
+}
+
 .min-h-dvh {
   min-height: 100dvh;
 }
 
 .\!w-auto {
   width: auto !important;
-}
-
-.\!w-svw {
-  width: 100svw !important;
 }
 
 .w-10 {
@@ -560,6 +568,10 @@ img, video {
 
 .w-full {
   width: 100%;
+}
+
+.w-\[unset\] {
+  width: unset;
 }
 
 .max-w-\[130px\] {
@@ -700,6 +712,10 @@ img, video {
   overflow-y: auto;
 }
 
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
 .text-balance {
   text-wrap: balance;
 }
@@ -779,9 +795,8 @@ img, video {
   background-color: var(--bg) !important;
 }
 
-.\!bg-\[red\] {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1)) !important;
+.\!bg-\[color-mix\(in_srgb\,var\(--bg\)_70\%\,_\#000\)\] {
+  background-color: color-mix(in srgb, var(--bg) 70%, #000) !important;
 }
 
 .\!bg-transparent {
@@ -850,6 +865,10 @@ img, video {
   background-color: rgb(75 85 99 / var(--tw-bg-opacity, 1));
 }
 
+.bg-transparent {
+  background-color: #0000;
+}
+
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
@@ -865,10 +884,6 @@ img, video {
 
 .bg-white\/80 {
   background-color: #fffc;
-}
-
-.\!bg-\[color-mix\(in_srgb\,var\(--bg\)_70\%\,_\#000\)\] {
-  background-color: color-mix(in srgb, var(--bg) 70%, #000) !important;
 }
 
 .bg-\[linear-gradient\(to_right\,\#bbb_-10\%\,var\(--bg\)_18\%\,\#bbb_53\%\)\] {
@@ -913,6 +928,15 @@ img, video {
 
 .p-4 {
   padding: 1rem;
+}
+
+.p-\[unset\] {
+  padding: unset;
+}
+
+.px-1 {
+  padding-left: .25rem;
+  padding-right: .25rem;
 }
 
 .px-10 {
@@ -973,11 +997,6 @@ img, video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.px-1 {
-  padding-left: .25rem;
-  padding-right: .25rem;
 }
 
 .text-left {
@@ -1107,10 +1126,6 @@ img, video {
   opacity: 0;
 }
 
-.opacity-25 {
-  opacity: .25;
-}
-
 .mix-blend-darken {
   mix-blend-mode: darken;
 }
@@ -1155,16 +1170,6 @@ img, video {
 
 .blur-\[15px\] {
   --tw-blur: blur(15px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.blur-xl {
-  --tw-blur: blur(24px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-.blur-3xl {
-  --tw-blur: blur(64px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
@@ -1228,12 +1233,40 @@ img, video {
   -webkit-clip-path: url("#squircle-mask");
 }
 
+.\[all\:unset\] {
+  all: unset;
+}
+
+.\[anchor-name\:--cp\] {
+  anchor-name: --cp;
+}
+
 .\[clip-path\:url\(\#squircle-mask\)\], .\[clip-path\:url\(\'\#squircle-mask\'\)\] {
   clip-path: url("#squircle-mask");
 }
 
+.\[left\:anchor\(right\)\] {
+  left: anchor(right);
+}
+
+.\[position-anchor\:--cp\] {
+  position-anchor: --cp;
+}
+
+.\[right\:anchor\(right\)\] {
+  right: anchor(right);
+}
+
 .\[scale\:\.8\] {
   scale: .8;
+}
+
+.\[top\:anchor\(bottom\)\] {
+  top: anchor(bottom);
+}
+
+.\[top\:anchor\(top\)\] {
+  top: anchor(top);
 }
 
 .\[view-transition-name\:figure-img\] {
@@ -1421,7 +1454,7 @@ nav .active {
   }
 }
 
-[popover] {
+.imagem[popover] {
   bottom: unset;
   right: unset;
   opacity: 0;
@@ -1620,16 +1653,12 @@ nav .active {
   fill: none;
 }
 
-.\[\&\>svg_path\]\:stroke-gray-600 > svg path {
-  stroke: #4b5563;
-}
-
-.\[\&\>svg_path\]\:stroke-gray-800 > svg path {
-  stroke: #1f2937;
-}
-
 .\[\&\>svg_path\]\:stroke-gray-50 > svg path {
   stroke: #f9fafb;
+}
+
+.\[\&\>svg_path\]\:stroke-gray-600 > svg path {
+  stroke: #4b5563;
 }
 
 .\[\&_\.active\]\:text-black .active {

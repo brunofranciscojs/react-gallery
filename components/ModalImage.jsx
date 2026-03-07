@@ -9,6 +9,7 @@ import EditIcon from '@/components/EditIcon'
 import ReplaceIcon from '@/components/ReplaceIcon';
 import { useAppContext } from '@/contexts/AppContext';
 import { ShareIcon } from './Icons';
+import { usePathname } from 'next/navigation';
 
 export default function ModalImage({ id, url, name, width, height, colors, cat }) {
     const { logado } = useAuth();
@@ -16,7 +17,7 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
     const [ren, setRen] = useState(false);
     const [message, setMessage] = useState(false);
     const { setUpWindow, setNova, slugify } = useAppContext();
-
+    const pathname = usePathname();
     const bgc = colors?.[0] || '#ccc';
 
     const handleRename = async (newName) => {
@@ -68,52 +69,47 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
         console.log("Arquivo excluído com sucesso!");
     };
 
-    const targetPath = (c, i, q) => `${window.location.host}/${slugify(c)}/${i}?bgc=${q}`;
+    const targetPath = (c, i, q) => `${pathname}/${slugify(c)}/${i}?bgc=${q}`;
 
     return (
         <div {...{ popover: '' }} id={id} style={{ '--bg': bgc + 99 }}
             className="!bg-[--bg] backdrop:bg-black/30 [&:popover-open]:flex gap-5 flex-col-reverse xl:flex-row items-start justify-center relative h-full w-full mx-auto imagem z-50">
 
-            <div className="z-10 relative w-full min-h-dvh" data-image={name} style={{ "--bg": bgc }}>
+            <div className="z-10 relative w-full min-h-dvh" data-image={name} style={{ "--bg": bgc, "--shadow": bgc + 66 }}>
                 <button popoverTarget={id}
                     className={`!bg-[color-mix(in_srgb,var(--bg)_70%,_#000)] text-lg cursor-pointer text-white absolute right-[unset] cl:right-12 cl:top-12 top-[unset] cl:bottom-unset bottom-20 cl:left-[unset] left-1/2 !z-50 rounded-full text-center leading-9 h-9 w-9`}>
                     X
                 </button>
 
-                <ImageZoom
-                    alt={name}
-                    src={url}
-                    zoom={200}
-                    fullWidth={true}
-                    style={{ "--shadow": bgc + 66 }}
+                <ImageZoom alt={name} src={url} zoom={170} fullWidth={true}
                     className={`z-20 [&_img]:mx-auto h-dvh w-full [&_img]:block [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl [&_img]:!z-40 [&_img]:!w-auto [&_img]:!bg-transparent [&_img]:relative`}
                 />
-                <Image
-                    alt={name}
-                    src={url}
-                    width={width || 800}
-                    height={height || 600}
-                    style={{ "--shadow": bgc + 66 }}
+                <Image alt={name} src={url} width={width || 800} height={height || 600}
                     className={`mx-auto block h-dvh object-contain rounded-2xl !z-40 !w-auto !bg-transparent relative cl:hidden`}
-
                 />
 
-                {logado &&
-                    <div className='absolute right-10 top-24 py-3 z-[999] flex flex-col justify-between px-3 mix-blend-difference'>
-                        <button className='[&>svg_path]:fill-none [&>svg_path]:stroke-gray-50 duration-150 !bg-[color-mix(in_srgb,var(--bg)_70%,_#000)] py-2 px-1 z-50' onClick={() => setConfirmation(true)}>
-                            <DeleteIcon />
-                        </button>
+                <div className='absolute right-10 top-24 py-3 z-[999] flex flex-col justify-between px-3 mix-blend-difference'>
+                    {logado &&
+                        <>
+                            <button className='[&>svg_path]:fill-none [&>svg_path]:stroke-gray-50 duration-150 !bg-[color-mix(in_srgb,var(--bg)_70%,_#000)] py-2 px-1 z-50'
+                                onClick={() => setConfirmation(true)}>
+                                <DeleteIcon />
+                            </button>
 
-                        <button className='[&>svg_path]:fill-none [&>svg_path]:stroke-gray-50 duration-150 !bg-[color-mix(in_srgb,var(--bg)_70%,_#000)] py-2 px-1 z-50' onClick={() => { setConfirmation(true); setRen(true) }}>
-                            <EditIcon />
-                        </button>
+                            <button className='[&>svg_path]:fill-none [&>svg_path]:stroke-gray-50 duration-150 !bg-[color-mix(in_srgb,var(--bg)_70%,_#000)] py-2 px-1 z-50'
+                                onClick={() => { setConfirmation(true); setRen(true) }}>
+                                <EditIcon />
+                            </button>
+                        </>
+                    }
+                    <button popoverTarget={`cp-${name.replace(/\s/g, '').replace('.webp', '').toLowerCase()}`}
+                        style={{ anchorName: `--cp-${name.replace(/\s/g, '').replace('.webp', '').toLowerCase()}` }}
+                        className='[&>svg_path]:fill-none [&>svg_path]:stroke-gray-50 duration-150 !bg-[color-mix(in_srgb,var(--bg)_70%,_#000)] py-2 px-1 z-50'
+                        onClick={() => navigator.share({ title: name, text: url, url: targetPath(cat, id, bgc) })}>
+                        <ShareIcon width={20} height={20} />
+                    </button>
 
-                        <button className='[&>svg_path]:fill-none [&>svg_path]:stroke-gray-50 duration-150 !bg-[color-mix(in_srgb,var(--bg)_70%,_#000)] py-2 px-1 z-50'
-                            onClick={() => navigator.clipboard.writeText(targetPath(cat, id, bgc.replace('#', '')))}>
-                            <ShareIcon width={20} height={20} />
-                        </button>
-                    </div>
-                }
+                </div>
 
                 {confirmation && !ren &&
                     <div className='fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-[999999] grid place-items-center prompt'>
@@ -129,7 +125,10 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
                 {confirmation && ren &&
                     <div className='fixed bg-[#00000066] w-full h-[100dvh] top-0 left-0 z-[999999] grid place-items-center prompt'>
                         <div className='flex flex-col justify-center items-center bg-[#444a] rounded-xl px-10 py-5 gap-4 max-w-[300px] w-[90%] border-gray-400/60 border-2 shadow-2xl relative backdrop-blur-md'>
-                            <button className='absolute right-2 top-0 text-white border-0 text-base z-50 cursor-pointer' onClick={() => setConfirmation(false)}>x</button>
+                            <button className='absolute right-2 top-0 text-white border-0 text-base z-50 cursor-pointer'
+                                onClick={() => setConfirmation(false)}>
+                                x
+                            </button>
 
                             {!message &&
                                 <div className='flex justify-center items-center gap-4'>
