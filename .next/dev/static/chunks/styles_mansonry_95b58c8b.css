@@ -61,9 +61,6 @@
   grid-template-rows: 1fr auto;
   margin: 0 0 1.25rem;
   padding: 0;
-  transition-property: all;
-  transition-duration: .5s;
-  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   display: grid;
   position: relative;
   overflow: hidden;

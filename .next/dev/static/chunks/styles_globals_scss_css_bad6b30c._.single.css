@@ -260,10 +260,6 @@ img, video {
   display: none;
 }
 
-.static {
-  position: static;
-}
-
 .fixed {
   position: fixed;
 }
@@ -278,10 +274,6 @@ img, video {
 
 .inset-0 {
   inset: 0;
-}
-
-.inset-\[unset\] {
-  inset: unset;
 }
 
 .bottom-20 {
@@ -364,14 +356,6 @@ img, video {
   top: unset;
 }
 
-.bottom-\[unset\] {
-  bottom: unset;
-}
-
-.left-\[unset\] {
-  left: unset;
-}
-
 .\!z-40 {
   z-index: 40 !important;
 }
@@ -406,10 +390,6 @@ img, video {
 
 .z-\[999\] {
   z-index: 999;
-}
-
-.m-\[unset\] {
-  margin: unset;
 }
 
 .mx-3 {
@@ -462,6 +442,10 @@ img, video {
   height: 2.5rem;
 }
 
+.h-24 {
+  height: 6rem;
+}
+
 .h-32 {
   height: 8rem;
 }
@@ -500,10 +484,6 @@ img, video {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[unset\] {
-  height: unset;
 }
 
 .min-h-dvh {
@@ -568,10 +548,6 @@ img, video {
 
 .w-full {
   width: 100%;
-}
-
-.w-\[unset\] {
-  width: unset;
 }
 
 .max-w-\[130px\] {
@@ -710,10 +686,6 @@ img, video {
 
 .overflow-y-auto {
   overflow-y: auto;
-}
-
-.whitespace-nowrap {
-  white-space: nowrap;
 }
 
 .text-balance {
@@ -865,10 +837,6 @@ img, video {
   background-color: rgb(75 85 99 / var(--tw-bg-opacity, 1));
 }
 
-.bg-transparent {
-  background-color: #0000;
-}
-
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
@@ -928,10 +896,6 @@ img, video {
 
 .p-4 {
   padding: 1rem;
-}
-
-.p-\[unset\] {
-  padding: unset;
 }
 
 .px-1 {
@@ -1233,40 +1197,12 @@ img, video {
   -webkit-clip-path: url("#squircle-mask");
 }
 
-.\[all\:unset\] {
-  all: unset;
-}
-
-.\[anchor-name\:--cp\] {
-  anchor-name: --cp;
-}
-
 .\[clip-path\:url\(\#squircle-mask\)\], .\[clip-path\:url\(\'\#squircle-mask\'\)\] {
   clip-path: url("#squircle-mask");
 }
 
-.\[left\:anchor\(right\)\] {
-  left: anchor(right);
-}
-
-.\[position-anchor\:--cp\] {
-  position-anchor: --cp;
-}
-
-.\[right\:anchor\(right\)\] {
-  right: anchor(right);
-}
-
 .\[scale\:\.8\] {
   scale: .8;
-}
-
-.\[top\:anchor\(bottom\)\] {
-  top: anchor(bottom);
-}
-
-.\[top\:anchor\(top\)\] {
-  top: anchor(top);
 }
 
 .\[view-transition-name\:figure-img\] {
@@ -1427,15 +1363,18 @@ nav ul a {
 nav ul:after {
   content: "";
   position-anchor: --hovered-link;
-  top: calc(anchor(bottom)  - 10px);
-  bottom: calc(anchor(bottom)  + 0px);
-  left: calc(anchor(left)  + 0px);
-  right: calc(anchor(right)  + 0px);
-  z-index: 2147483647;
-  clip-path: url("#diamante-invertido");
-  background: #d3d2d2;
-  transition: all .2s;
+  z-index: 99;
+  position-area: center y-end;
+  background: #d9dadd;
+  width: 20px;
+  height: 20px;
+  transition: all .6s;
   position: absolute;
+  translate: 0 11px;
+  rotate: 45deg;
+  scale: .6;
+  -webkit-mask-image: linear-gradient(135deg, #000 50%, #0000 50%);
+  mask-image: linear-gradient(135deg, #000 50%, #0000 50%);
 }
 
 nav .active {
@@ -1659,6 +1598,10 @@ nav .active {
 
 .\[\&\>svg_path\]\:stroke-gray-600 > svg path {
   stroke: #4b5563;
+}
+
+.\[\&\>svg_path\]\:stroke-gray-800 > svg path {
+  stroke: #1f2937;
 }
 
 .\[\&_\.active\]\:text-black .active {

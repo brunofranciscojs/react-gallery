@@ -110,48 +110,50 @@ body {
   }
 }
 nav {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 11;
-    isolation: isolate;
-    ul {
-        list-style: none;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  isolation: isolate;
+  ul {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      transition: .2s;
+      flex-wrap: wrap;
+      position: relative;
+      backdrop-filter: blur(10px);
+      background: #f0f0f0cc;
+    a {
+        cursor: pointer;
         transition: .2s;
-        flex-wrap: wrap;
         position: relative;
-        backdrop-filter: blur(10px);
-        background: #f0f0f0cc;
-      a {
-          cursor: pointer;
-          transition: .2s;
-          position: relative;
-          font-weight: 400;
-          text-transform: lowercase;
-          
-        }
-        &:after {
-            content: '';
-            position: absolute;
-            position-anchor: --hovered-link;
-            top: calc(anchor(bottom) - 10px);
-            bottom: calc(anchor(bottom) + 0px);
-            left: calc(anchor(left) + 0px);
-            right: calc(anchor(right) + 0px);
-            transition: .2s ease all;
-            z-index: 9999999999;
-            background: #d3d2d2;
-            clip-path: url(#diamante-invertido);
-        }
-    }
-    
-    .active{
-        anchor-name: --hovered-link;
-    }
+        font-weight: 400;
+        text-transform: lowercase;
+        
+      }
+      &:after {
+        content: "";
+        position-anchor: --hovered-link;
+        z-index: 99;
+        background: #d9dadd;
+        transition: all .6s;
+        position: absolute;
+        position-area: center y-end;
+        width: 20px;
+        height: 20px;
+        rotate: 45deg;
+        translate: 0 11px;
+        mask-image: linear-gradient(135deg, black 50%, transparent 50%);
+        scale: .6;
+      }
+  }
+  
+  .active{
+      anchor-name: --hovered-link;
+  }
 }
 
 [data-image] figure{

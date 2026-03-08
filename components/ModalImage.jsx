@@ -69,7 +69,7 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
         console.log("Arquivo excluído com sucesso!");
     };
 
-    const targetPath = (c, i, q) => `${pathname}/${slugify(c)}/${i}?bgc=${q}`;
+    const targetPath = (i, q) => `${pathname}/${i}?bgc=${q}`;
 
     return (
         <div {...{ popover: '' }} id={id} style={{ '--bg': bgc + 99 }}
@@ -81,7 +81,7 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
                     X
                 </button>
 
-                <ImageZoom alt={name} src={url} zoom={170} fullWidth={true}
+                <ImageZoom alt={name} src={url} zoom={160} fullWidth={true}
                     className={`z-20 [&_img]:mx-auto h-dvh w-full [&_img]:block [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl [&_img]:!z-40 [&_img]:!w-auto [&_img]:!bg-transparent [&_img]:relative`}
                 />
                 <Image alt={name} src={url} width={width || 800} height={height || 600}
@@ -105,7 +105,7 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
                     <button popoverTarget={`cp-${name.replace(/\s/g, '').replace('.webp', '').toLowerCase()}`}
                         style={{ anchorName: `--cp-${name.replace(/\s/g, '').replace('.webp', '').toLowerCase()}` }}
                         className='[&>svg_path]:fill-none [&>svg_path]:stroke-gray-50 duration-150 !bg-[color-mix(in_srgb,var(--bg)_70%,_#000)] py-2 px-1 z-50'
-                        onClick={() => navigator.share({ title: name, text: url, url: targetPath(cat, id, bgc) })}>
+                        onClick={() => navigator.share({ title: name, text: cat, url: targetPath(id, bgc) })}>
                         <ShareIcon width={20} height={20} />
                     </button>
 

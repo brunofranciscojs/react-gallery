@@ -9,7 +9,7 @@
     @media screen and (max-width:640px)  {column-count: 2; }
 
     figure {
-        @apply m-0 [grid-template-rows:1fr_auto] break-inside-avoid relative duration-500 transition-all cursor-pointer overflow-hidden grid p-0 mb-5;
+        @apply m-0 [grid-template-rows:1fr_auto] break-inside-avoid relative cursor-pointer overflow-hidden grid p-0 mb-5;
 
         div {
             @apply overflow-hidden h-full w-full relative [grid-row:1/-1] [grid-column:1]
