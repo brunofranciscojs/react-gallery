@@ -14,7 +14,6 @@ const Mansonry = ({ category, initialImages = [] }) => {
   const [imagePalettes, setImagePalettes] = useState([]);
   const [dColor, setDcolor] = useState('#0005');
 
-  // Update images if category changes or initialImages updates (though in Next.js navigation, component might remount)
   useEffect(() => {
     setImages(initialImages);
   }, [initialImages]);
