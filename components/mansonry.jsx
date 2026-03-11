@@ -43,7 +43,7 @@ const Mansonry = ({ category, initialImages = [] }) => {
 
           const img = new window.Image();
           img.crossOrigin = 'Anonymous';
-          img.src = image.url;
+          img.src = image.url.replace('/storage/v1/object/', '/storage/v1/render/image/') + '?width=50&quality=50';
 
           return new Promise((resolve) => {
             const baseData = { url: image.url, name: image.nome, id: image.id };
