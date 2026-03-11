@@ -173,6 +173,12 @@ export default function Imagem() {
     )
   }
 
+  const getSupabaseUrl = (url, w) => {
+    return url
+      .replace('/storage/v1/object/', '/storage/v1/render/image/')
+      .split('?')[0] + `?width=${w}&quality=75`;
+  };
+
   return (
     <div className="bg-gray-200 flex gap-5 flex-col-reverse xl:flex-row items-start justify-center relative h-full w-full mx-auto imagem z-50">
       <div className='flex flex-col xl:w-[40%] w-full items-center self-center'>
@@ -198,16 +204,17 @@ export default function Imagem() {
 
         <ImageZoom
           alt={image.nome}
-          src={image.url}
+          src={getSupabaseUrl(image.url, image.width)}
           zoom={200}
           fullWidth={true}
           className={`z-0 [&_img]:mx-auto h-dvh w-full [&_img]:block [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl [&_img]:!z-40 [&_img]:!w-auto [&_img]:!bg-transparent [&_img]:relative [&_img]:drop-shadow-[0_0_40px_var(--shadow)]`}
         />
         <Image
           alt={image.nome}
-          src={image.url}
+          src={getSupabaseUrl(image.url, image.width)}
           width={image.width || 800}
           height={image.height || 600}
+          unoptimized
           className={`mx-auto block h-dvh object-contain rounded-2xl !z-40 !w-auto !bg-transparent relative drop-shadow-[0_0_40px_var(--shadow)] cl:hidden`}
 
         />

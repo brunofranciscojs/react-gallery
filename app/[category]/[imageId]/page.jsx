@@ -13,7 +13,11 @@ export async function generateMetadata({ params }) {
             description: 'A imagem que você procura não existe ou foi removida.',
         };
     }
-
+    const getSupabaseUrl = (url, w) => {
+        return url
+            .replace('/storage/v1/object/', '/storage/v1/render/image/')
+            .split('?')[0] + `?width=${w}&quality=75`;
+    };
     return {
         title: extRm(nome) + ' - Ilustras Bruno' || ' Galeria de Imagens',
         description: `Visualizar imagem na categoria ${category}`,
@@ -22,7 +26,7 @@ export async function generateMetadata({ params }) {
             description: `Visualizar imagem na categoria ${category}`,
             images: [
                 {
-                    url: image.url,
+                    url: getSupabaseUrl(image.url, 1200),
                     width: 1200,
                     height: 630,
                     alt: extRm(nome) || ' Imagem da galeria',
