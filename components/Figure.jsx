@@ -1,8 +1,5 @@
 "use client";
 import { useState, memo } from 'react';
-import useAuth from '@/hooks/useAuth'
-import { supabase } from '@/lib/supabaseClient';
-import Link from 'next/link';
 import Image from 'next/image';
 
 function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova, id, array, width, height }) {
@@ -37,6 +34,11 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
         img.src = url.replace(/\s/g, '%20');
     };
 
+    const getSupabaseUrl = (url, w) => {
+        return url
+            .replace('/storage/v1/object/', '/storage/v1/render/image/')
+            .split('?')[0] + `?width=${w}&quality=75&format=webp`;
+    };
     return (
         <button popoverTarget={id} className='outline-none block' data-path={targetPath}>
             <figure onMouseEnter={handleMouseEnter} style={{ "--cor": colors[0], "--bg": colors[0] + 22, "--index": index + 40 }}
@@ -46,7 +48,7 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
                     style={{ aspectRatio }}>
                     <article className='absolute inset-0 transition-all duration-400 animate-[placehold_calc(var(--index)*0.1s)_linear_infinite_forwards] bg-size-[268px_100%] bg-[--bg] bg-[linear-gradient(to_right,#bbb_-10%,var(--bg)_18%,#bbb_53%)] blur-[15px] placeholder' />
 
-                    <Image src={url.replace(/\s/g, '%20')} alt={name} width={width} height={height} loading="lazy" decoding="async"
+                    <Image src={getSupabaseUrl(url, width)} unoptimized alt={name} width={width} height={height} loading="lazy" decoding="async"
                         className={`mix-blend-darken transition-all duration-500 opacity-0`}
                         onLoad={() => setTimeout(() => setImageLoaded(true), 100)}
                     />
