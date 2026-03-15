@@ -36,8 +36,8 @@ const Mansonry = ({ category, initialImages = [] }) => {
               colors: JSON.parse(cachedPalette),
               name: image.nome,
               id: image.id,
-              width: size.width,
-              height: size.height
+              width: image.width || size.width,
+              height: image.height || size.height
             };
           }
 
@@ -53,8 +53,8 @@ const Mansonry = ({ category, initialImages = [] }) => {
               const hexPalette = palette.map(rgb => `#${rgb.map(v => v.toString(16).padStart(2, "0")).join("")}`);
 
               const dimensions = {
-                width: img.naturalWidth,
-                height: img.naturalHeight
+                width: image.width || img.naturalWidth,
+                height: image.height || img.naturalHeight
               };
 
               localStorage.setItem(paletteKey, JSON.stringify(hexPalette));
