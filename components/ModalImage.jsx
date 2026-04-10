@@ -72,9 +72,10 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
     const targetPath = (i, q) => `${pathname}/${i}?bgc=${q}`;
 
     const getSupabaseUrl = (url, w) => {
+        const width = w || 800;
         return url
             .replace('/storage/v1/object/', '/storage/v1/render/image/')
-            .split('?')[0] + `?width=${w}&quality=75`;
+            .split('?')[0] + `?width=${width}&quality=75`;
     };
 
     return (
@@ -87,10 +88,10 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
                     X
                 </button>
 
-                <ImageZoom alt={name} src={getSupabaseUrl(url, width)} zoom={160} fullWidth={true}
+                <ImageZoom alt={name} src={getSupabaseUrl(url, width || 800)} zoom={160} fullWidth={true}
                     className={`z-20 [&_img]:mx-auto h-dvh w-full [&_img]:block [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl [&_img]:!z-40 [&_img]:!w-auto [&_img]:!bg-transparent [&_img]:relative`}
                 />
-                <Image alt={name} src={getSupabaseUrl(url, width)} width={width || 800} height={height || 600} unoptimized
+                <Image alt={name} src={getSupabaseUrl(url, width || 800)} width={width || 800} height={height || 600} unoptimized
                     className={`mx-auto block h-dvh object-contain rounded-2xl !z-40 !w-auto !bg-transparent relative cl:hidden`}
                 />
 

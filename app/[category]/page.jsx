@@ -6,9 +6,10 @@ export async function generateMetadata({ params }) {
     const images = await getImagesByCategory(category);
 
     const getSupabaseUrl = (url, w) => {
+        const width = w || 1200;
         return url
             .replace('/storage/v1/object/', '/storage/v1/render/image/')
-            .split('?')[0] + `?width=${w}&quality=75`;
+            .split('?')[0] + `?width=${width}&quality=75`;
     };
 
     const randomImage = images.length > 0

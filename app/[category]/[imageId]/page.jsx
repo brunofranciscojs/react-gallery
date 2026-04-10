@@ -4,8 +4,7 @@ import { getImageById } from '@/lib/ImagesDB';
 export async function generateMetadata({ params }) {
     const { imageId, category } = await params;
     const image = await getImageById(imageId);
-    const extRm = (string) => string.replace('.webp', '').replace('.avif', '').replace('.jpg', '').replace('.png', '')
-    const nome = image.nome;
+    const extRm = (string) => string?.replace('.webp', '').replace('.avif', '').replace('.jpg', '').replace('.png', '') || ''
 
     if (!image) {
         return {
@@ -13,10 +12,12 @@ export async function generateMetadata({ params }) {
             description: 'A imagem que você procura não existe ou foi removida.',
         };
     }
+    const nome = image.nome;
     const getSupabaseUrl = (url, w) => {
+        const width = w || 1200;
         return url
             .replace('/storage/v1/object/', '/storage/v1/render/image/')
-            .split('?')[0] + `?width=${w}&quality=75`;
+            .split('?')[0] + `?width=${width}&quality=75`;
     };
     return {
         title: extRm(nome) + ' - Ilustras Bruno' || ' Galeria de Imagens',

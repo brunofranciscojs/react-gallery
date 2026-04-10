@@ -35,9 +35,10 @@ function Figure({ url, cat, index, name, colors, setDcolor, setUpWindow, setNova
     };
 
     const getSupabaseUrl = (url, w) => {
+        const width = w || 400;
         return url
             .replace('/storage/v1/object/', '/storage/v1/render/image/')
-            .split('?')[0] + `?width=${w}&quality=75`;
+            .split('?')[0] + `?width=${width}&quality=75`;
     };
     return (
         <button popoverTarget={id} className='outline-none block' data-path={targetPath}>

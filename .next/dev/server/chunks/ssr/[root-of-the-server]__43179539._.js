@@ -238,9 +238,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ImagesDB$2e$jsx__$5b$
 async function generateMetadata({ params }) {
     const { category } = await params;
     const images = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ImagesDB$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getImagesByCategory"])(category);
+    const getSupabaseUrl = (url, w)=>{
+        const width = w || 1200;
+        return url.replace('/storage/v1/object/', '/storage/v1/render/image/').split('?')[0] + `?width=${width}&quality=75`;
+    };
     const randomImage = images.length > 0 ? images[Math.floor(Math.random() * images.length)] : null;
     const title = `${category.charAt(0).toUpperCase() + category.slice(1)} - Ilustras Bruno`;
-    const description = `Confira a coleção de ilustrações na categoria ${category}. ${images.length} imagens disponíveis.`;
+    const description = `Confira alguns estudos e rabiscos de categoria ${category}. ${images.length} imagens disponíveis.`;
     const metadata = {
         title,
         description,
@@ -258,14 +262,14 @@ async function generateMetadata({ params }) {
     if (randomImage) {
         metadata.openGraph.images = [
             {
-                url: randomImage.url,
+                url: getSupabaseUrl(randomImage.url, 1200),
                 width: randomImage.width || 1200,
                 height: randomImage.height || 630,
                 alt: randomImage.nome
             }
         ];
         metadata.twitter.images = [
-            randomImage.url
+            getSupabaseUrl(randomImage.url, 1200)
         ];
     }
     return metadata;
@@ -278,7 +282,7 @@ async function CategoryPage({ params }) {
         initialImages: initialImages
     }, void 0, false, {
         fileName: "[project]/app/[category]/page.jsx",
-        lineNumber: 48,
+        lineNumber: 55,
         columnNumber: 12
     }, this);
 }

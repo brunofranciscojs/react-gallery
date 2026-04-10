@@ -174,9 +174,10 @@ export default function Imagem() {
   }
 
   const getSupabaseUrl = (url, w) => {
+    const width = w || 800;
     return url
       .replace('/storage/v1/object/', '/storage/v1/render/image/')
-      .split('?')[0] + `?width=${w}&quality=75`;
+      .split('?')[0] + `?width=${width}&quality=75`;
   };
 
   return (
@@ -204,14 +205,14 @@ export default function Imagem() {
 
         <ImageZoom
           alt={image.nome}
-          src={getSupabaseUrl(image.url, image.width)}
+          src={getSupabaseUrl(image.url, image.width || 800)}
           zoom={200}
           fullWidth={true}
           className={`z-0 [&_img]:mx-auto h-dvh w-full [&_img]:block [&_img]:h-dvh [&_img]:object-contain [&_img]:rounded-2xl [&_img]:!z-40 [&_img]:!w-auto [&_img]:!bg-transparent [&_img]:relative [&_img]:drop-shadow-[0_0_40px_var(--shadow)]`}
         />
         <Image
           alt={image.nome}
-          src={getSupabaseUrl(image.url, image.width)}
+          src={getSupabaseUrl(image.url, image.width || 800)}
           width={image.width || 800}
           height={image.height || 600}
           unoptimized
