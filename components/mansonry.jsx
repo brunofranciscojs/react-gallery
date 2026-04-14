@@ -29,21 +29,27 @@ const Mansonry = ({ category, initialImages = [] }) => {
           const cachedPalette = localStorage.getItem(paletteKey);
           const cachedSize = localStorage.getItem(sizeKey);
 
-          if (cachedPalette && cachedSize) {
-            const size = JSON.parse(cachedSize);
+          const parsedSize = cachedSize ? JSON.parse(cachedSize) : null;
+          const validCachedSize = parsedSize && parsedSize.width > 100 && parsedSize.height > 100 ? parsedSize : null;
+
+          if (cachedSize && !validCachedSize) {
+            localStorage.removeItem(sizeKey);
+          }
+
+          if (cachedPalette && validCachedSize) {
             return {
               url: image.url,
               colors: JSON.parse(cachedPalette),
               name: image.nome,
               id: image.id,
-              width: image.width || size.width,
-              height: image.height || size.height
+              width: image.width || validCachedSize.width,
+              height: image.height || validCachedSize.height
             };
           }
 
           const img = new window.Image();
           img.crossOrigin = 'Anonymous';
-          img.src = image.url.replace('/storage/v1/object/', '/storage/v1/render/image/') + '?width=50&quality=50';
+          img.src = image.url.replace('/storage/v1/object/', '/storage/v1/render/image/').split('?')[0] + '?quality=50';
 
           return new Promise((resolve) => {
             const baseData = { url: image.url, name: image.nome, id: image.id };
