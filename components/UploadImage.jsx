@@ -11,7 +11,7 @@ function UploadForm() {
   const [uploading, setUploading] = useState(0);
   const [hasImage, sethasImage] = useState(false)
   const [preview, setPreview] = useState('')
-  const { upWindow, setUpWindow, nova, setNova, categories, slugify } = useAppContext();
+  const { upWindow, setUpWindow, nova, setNova, categories, slugify, categoria } = useAppContext();
 
   const handleFileChange = (event) => {
     const files = event.target.files;
@@ -31,10 +31,15 @@ function UploadForm() {
   };
 
   const handleUpload = async () => {
-    const categoriaAtual = nova ? localStorage.getItem('categoria') : category;
+    const categoriaAtual = nova ? localStorage.getItem('categoria') || categoria : category;
 
-    if (!file?.[0] || !categoriaAtual) {
-      alert("Por favor, selecione um arquivo e uma categoria.");
+    if (!file?.[0]) {
+      alert("Por favor, selecione um arquivo.");
+      return;
+    }
+
+    if (!categoriaAtual) {
+      alert("Por favor, selecione uma categoria.");
       return;
     }
 

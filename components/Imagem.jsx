@@ -258,6 +258,7 @@ export default function Imagem() {
                       setUpWindow(true);
                       setNova(true)
                       localStorage.setItem('urlEditar', image.url);
+                      localStorage.setItem('categoria', image.categoria);
                     }}>
                     <ReplaceIcon />
                   </button>

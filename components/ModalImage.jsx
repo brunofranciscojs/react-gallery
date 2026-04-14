@@ -148,6 +148,7 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
                                             setUpWindow(true);
                                             setNova(true)
                                             localStorage.setItem('urlEditar', url);
+                                            localStorage.setItem('categoria', cat);
                                         }}>
                                         <ReplaceIcon />
                                     </button>
