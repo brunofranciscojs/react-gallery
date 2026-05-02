@@ -31,7 +31,7 @@ export default function Nav() {
       {logado && (
         <>
           <span className='log fixed right-12 top-[14px] text-gray-600 hover:text-gray-950 cursor-pointer z-50 hidden sm:block' onClick={sair}>sair</span>
-          <button className='log fixed right-6 top-[8px] text-gray-600 hover:text-gray-950 cursor-pointer z-30 text-2xl hidden sm:block' onClick={() => { setUpWindow(true); setNova(false) }}> + </button>
+          <button className='log fixed right-6 top-[8px] text-gray-600 hover:text-gray-950 cursor-pointer z-30 text-2xl hidden sm:block' popoverTarget="upload" onClick={() => { setUpWindow(true); setNova(false) }}> + </button>
         </>
       )}
 

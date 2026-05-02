@@ -136,7 +136,7 @@ function UploadForm() {
   };
 
   return (
-    <div id="upload" className="[&:popover-open]:flex flex-col add items-center justify-center right-5 fixed top-0 left-0 bg-[#00000044] w-full h-dvh backdrop-blur-md z-99" {...{ popover: '' }}>
+    <div id="upload" className="[&:popover-open]:flex flex-col add items-center justify-center right-5 fixed top-0 left-0 bg-[#00000099] w-full h-dvh backdrop-blur-md z-99" {...{ popover: '' }}>
       <button className='text-white z-30' onClick={() => { uploading ? window.location.reload() : setUpWindow(false) }} >X</button>
       <div className='flex gap-5'>
         {!hasImage &&
@@ -160,7 +160,7 @@ function UploadForm() {
           className='bg-white/10 border py-2 px-5 max-w-[520px] w-full outline-none mx-3 text-gray-200 text-center'
         />
 
-        <button className='text-gray-200 duration-200 bg-black/20 px-5 py-2 shadow-md' onClick={handleUpload} disabled={!hasImage}>
+        <button className='text-gray-200 duration-200 bg-black/20 px-5 py-2 shadow-md mx-auto block' onClick={handleUpload} disabled={!hasImage}>
 
           {uploading == 0 && "Enviar"}
           {uploading == 1 && <span className={`animate-spin flex items-center duration-200 transition-all invert`}><SpinIcon /></span>}
