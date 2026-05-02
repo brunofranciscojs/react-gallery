@@ -115,3 +115,11 @@ export const BookIcon = (props) => {
         </svg>
     )
 }
+
+export const ReplaceIcon = (props) => {
+    return (
+        <svg {...props} viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+            <path d="M512 256l144.8 144.8-36.2 36.2-83-83v311.6h-51.2V354l-83 83-36.2-36.2L512 256zM307.2 716.8V768h409.6v-51.2H307.2z" fill="#fff" fillRule="evenodd" />
+        </svg>
+    )
+}

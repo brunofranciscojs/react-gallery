@@ -6,9 +6,8 @@ import ImageZoom from 'react-image-zooom';
 import useAuth from '@/hooks/useAuth'
 import DeleteIcon from '@/components/DeleteIcon'
 import EditIcon from '@/components/EditIcon'
-import ReplaceIcon from '@/components/ReplaceIcon';
 import { useAppContext } from '@/contexts/AppContext';
-import { ShareIcon } from './Icons';
+import { ShareIcon, ReplaceIcon } from './Icons';
 import { usePathname } from 'next/navigation';
 
 export default function ModalImage({ id, url, name, width, height, colors, cat }) {
@@ -80,7 +79,7 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
 
     return (
         <div {...{ popover: '' }} id={id} style={{ '--bg': bgc + 99 }}
-            className="!bg-[--bg] backdrop:bg-black/30 [&:popover-open]:flex gap-5 flex-col-reverse xl:flex-row items-start justify-center relative h-full w-full mx-auto imagem z-50">
+            className="!bg-[--bg] backdrop:bg-black/30 [&:popover-open]:flex gap-5 flex-col-reverse xl:flex-row items-start justify-center relative h-full w-full mx-auto imagem z-10">
 
             <div className="z-10 relative w-full min-h-dvh" data-image={name} style={{ "--bg": bgc, "--shadow": bgc + 66 }}>
                 <button popoverTarget={id}
@@ -112,7 +111,7 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
                     <button popoverTarget={`cp-${name.replace(/\s/g, '').replace('.webp', '').toLowerCase()}`}
                         style={{ anchorName: `--cp-${name.replace(/\s/g, '').replace('.webp', '').toLowerCase()}` }}
                         className='[&>svg_path]:fill-none [&>svg_path]:stroke-gray-50 duration-150 !bg-[color-mix(in_srgb,var(--bg)_70%,_#000)] py-2 px-1 z-50'
-                        onClick={() => navigator.share({ title: name,text: targetPath(id, bgc) })}>
+                        onClick={() => navigator.share({ title: cat + " - " + name, url: targetPath(id, bgc) })}>
                         <ShareIcon width={20} height={20} />
                     </button>
 
@@ -140,17 +139,18 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
                             {!message &&
                                 <div className='flex justify-center items-center gap-4'>
                                     <input onBlur={(e) => e.target.value.length > 0 ? handleRename(e.target.value) : console.log('nada alterado')}
-                                        placeholder={'NOVO NOME'}
+                                        placeholder={name}
                                         className='bg-white/30 px-4 py-2 text-white text-sm rounded-lg placeholder:text-gray-200'
                                     />
                                     <button
+                                        popoverTarget='upload'
                                         onClick={() => {
                                             setUpWindow(true);
                                             setNova(true)
                                             localStorage.setItem('urlEditar', url);
                                             localStorage.setItem('categoria', cat);
                                         }}>
-                                        <ReplaceIcon />
+                                        <ReplaceIcon width={30} height={30} />
                                     </button>
                                 </div>}
                             {message && <span>Renomeado com sucesso!</span>}

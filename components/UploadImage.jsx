@@ -136,7 +136,7 @@ function UploadForm() {
   };
 
   return (
-    <div className="flex flex-col add items-center justify-center right-5 fixed top-0 left-0 bg-[#000000cc] w-full h-dvh backdrop-blur-md z-[999]">
+    <div id="upload" className="[&:popover-open]:flex flex-col add items-center justify-center right-5 fixed top-0 left-0 bg-[#00000044] w-full h-dvh backdrop-blur-md z-99" {...{ popover: '' }}>
       <button className='text-white z-30' onClick={() => { uploading ? window.location.reload() : setUpWindow(false) }} >X</button>
       <div className='flex gap-5'>
         {!hasImage &&
@@ -154,14 +154,13 @@ function UploadForm() {
         }
       </div>
 
-      <div className="p-4 rounded-md shadow-md w-80">
+      <div className="p-4 rounded-md max-auto mt-12 w-fit">
         <input type="text" style={{ display: nova ? 'none' : 'flex' }}
           placeholder={'D I G I T E  A  C A T E G O R I A'} required onChange={handleCategoryChange}
-          className='bg-white/10 border py-2 px-5 max-w-[520px] w-full outline-none mx-3 text-gray-200  text-center'
+          className='bg-white/10 border py-2 px-5 max-w-[520px] w-full outline-none mx-3 text-gray-200 text-center'
         />
 
-        <br /><br />
-        <button className='text-gray-200 duration-200' onClick={handleUpload} disabled={uploading}>
+        <button className='text-gray-200 duration-200 bg-black/20 px-5 py-2 shadow-md' onClick={handleUpload} disabled={!hasImage}>
 
           {uploading == 0 && "Enviar"}
           {uploading == 1 && <span className={`animate-spin flex items-center duration-200 transition-all invert`}><SpinIcon /></span>}

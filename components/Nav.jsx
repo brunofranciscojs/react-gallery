@@ -53,7 +53,7 @@ export default function Nav() {
             const categorySlug = slugify(table);
             const isActive = categorySlug === activeCategory;
             return (
-              <Link href={`/${categorySlug}`} passHref legacyBehavior={false} key={index}
+              <Link href={`/${categorySlug}`} passHref legacyBehavior={false} key={index} onClick={e => localStorage.setItem('categoria', categorySlug)}
                 className={`${isActive ? 'active' : ''} md:text-lg text-[.9rem] max-w-[130px] font-[400] text-black/40 py-2 sm:py-3 px-2 sm:px-5 hover:text-black hover:[text-shadow:0_0_10px_white] uppercase cursor-pointer`}>
                 {table}
               </Link>
