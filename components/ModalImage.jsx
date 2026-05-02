@@ -112,7 +112,7 @@ export default function ModalImage({ id, url, name, width, height, colors, cat }
                     <button popoverTarget={`cp-${name.replace(/\s/g, '').replace('.webp', '').toLowerCase()}`}
                         style={{ anchorName: `--cp-${name.replace(/\s/g, '').replace('.webp', '').toLowerCase()}` }}
                         className='[&>svg_path]:fill-none [&>svg_path]:stroke-gray-50 duration-150 !bg-[color-mix(in_srgb,var(--bg)_70%,_#000)] py-2 px-1 z-50'
-                        onClick={() => navigator.share({ title: name, text: cat, url: targetPath(id, bgc) })}>
+                        onClick={() => navigator.share({ title: name,text: targetPath(id, bgc) })}>
                         <ShareIcon width={20} height={20} />
                     </button>
 
